@@ -1,0 +1,89 @@
+
+/* Product Styles */
+
+@mixin priceStyle {
+        font-size:38px;
+        font-weight:bold;
+        &::after{
+            content: " ₴";
+        }
+}
+
+.product{
+    margin:1rem;
+    padding: .2rem .4rem;
+    width:300px;
+    height:380px;
+    border-radius: 10px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repead(8, 1fr);
+    transition: all .4s;
+    &:hover{
+      -webkit-box-shadow: -2px 4px 32px 3px rgba(34, 60, 80, 0.2);
+-moz-box-shadow: -2px 4px 32px 3px rgba(34, 60, 80, 0.2);
+box-shadow: -2px 4px 32px 3px rgba(34, 60, 80, 0.2);
+    }
+    
+    &__image{
+      grid-column: 1/3;
+      grid-row: 1/4;
+      img{
+        display:block;
+        max-width: 95%;
+        margin-left: 2%;
+        aspect-ratio: 16/9;
+      }
+    }
+    &__title{
+      grid-column: 1/3;
+      grid-row: 4/5;
+      h3{
+        font-size: 26px;
+        line-height:25px;
+        margin-bottom: 1rem;
+      }
+    }
+    &__link{ /* Fix style bug for a button */
+      grid-column: 1/2;
+      grid-row: 6/8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      a{
+        display:block;
+        text-decoration: none;
+        color:inherit;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform:uppercase;
+        text-align:center;
+        width:100%;
+        margin-bottom: .2rem;
+        border: 1px solid #383838;
+        border-radius: 10px;
+        transition: all .4s; /* Fix padding and  background color */
+        padding: .7rem;
+        background:inherit;
+        &:hover{
+          background:$product-color-one;
+          color: white;
+          border:none;
+        }
+      }
+    }
+    &__price{
+      grid-column: 2/3;
+      grid-row: 6/8;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      span{
+        @include priceStyle();
+      }
+    }
+  }
+
+  .price-item{
+    @include priceStyle();
+  }

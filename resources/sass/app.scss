@@ -1,0 +1,26 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+@import 'product';
+
+// Bootstrap
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~vue-select/src/scss/vue-select.scss";
+
+@font-face {
+    font-family: "Comfortaa";
+    font-style: normal;
+    font-weight: 400;
+    /* Браузер сначала попробует найти шрифт локально */
+    src: local("Comfortaa"),
+         /* Если не получилось, загрузит woff2 */
+         url("/font/comfortaa.woff2") format("woff2"),
+         /* Если браузер не поддерживает woff2, загрузит woff */
+         url("/font/comfortaa.woff") format("woff");
+  }
+
+  body{
+      font-family: 'Comfortaa';
+  }
