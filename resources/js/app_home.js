@@ -39,6 +39,7 @@ Vue.component(
     "count-orders",
     require("./components/Home/CountNewOrders.vue").default
 );
+Vue.component("spoller", require("./components/Spoller.vue").default);
 
 Vue.use(CKEditor);
 

@@ -16,7 +16,7 @@ class OrderController extends Controller
     {
         return view('home.order.index', [
             'orders' => Order::orderBy('created_at', 'desc')
-                ->paginate(20)
+                ->paginate(10)
         ]);
     }
 

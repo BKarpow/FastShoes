@@ -42,7 +42,7 @@
                                     <strong>
                                         {{$order->phone}}
                                         @if ($order->new)
-                                        <div class="mt-2">
+                                        <div class="my-2">
                                             <a href="{{ route('order.disNew',
                                                  ['order' => $order]) }}" class="btn btn-danger">
                                                 ПРОСМОТРЕНО
@@ -50,19 +50,41 @@
                                             <!-- /.btn btn-primary -->
                                         </div>
                                         @endif
+                                        
                                     </strong>
+                                    <spoller btn-show-text="Показать детали заказа."> 
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                IP - {{$order->ip}}
+                                            </li>
+                                            <!-- /.list-group-item -->
+                                            <li class="list-group-item">
+                                                Использовать мессенджеры - @if ($order->use_message) Да @else Нет @endif
+                                            </li>
+                                            <!-- /.list-group-item -->
+                                        </ul>
+                                        <!-- /.list-group --> 
+                                    </spoller>
                                 </td>
                                 <td>
                                     {{ $order->createdDate() }}
                                 </td>
                             </tr>
                         @endforeach
-                        @endif
+                        
                     </tbody>
                 </table>
                 <!-- /.table table-hover -->
+                @endif
             </div>
             <!-- /.col-md-11 -->
+        </div>
+        <!-- /.row -->
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ $orders->links(); }}
+            </div>
+            <!-- /.col-md-6 -->
         </div>
         <!-- /.row -->
     </div>

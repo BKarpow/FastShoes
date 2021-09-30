@@ -2869,6 +2869,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2893,9 +2933,9 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       sizes: JSON.parse(this.sizeData),
-      selectSize: '',
-      phone: '',
-      phoneMask: '',
+      selectSize: "",
+      phone: "",
+      phoneMask: "",
       phoneError: false,
       useMessager: false,
       showOrderForm: false,
@@ -2908,10 +2948,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     isSavedUserPhone: function isSavedUserPhone() {
-      return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get('my_phone') !== undefined;
+      return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get("my_phone") !== undefined;
     },
     getSavedUserPhone: function getSavedUserPhone() {
-      return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get('my_phone');
+      return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get("my_phone");
     },
     isOrdered: function isOrdered() {
       return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get(this.cookieName) !== undefined;
@@ -2920,18 +2960,18 @@ __webpack_require__.r(__webpack_exports__);
       return this.phoneMask.isComplete();
     },
     cookieName: function cookieName() {
-      return 'orderrFor_' + this.productId;
+      return "orderrFor_" + this.productId;
     },
     orderButtonInfo: function orderButtonInfo() {
       var text = "\u0412\u044B \u0437\u0430\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442\u0435 ".concat(this.selectSize, "-\u0439 \u0440\u0430\u0437\u043C\u0435\u0440, \u0441 \u0412\u0430\u043C\u0438 \u0441\u0432\u044F\u0437\u0430\u0442\u0441\u044F \u0437\u0430 \u043D\u043E\u043C\u0435\u0440\u043E\u043C ").concat(this.phone, ".");
 
       if (this.useMessager) {
-        text += ' Вы хотите общатся по месенжерах.';
+        text += " Вы хотите общатся по месенжерах.";
       } else {
-        text += 'Вам позвонить.';
+        text += "Вам позвонить.";
       }
 
-      text += ' Все верно?';
+      text += " Все верно?";
       return text;
     },
     formData: function formData() {
@@ -2947,7 +2987,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     showForm: function showForm() {
       this.showOrderForm = true;
-      this.phoneMask = inputmask__WEBPACK_IMPORTED_MODULE_1___default()('+380(99) 999-99-99').mask(this.$refs.phoneField);
+      this.phoneMask = inputmask__WEBPACK_IMPORTED_MODULE_1___default()("+380(99) 999-99-99").mask(this.$refs.phoneField);
 
       if (this.isSavedUserPhone) {
         this.phone = this.getSavedUserPhone;
@@ -2956,6 +2996,8 @@ __webpack_require__.r(__webpack_exports__);
     doOrder: function doOrder() {
       var _this = this;
 
+      this.showOrderForm = false;
+
       if (!this.isValidPhone) {
         this.phoneError = true;
         return;
@@ -2963,30 +3005,29 @@ __webpack_require__.r(__webpack_exports__);
         this.phoneError = false;
       }
 
-      route('new.order').then(function (r) {
+      route("new.order").then(function (r) {
         axios.post(r.data, _this.formData).then(function (resp) {
           if (resp.status === 200 && resp.data.errors === undefined) {
             _this.successCreated = true;
-            _this.showOrderForm = false;
-            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set(_this.cookieName, '1', {
+            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set(_this.cookieName, "1", {
               expires: 6
             });
-            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set('my_phone', _this.phone, {
+            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set("my_phone", _this.phone, {
               expires: 100
             });
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
-              title: 'Заказ успешно создан.',
-              html: '<p>Ожыдайте, с Вами свяжется наш менеджер для уточнения заказа.</p>',
-              icon: 'success'
+              title: "Заказ успешно создан.",
+              html: "<p>Ожыдайте, с Вами свяжется наш менеджер для уточнения заказа.</p>",
+              icon: "success"
             });
-            console.log('Order created');
+            console.log("Order created");
           } else if (resp.data.errors) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
-              title: 'Ошибка формы заказа',
-              icon: 'error'
+              title: "Ошибка формы заказа",
+              icon: "error"
             });
           } else {
-            console.error('Error create form!', resp.data);
+            console.error("Error create form!", resp.data);
           }
         });
       });
@@ -7835,7 +7876,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.transit[data-v-a619bc62]{\n    transition: all .8s !important;\n}\n.red-border[data-v-a619bc62]{\n    border: 2px solid red;\n    border-radius: 12px;\n    padding: 1.5rem;\n    transition: all .8s !important;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.transit[data-v-a619bc62] {\r\n    transition: all 0.8s !important;\n}\n.red-border[data-v-a619bc62] {\r\n    border: 2px solid red;\r\n    border-radius: 12px;\r\n    padding: 1.5rem;\r\n    transition: all 0.8s !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46883,7 +46924,7 @@ var render = function() {
                   })
                 ]
               ),
-              _vm._v(" Купить в один клик\n        ")
+              _vm._v("\n            Купить в один клик\n        ")
             ]
           )
         : _vm._e()
@@ -46971,7 +47012,7 @@ var render = function() {
                     { staticClass: "mt-1", staticStyle: { color: "red" } },
                     [
                       _vm._v(
-                        "\n                Извените, но нужно указать правильный номер телефона.\n            "
+                        "\n                    Извените, но нужно указать правильный номер телефона.\n                "
                       )
                     ]
                   )
@@ -47043,10 +47084,12 @@ var render = function() {
                       }
                     },
                     [
-                      _vm._v("Использовать месенжеры "),
+                      _vm._v(
+                        "Использовать месенжеры\n                        "
+                      ),
                       _c("info", [
                         _vm._v(
-                          "Поставьте галочку что-бы мы общались с вами только через месенджеры, такие как Telegram, Viber, WatsApp"
+                          "Поставьте галочку что-бы мы общались с вами\n                            только через месенджеры, такие как Telegram,\n                            Viber, WatsApp"
                         )
                       ])
                     ],
@@ -47089,7 +47132,7 @@ var render = function() {
                       })
                     ]
                   ),
-                  _vm._v(" Заказать\n            ")
+                  _vm._v("\n                    Заказать\n                ")
                 ]
               )
             ])
