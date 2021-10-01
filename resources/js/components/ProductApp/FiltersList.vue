@@ -70,7 +70,7 @@ export default {
     name: "FiltersList",
     props: {
         categoryId: {
-            type: String,
+            // Fix , delete type
             default: () => ""
         }
     },

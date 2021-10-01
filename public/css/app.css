@@ -18,6 +18,7 @@
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repead(8, 1fr);
   transition: all 0.4s;
+  cursor: pointer;
 }
 .product:hover {
   box-shadow: -2px 4px 32px 3px rgba(34, 60, 80, 0.2);
@@ -444,4 +445,10 @@
 }
 body {
   font-family: "Comfortaa";
+}
+
+/* Order */
+.use-message {
+  background: #ef4b4c !important;
+  color: #e9e9eb !important;
 }

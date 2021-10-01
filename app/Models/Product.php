@@ -121,4 +121,33 @@ class Product extends Model
             'alias' => $this->alias,
         ]);
     }
+
+    /**
+     * Return array sizes of json format
+     * @return array
+     */
+    public function sizesArray():array
+    {
+        $sizes = [];
+        if (!empty($this->sizes)) {
+            $sizes = json_decode($this->sizes, true);
+        }
+        return $sizes;
+    }
+
+    /**
+     * Return array colors of json format
+     * @return array
+     */
+    public function colorsArray():array
+    {
+        $colors = [];
+        if (!empty($this->colors)) {
+            $colors = json_decode($this->colors, true);
+        }
+        return $colors;
+    }
+
+
+    
 }

@@ -25,6 +25,16 @@
                     />
                 </div>
                 <!-- /.mt-2 -->
+                <div class="mt-1">
+                    <h5>Доступные размеры.</h5>
+                    <strong> {{ join(', ', $product->sizesArray() ) }} </strong>
+                </div>
+                <!-- /.mt-1 -->
+                <div class="mt-1">
+                    <h5>Доступные цвета.</h5>
+                    <strong> {{ join(', ', $product->colorsArray() ) }} </strong>
+                </div>
+                <!-- /.mt-1 -->
             </div>
             <!-- /.col-md-9 -->
         </div>

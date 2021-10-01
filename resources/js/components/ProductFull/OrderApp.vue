@@ -41,7 +41,7 @@
                     <vSelect
                         :options="sizes"
                         v-model="selectSize"
-                        placeholder="Какой Ваш розмер?"
+                        placeholder="Какой Ваш размер?"
                     >
                     </vSelect>
                 </div>
@@ -57,7 +57,7 @@
                         ref="phoneField"
                     />
                     <p class="mt-1" v-if="phoneError" style="color:red;">
-                        Извените, но нужно указать правильный номер телефона.
+                        Извините, но нужно указать правильный номер телефона.
                     </p>
                     <!-- /.mt-1 -->
                 </div>
@@ -66,7 +66,7 @@
                     <div
                         class="d-flex align-items-baseline"
                         role="group"
-                        aria-label="Использовать месенжер"
+                        aria-label="Использовать мессенджер"
                     >
                         <input
                             type="checkbox"
@@ -79,10 +79,10 @@
                             class="pl-1"
                             aria-label="Вы хотите что-бы при общени с Вами менеджер ислозовал месенжеры (Telegram, Viber, WatsApp). Если нет, то оставти галочку пустой и мы вам перезвоним."
                             for="use-messager"
-                            >Использовать месенжеры
+                            >Использовать мессенджеры
                             <info
                                 >Поставьте галочку что-бы мы общались с вами
-                                только через месенджеры, такие как Telegram,
+                                только через мессенджеры, такие как Telegram,
                                 Viber, WatsApp</info
                             >
                         </label>
@@ -179,9 +179,9 @@ export default {
             return "orderrFor_" + this.productId;
         },
         orderButtonInfo() {
-            let text = `Вы заказываете ${this.selectSize}-й размер, с Вами связатся за номером ${this.phone}.`;
+            let text = `Вы заказываете ${this.selectSize}-й размер, с Вами свяжется за номером ${this.phone}.`;
             if (this.useMessager) {
-                text += " Вы хотите общатся по месенжерах.";
+                text += " Вы хотите общаться по мессенджерах.";
             } else {
                 text += "Вам позвонить.";
             }
@@ -227,7 +227,7 @@ export default {
                         Swal.fire({
                             title: "Заказ успешно создан.",
                             html:
-                                "<p>Ожыдайте, с Вами свяжется наш менеджер для уточнения заказа.</p>",
+                                "<p>Ожидайте, с Вами свяжется наш менеджер для уточнения заказа.</p>",
                             icon: "success"
                         });
                         console.log("Order created");

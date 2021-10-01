@@ -2236,7 +2236,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "FiltersList",
   props: {
     categoryId: {
-      type: String,
+      // Fix , delete type
       "default": function _default() {
         return "";
       }
@@ -2449,10 +2449,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Product',
+  name: "Product",
   props: {
     product: {
       type: Object,
@@ -2470,8 +2468,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    doSomething: function doSomething() {
-      alert('Hello!');
+    goToProduct: function goToProduct(u) {
+      window.location.href = u;
     }
   }
 });
@@ -2514,13 +2512,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'ProductList',
+  name: "ProductList",
   metaInfo: {
-    title: 'Ось що ми знайшли'
+    title: "Ось що ми знайшли"
   },
   components: {
     Product: _Product_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -2530,21 +2589,21 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       products: [],
-      categoryId: '',
-      filterParams: '',
-      pageNumber: ''
+      categoryId: "",
+      filterParams: "",
+      pageNumber: ""
     };
   },
   computed: {
     queryUri: function queryUri() {
-      var uri = '/api/product/category-id?categoryId=' + this.categoryId;
+      var uri = "/api/product/category-id?categoryId=" + this.categoryId;
 
-      if (this.filterParams !== null || this.filterParams !== '') {
+      if (this.filterParams !== null || this.filterParams !== "") {
         uri += this.filterParams;
       }
 
-      if (this.pageNumber !== null || this.pageNumber !== '') {
-        uri += '&page=' + Number(this.pageNumber);
+      if (this.pageNumber !== null || this.pageNumber !== "") {
+        uri += "&page=" + Number(this.pageNumber);
       }
 
       return uri;
@@ -2579,31 +2638,39 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    goPage: function goPage(urlPage) {
+      var page = urlPage.match(/page\=(\d+)/);
+
+      if (Array.isArray(page)) {
+        this.pageNumber = page[1];
+        this.fecthProducts();
+      }
+    },
     fecthProducts: function fecthProducts() {
       var _this = this;
 
       var catId = this.$route.params.id;
 
       if (catId === undefined) {
-        console.error('Incorect category id');
+        console.error("Incorrect category id");
         return;
       }
 
       this.categoryId = catId;
       axios.get(this.queryUri).then(function (r) {
-        _this.products = r.data.data;
-        console.log('Products fetching ', r.data.data);
+        _this.products = r.data;
+        console.log("Products fetching ", r.data);
       })["catch"](function (e) {
-        console.error('Error getting products');
+        console.error("Error getting products");
       });
     },
     changeFilters: function changeFilters(par) {
-      console.log('filter', par);
+      console.log("filter", par);
       this.filterParams = par;
       this.fecthProducts();
     },
     logger: function logger(r) {
-      console.log('Log', r);
+      console.log("Log", r);
     }
   },
   mounted: function mounted() {
@@ -2963,10 +3030,10 @@ __webpack_require__.r(__webpack_exports__);
       return "orderrFor_" + this.productId;
     },
     orderButtonInfo: function orderButtonInfo() {
-      var text = "\u0412\u044B \u0437\u0430\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442\u0435 ".concat(this.selectSize, "-\u0439 \u0440\u0430\u0437\u043C\u0435\u0440, \u0441 \u0412\u0430\u043C\u0438 \u0441\u0432\u044F\u0437\u0430\u0442\u0441\u044F \u0437\u0430 \u043D\u043E\u043C\u0435\u0440\u043E\u043C ").concat(this.phone, ".");
+      var text = "\u0412\u044B \u0437\u0430\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442\u0435 ".concat(this.selectSize, "-\u0439 \u0440\u0430\u0437\u043C\u0435\u0440, \u0441 \u0412\u0430\u043C\u0438 \u0441\u0432\u044F\u0436\u0435\u0442\u0441\u044F \u0437\u0430 \u043D\u043E\u043C\u0435\u0440\u043E\u043C ").concat(this.phone, ".");
 
       if (this.useMessager) {
-        text += " Вы хотите общатся по месенжерах.";
+        text += " Вы хотите общаться по мессенджерах.";
       } else {
         text += "Вам позвонить.";
       }
@@ -3017,7 +3084,7 @@ __webpack_require__.r(__webpack_exports__);
             });
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
               title: "Заказ успешно создан.",
-              html: "<p>Ожыдайте, с Вами свяжется наш менеджер для уточнения заказа.</p>",
+              html: "<p>Ожидайте, с Вами свяжется наш менеджер для уточнения заказа.</p>",
               icon: "success"
             });
             console.log("Order created");
@@ -7780,7 +7847,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".noProducts[data-v-7ea8565b] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  height: 100%;\n}\n.items[data-v-7ea8565b] {\n  display: flex;\n  flex-wrap: wrap;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".pageBox[data-v-7ea8565b] {\n  display: grid;\n  grid-template-columns: 1fr 4rem 1fr;\n  margin-top: 0.7rem;\n}\n.pageBox .p-btn[data-v-7ea8565b] {\n  width: 100%;\n  outline: none;\n  background: inherit;\n  border: 1px solid #383838;\n  padding: 1rem;\n  border-radius: 10px;\n  transition: all 0.6s;\n}\n.pageBox .p-btn[data-v-7ea8565b]:hover {\n  background: #383838;\n  color: white;\n  transition: all 0.6s;\n}\n.pageBox .p-prev[data-v-7ea8565b] {\n  grid-column: 1/2;\n}\n.pageBox .p-text[data-v-7ea8565b] {\n  padding: 0.2rem;\n  grid-column: 2/3;\n}\n.pageBox .p-text .pageText[data-v-7ea8565b] {\n  font-weight: bold;\n  font-size: 18px;\n}\n.pageBox .p-next[data-v-7ea8565b] {\n  grid-column: 3/4;\n}\n.noProducts[data-v-7ea8565b] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  height: 100%;\n}\n.items[data-v-7ea8565b] {\n  display: flex;\n  flex-wrap: wrap;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -46684,25 +46751,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "product" }, [
-    _c("div", { staticClass: "product__image" }, [
-      _c("img", { attrs: { src: _vm.product.image_1.uri, alt: "" } })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "product__title" }, [
-      _c("h3", [_vm._v(_vm._s(_vm.product.title))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "product__link" }, [
-      _c("a", { attrs: { href: _vm.product.uri } }, [
-        _vm._v("\n        Купити\n      ")
+  return _c(
+    "div",
+    {
+      staticClass: "product",
+      on: {
+        click: function($event) {
+          return _vm.goToProduct(_vm.product.uri)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "product__image" }, [
+        _c("img", { attrs: { src: _vm.product.image_1.uri, alt: "" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__title" }, [
+        _c("h3", [_vm._v(_vm._s(_vm.product.title))])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__link" }, [
+        _c("a", { attrs: { href: _vm.product.uri } }, [
+          _vm._v("\n            Купить\n        ")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "product__price" }, [
+        _c("span", [_vm._v(_vm._s(_vm.product.price))])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "product__price" }, [
-      _c("span", [_vm._v(_vm._s(_vm.product.price))])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -46743,7 +46821,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "items" },
-        _vm._l(_vm.products, function(product) {
+        _vm._l(_vm.products.data, function(product) {
           return _c(
             "div",
             { key: product.id, staticClass: "item" },
@@ -46752,7 +46830,118 @@ var render = function() {
           )
         }),
         0
-      )
+      ),
+      _vm._v(" "),
+      _vm.isPaginate
+        ? _c("div", { staticClass: "pageBox" }, [
+            _vm.prevPage
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "p-btn p-prev",
+                    attrs: {
+                      "data-bs-toggle": "tooltip",
+                      "data-bs-placement": "top",
+                      title: "Предыдущая страница",
+                      type: "button"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.goPage(_vm.prevPage)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "bi bi-caret-left",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          width: "24",
+                          height: "24",
+                          fill: "currentColor",
+                          viewBox: "0 0 16 16"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "p-text d-flex align-items-center justify-content-center"
+              },
+              [
+                _c(
+                  "span",
+                  {
+                    staticClass: "pagesText",
+                    attrs: {
+                      "data-bs-toggle": "tooltip",
+                      title: "Поточна/Всього сторінок"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.pageText))]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm.nextPage
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "p-btn p-next",
+                    attrs: {
+                      "data-bs-toggle": "tooltip",
+                      "data-bs-placement": "top",
+                      title: "Следующая страница",
+                      type: "button"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.goPage(_vm.nextPage)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "bi bi-caret-right",
+                        attrs: {
+                          xmlns: "http://www.w3.org/2000/svg",
+                          width: "24",
+                          height: "24",
+                          fill: "currentColor",
+                          viewBox: "0 0 16 16"
+                        }
+                      },
+                      [
+                        _c("path", {
+                          attrs: {
+                            d:
+                              "M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              : _vm._e()
+          ])
+        : _vm._e()
     ],
     1
   )
@@ -46963,7 +47152,7 @@ var render = function() {
                 _c("vSelect", {
                   attrs: {
                     options: _vm.sizes,
-                    placeholder: "Какой Ваш розмер?"
+                    placeholder: "Какой Ваш размер?"
                   },
                   model: {
                     value: _vm.selectSize,
@@ -47012,7 +47201,7 @@ var render = function() {
                     { staticClass: "mt-1", staticStyle: { color: "red" } },
                     [
                       _vm._v(
-                        "\n                    Извените, но нужно указать правильный номер телефона.\n                "
+                        "\n                    Извините, но нужно указать правильный номер телефона.\n                "
                       )
                     ]
                   )
@@ -47026,7 +47215,7 @@ var render = function() {
                   staticClass: "d-flex align-items-baseline",
                   attrs: {
                     role: "group",
-                    "aria-label": "Использовать месенжер"
+                    "aria-label": "Использовать мессенджер"
                   }
                 },
                 [
@@ -47085,11 +47274,11 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "Использовать месенжеры\n                        "
+                        "Использовать мессенджеры\n                        "
                       ),
                       _c("info", [
                         _vm._v(
-                          "Поставьте галочку что-бы мы общались с вами\n                            только через месенджеры, такие как Telegram,\n                            Viber, WatsApp"
+                          "Поставьте галочку что-бы мы общались с вами\n                            только через мессенджеры, такие как Telegram,\n                            Viber, WatsApp"
                         )
                       ])
                     ],

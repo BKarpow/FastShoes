@@ -42,14 +42,14 @@ export default {
 <style scoped lang="scss">
 $border-radius: 9px;
 .spo {
-    border: 1px solid #383838;
+    border: 1px solid #43506c;
     border-radius: $border-radius;
     .text {
         padding: 0.2rem;
     }
     .button-box {
         border-radius: $border-radius $border-radius 0 0;
-        background: #aaaee7;
+        background: #ef4b4c;
         padding: 0.2rem;
         .button {
             cursor: pointer;

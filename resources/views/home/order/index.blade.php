@@ -7,7 +7,15 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <h1>Все заказы.</h1>
-                <table class="table table-hover">
+                @if ($orders->count() == 0) 
+                            <div class="alert alert-warning my-1">
+                                <strong>
+                                    Заказов пока нет.
+                                </strong>
+                            </div>
+                            <!-- /.alert alert-warning -->
+                @else
+                <table class="table table-hover table-responsive table-dark">
                     <thead>
                         <tr>
                             <th>Товар</th>
@@ -17,16 +25,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($orders->count() == 0) 
-                            <div class="alert alert-warning">
-                                <strong>
-                                    Заказов пока нет.
-                                </strong>
-                            </div>
-                            <!-- /.alert alert-warning -->
-                        @else
+                        
                         @foreach($orders as $order)
-                            <tr>
+                            <tr class=" @if ($order->use_message) use-message @endif ">
                                 <td>
                                     <h4>{{ $order->product->title }}</h4>
                                     <h5> {{ $order->product->price }} </h5>
@@ -40,7 +41,8 @@
                                 </td>
                                 <td>
                                     <strong>
-                                        {{$order->phone}}
+                                        <a href="tel:{{$order->phoneClean()}}">
+                                        {{$order->phone}}</a>
                                         @if ($order->new)
                                         <div class="my-2">
                                             <a href="{{ route('order.disNew',
@@ -75,7 +77,7 @@
                     </tbody>
                 </table>
                 <!-- /.table table-hover -->
-                @endif
+            @endif
             </div>
             <!-- /.col-md-11 -->
         </div>

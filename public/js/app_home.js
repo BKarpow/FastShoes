@@ -9107,7 +9107,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".spo[data-v-8a221e78] {\n  border: 1px solid #383838;\n  border-radius: 9px;\n}\n.spo .text[data-v-8a221e78] {\n  padding: 0.2rem;\n}\n.spo .button-box[data-v-8a221e78] {\n  border-radius: 9px 9px 0 0;\n  background: #aaaee7;\n  padding: 0.2rem;\n}\n.spo .button-box .button[data-v-8a221e78] {\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".spo[data-v-8a221e78] {\n  border: 1px solid #43506c;\n  border-radius: 9px;\n}\n.spo .text[data-v-8a221e78] {\n  padding: 0.2rem;\n}\n.spo .button-box[data-v-8a221e78] {\n  border-radius: 9px 9px 0 0;\n  background: #ef4b4c;\n  padding: 0.2rem;\n}\n.spo .button-box .button[data-v-8a221e78] {\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
