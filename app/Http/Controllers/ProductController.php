@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function index()
     {
         return ProductResource::collection(
-            Product::orderBy('created_at', 'desc')
+            Product::orderBy('view', 'desc')
             ->paginate(env('PRODUCT_PER_PAGE', 15))
         );
     }

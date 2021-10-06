@@ -2,6 +2,15 @@
 
 @section('title') {{$product->title}} @endsection
 
+@section('meta')
+    <meta name="description" content="{{ $product-> metaDescription() }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ $product->title }}" />
+    <meta property="og:image" content="{{ $product->mainImage() }}" />
+    <meta property="og:url" content="{{ $product->uri() }}" />
+    <meta property="og:description" content="{{ $product-> metaDescription() }}" />
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -30,18 +39,14 @@
                     <strong> {{ join(', ', $product->sizesArray() ) }} </strong>
                 </div>
                 <!-- /.mt-1 -->
-                <div class="mt-1">
-                    <h5>Доступные цвета.</h5>
-                    <strong> {{ join(', ', $product->colorsArray() ) }} </strong>
-                </div>
-                <!-- /.mt-1 -->
+                
             </div>
             <!-- /.col-md-9 -->
         </div>
         <!-- /.row -->
         <div class="row mt-2">
             <div class="col-md-11">
-                <h5>Описвания товара</h5>
+                <h5>Описывания товара</h5>
                 {!! $product->description !!}
             </div>
             <!-- /.col-md-11 -->

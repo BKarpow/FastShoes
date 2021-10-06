@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Models\Traits\Meta;
 
 class Product extends Model
 {
-    use HasFactory, DateTrait;
+    use HasFactory, DateTrait, Meta;
 
     /**
      * Get the category associated with the Product
@@ -147,6 +148,9 @@ class Product extends Model
         }
         return $colors;
     }
+
+
+    
 
 
     

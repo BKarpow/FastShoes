@@ -95,6 +95,15 @@
   content: " ₴";
 }
 
+blockquote {
+  display: block;
+  padding-left: 1rem;
+}
+blockquote p {
+  padding-left: 0.6rem;
+  border-left: 4px solid skyblue;
+}
+
 .v-select {
   position: relative;
   font-family: inherit;

@@ -88,3 +88,12 @@
 .price-item {
     @include priceStyle();
 }
+
+blockquote {
+    display: block;
+    padding-left: 1rem;
+    p {
+        padding-left: 0.6rem;
+        border-left: 4px solid skyblue;
+    }
+}

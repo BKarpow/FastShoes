@@ -15,7 +15,7 @@
                             </div>
                             <!-- /.alert alert-warning -->
                 @else
-                <table class="table table-hover table-responsive table-dark">
+                <table class="table table-hover table-responsive">
                     <thead>
                         <tr>
                             <th>Товар</th>

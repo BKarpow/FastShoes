@@ -10,7 +10,10 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SitemapXmlController;
 use App\Models\Order;
+use App\Models\Category;
+use App\Models\ProductSection as Section;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,14 +100,25 @@ Route::post('/order', [OrderController::class, 'store'])->name('new.order');
 /** # orders from user */
 
 /**
- * SPA Product app FIX roite path
+ * SPA Product app FIX route path
  */
 Route::get('/section/{id}/{alias}', function ($id, $alias) {
-    return view('welcome');
-});
+    return view('welcome', [
+        'meta' => Section::findOrFail($id),
+        'isMeta' => true,
+    ] );
+})->name('spa.section');
 Route::get('/category/{id}/{alias}', function ($id, $alias) {
-    return view('welcome');
-});
+    return view('welcome', [
+        'meta' => Category::findOrFail($id),
+        'isMeta' => true,
+    ]);
+})->name('spa.category');
+
+/**
+ * Sitemaps
+ */
+Route::get('/sitemap.xml', [SitemapXmlController::class, 'products'])->name('sitemap.product');
 
 //Route from Google auth
 Route::get('/redirect', [LoginController::class, 'redirectToProvider'])
