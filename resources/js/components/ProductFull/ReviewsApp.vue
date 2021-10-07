@@ -13,6 +13,82 @@
                 :rating="ratingProduct"
                 text-class="text-rating-product"
             />
+            <div class="mt-1">
+                <h6>Всего голосов {{ countRatings }}.</h6>
+                <ul class="list-group">
+                    <li
+                        class="list-group-item ratingsItemList"
+                        v-if="allRatings['1'] !== undefined"
+                    >
+                        <star-rating
+                            :read-only="true"
+                            :inline="true"
+                            :star-size="18"
+                            :rating="1"
+                        />
+                        <span>{{ allRatings["1"] }}</span>
+                    </li>
+                    <!-- /.list-group-item -->
+
+                    <li
+                        class="list-group-item ratingsItemList"
+                        v-if="allRatings['2'] !== undefined"
+                    >
+                        <star-rating
+                            :read-only="true"
+                            :inline="true"
+                            :star-size="18"
+                            :rating="2"
+                        />
+                        <span>{{ allRatings["2"] }}</span>
+                    </li>
+                    <!-- /.list-group-item -->
+
+                    <li
+                        class="list-group-item ratingsItemList"
+                        v-if="allRatings['3'] !== undefined"
+                    >
+                        <star-rating
+                            :read-only="true"
+                            :inline="true"
+                            :star-size="18"
+                            :rating="3"
+                        />
+                        <span>{{ allRatings["3"] }}</span>
+                    </li>
+                    <!-- /.list-group-item -->
+
+                    <li
+                        class="list-group-item ratingsItemList"
+                        v-if="allRatings['4'] !== undefined"
+                    >
+                        <star-rating
+                            :read-only="true"
+                            :inline="true"
+                            :star-size="18"
+                            :rating="4"
+                        />
+                        <span>{{ allRatings["4"] }}</span>
+                    </li>
+                    <!-- /.list-group-item -->
+
+                    <li
+                        class="list-group-item ratingsItemList"
+                        v-if="allRatings['5'] !== undefined"
+                    >
+                        <star-rating
+                            :read-only="true"
+                            :inline="true"
+                            :star-size="18"
+                            :rating="5"
+                        />
+                        <span>{{ allRatings["5"] }}</span>
+                    </li>
+                    <!-- /.list-group-item -->
+                </ul>
+                <!-- /.list-group -->
+            </div>
+            <!-- /.mt-1 -->
         </div>
         <!-- /#rating -->
         <div id="formCreate" v-if="isProductOrdered && authFlag == '1'">
@@ -152,7 +228,9 @@ export default {
             comment: "",
             maxLengthComment: 249,
             showCreateForm: false,
-            ratingProduct: 0
+            ratingProduct: 0,
+            allRatings: [],
+            countRatings: 0
         };
     },
 
@@ -225,6 +303,8 @@ export default {
             axios.get(this.uriApiRating).then(response => {
                 if (response.status === 200) {
                     this.ratingProduct = response.data.rating;
+                    this.allRatings = response.data.all;
+                    this.countRatings = response.data.count;
                     console.log("Response rating", response);
                 } else {
                     console.error(
@@ -275,5 +355,14 @@ export default {
     margin-top: 1rem;
     font-size: 11px;
     color: gray;
+}
+
+.ratingsItemList {
+    display: flex;
+    justify-content: space-between;
+    span {
+        font-size: 20px;
+        font-weight: bold;
+    }
 }
 </style>

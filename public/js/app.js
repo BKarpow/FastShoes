@@ -3256,6 +3256,82 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3282,7 +3358,9 @@ __webpack_require__.r(__webpack_exports__);
       comment: "",
       maxLengthComment: 249,
       showCreateForm: false,
-      ratingProduct: 0
+      ratingProduct: 0,
+      allRatings: [],
+      countRatings: 0
     };
   },
   computed: {
@@ -3361,6 +3439,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.get(this.uriApiRating).then(function (response) {
         if (response.status === 200) {
           _this3.ratingProduct = response.data.rating;
+          _this3.allRatings = response.data.all;
+          _this3.countRatings = response.data.count;
           console.log("Response rating", response);
         } else {
           console.error("Error getting rating from product", response);
@@ -8161,7 +8241,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".comment[data-v-73f30362] {\n  display: block;\n  outline: none;\n  width: 100%;\n  height: auto;\n  margin-top: 0.8rem;\n  padding: 1rem;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid skyblue;\n  font-weight: 500;\n  font-size: 18px;\n}\n.circle[data-v-73f30362] {\n  -webkit-clip-path: circle(2.1rem);\n          clip-path: circle(2.1rem);\n}\n.comment[data-v-73f30362] {\n  padding: 0.3rem;\n  border: 1px solid skyblue;\n  border-radius: 9px;\n}\n.comment_text[data-v-73f30362] {\n  font-weight: bold;\n  margin-top: 0.7rem;\n  padding-left: 1rem;\n}\n.comment__date[data-v-73f30362] {\n  display: block;\n  margin-top: 1rem;\n  font-size: 11px;\n  color: gray;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".comment[data-v-73f30362] {\n  display: block;\n  outline: none;\n  width: 100%;\n  height: auto;\n  margin-top: 0.8rem;\n  padding: 1rem;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid skyblue;\n  font-weight: 500;\n  font-size: 18px;\n}\n.circle[data-v-73f30362] {\n  -webkit-clip-path: circle(2.1rem);\n          clip-path: circle(2.1rem);\n}\n.comment[data-v-73f30362] {\n  padding: 0.3rem;\n  border: 1px solid skyblue;\n  border-radius: 9px;\n}\n.comment_text[data-v-73f30362] {\n  font-weight: bold;\n  margin-top: 0.7rem;\n  padding-left: 1rem;\n}\n.comment__date[data-v-73f30362] {\n  display: block;\n  margin-top: 1rem;\n  font-size: 11px;\n  color: gray;\n}\n.ratingsItemList[data-v-73f30362] {\n  display: flex;\n  justify-content: space-between;\n}\n.ratingsItemList span[data-v-73f30362] {\n  font-size: 20px;\n  font-weight: bold;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -47782,7 +47862,113 @@ var render = function() {
             rating: _vm.ratingProduct,
             "text-class": "text-rating-product"
           }
-        })
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-1" }, [
+          _c("h6", [_vm._v("Всего голосов " + _vm._s(_vm.countRatings) + ".")]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "list-group" }, [
+            _vm.allRatings["1"] !== undefined
+              ? _c(
+                  "li",
+                  { staticClass: "list-group-item ratingsItemList" },
+                  [
+                    _c("star-rating", {
+                      attrs: {
+                        "read-only": true,
+                        inline: true,
+                        "star-size": 18,
+                        rating: 1
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.allRatings["1"]))])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.allRatings["2"] !== undefined
+              ? _c(
+                  "li",
+                  { staticClass: "list-group-item ratingsItemList" },
+                  [
+                    _c("star-rating", {
+                      attrs: {
+                        "read-only": true,
+                        inline: true,
+                        "star-size": 18,
+                        rating: 2
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.allRatings["2"]))])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.allRatings["3"] !== undefined
+              ? _c(
+                  "li",
+                  { staticClass: "list-group-item ratingsItemList" },
+                  [
+                    _c("star-rating", {
+                      attrs: {
+                        "read-only": true,
+                        inline: true,
+                        "star-size": 18,
+                        rating: 3
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.allRatings["3"]))])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.allRatings["4"] !== undefined
+              ? _c(
+                  "li",
+                  { staticClass: "list-group-item ratingsItemList" },
+                  [
+                    _c("star-rating", {
+                      attrs: {
+                        "read-only": true,
+                        inline: true,
+                        "star-size": 18,
+                        rating: 4
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.allRatings["4"]))])
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.allRatings["5"] !== undefined
+              ? _c(
+                  "li",
+                  { staticClass: "list-group-item ratingsItemList" },
+                  [
+                    _c("star-rating", {
+                      attrs: {
+                        "read-only": true,
+                        inline: true,
+                        "star-size": 18,
+                        rating: 5
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("span", [_vm._v(_vm._s(_vm.allRatings["5"]))])
+                  ],
+                  1
+                )
+              : _vm._e()
+          ])
+        ])
       ],
       1
     ),

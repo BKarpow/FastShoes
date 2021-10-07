@@ -158,8 +158,10 @@ class ReviewController extends Controller
                 } else {
                     $rattingList[$r->rating] = 1;
                 }
+                
             }
             $rating['all'] = $rattingList;
+            $rating['count'] = $reviews->count();
             $rating['rating'] = round( (float)($rtSum / $reviews->count()), 1 );
         }
         return response()->json($rating);
