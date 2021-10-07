@@ -44,6 +44,15 @@ Route::group([
     'middleware' => 'admin',
 ], function () {
 
+    Route::group(['prefix'=>'/review'], function(){
+        Route::get('/', [ReviewController::class, 'index'])
+            ->name('review');
+        Route::get('/delete/{review}', [ReviewController::class, 'destroy'])
+            ->name('review.delete');
+        Route::get('/toggle-moderate/{review}', [ReviewController::class, 'toggleModerate'])
+            ->name('review.toggleModerate');
+    });
+
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])
     ->name('home');
 

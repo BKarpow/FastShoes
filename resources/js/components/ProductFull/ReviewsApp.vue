@@ -3,11 +3,15 @@
         <div id="rating" class="my-2">
             <h4>Рейтинг товара</h4>
             <star-rating
-                read-only="true"
-                show-rating="true"
-                inline="true"
-                star-size="50"
+                :increment="0.1"
+                :read-only="true"
+                :show-rating="true"
+                :inline="true"
+                :fixed-points="1"
+                :round-start-rating="false"
+                :star-size="50"
                 :rating="ratingProduct"
+                text-class="text-rating-product"
             />
         </div>
         <!-- /#rating -->
@@ -61,6 +65,24 @@
             </form>
         </div>
         <!-- /#formCreate -->
+        <div class="my-1 alert alert-info" id="noAuth" v-if="authFlag != '1'">
+            <strong>
+                Для того что-бы оставить отзыв, пожалуйста
+                <a href="/login"> авторизуйтесь на сайте </a> и сделайте заказ
+                на этот товар.
+            </strong>
+        </div>
+        <!-- /#noAuth.my-1 alert alert-info -->
+        <div
+            class="my-1 alert alert-info"
+            id="noOrder"
+            v-if="!isProductOrdered"
+        >
+            <strong>
+                Для того что-бы оставить отзыв, сделайте заказ.
+            </strong>
+        </div>
+        <!-- /#noOrder.my-1 alert alert-info -->
         <div id="reviewsList" class="mt-2">
             <div
                 class="comment my-1"
@@ -68,27 +90,35 @@
                 :key="review.id"
             >
                 <div class="row">
-                    <div class="col-sm-2 col-md-1 col-3">
+                    <div class="col-lg-1 col-sm-3 col-md-2 col-4">
                         <img class="circle" :src="review.avatar" />
                     </div>
                     <!-- /.col-sm-2 col-md-1 col-3 avatar -->
-                    <div class="pl-4 col-sm-10 col-md-11 col-9">
+                    <div class="pl-lg-4 col-lg-11 col-sm-9 col-md-10 col-4">
                         <h6>
                             {{ review.name }}
                         </h6>
-                        <p class="my-1">
+                        <p class="mt-1 ">
                             <star-rating
-                                read-only="true"
-                                show-rating="true"
-                                inline="true"
-                                star-size="18"
+                                :read-only="true"
+                                :show-rating="true"
+                                :inline="true"
+                                :star-size="18"
                                 :rating="review.rating"
                             />
                         </p>
-                        <p>{{ review.comment }}</p>
-                        <small> {{ review.create }} </small>
                     </div>
                     <!-- /.col-sm-10 col-md-11 col-9 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col comment__text">
+                        <p>{{ review.comment }}</p>
+                        <small class="comment__date">
+                            {{ review.create }}
+                        </small>
+                    </div>
+                    <!-- /.col -->
                 </div>
                 <!-- /.row -->
             </div>
@@ -121,27 +151,20 @@ export default {
             rating: 0,
             comment: "",
             maxLengthComment: 249,
-            showCreateForm: false
+            showCreateForm: false,
+            ratingProduct: 0
         };
     },
 
     computed: {
-        ratingProduct() {
-            let rating = 0;
-            if (this.reviews.length > 0) {
-                let sum = 0;
-                this.reviews.forEach(item => {
-                    sum += item.rating;
-                });
-                rating = sum / this.reviews.length;
-            }
-            return rating;
-        },
         counterMaxLengthComment() {
             return `${this.maxLengthComment}/${this.comment.length}`;
         },
         urlApiGet() {
             return "/api/reviews/from/" + Number(this.productId);
+        },
+        uriApiRating() {
+            return `/api/reviews/rating/from/${this.productId}`;
         },
         cookieName() {
             return "orderFor_" + this.productId;
@@ -178,6 +201,7 @@ export default {
                         console.log("create review", response.data);
                         this.cleanCreateForm();
                         this.fetchReviews();
+                        this.fetchRating();
                         this.load = false;
                     } else {
                         console.error("Error create review.", response);
@@ -196,10 +220,24 @@ export default {
                     console.error("Error getting reviews");
                 }
             });
+        },
+        fetchRating() {
+            axios.get(this.uriApiRating).then(response => {
+                if (response.status === 200) {
+                    this.ratingProduct = response.data.rating;
+                    console.log("Response rating", response);
+                } else {
+                    console.error(
+                        "Error getting rating from product",
+                        response
+                    );
+                }
+            });
         }
     },
     mounted() {
         this.fetchReviews();
+        this.fetchRating();
     }
 };
 </script>
@@ -220,11 +258,22 @@ export default {
     font-size: 18px;
 }
 .circle {
-    clip-path: circle(2.5rem);
+    clip-path: circle(2.1rem);
 }
 .comment {
     padding: 0.3rem;
     border: 1px solid skyblue;
     border-radius: 9px;
+}
+.comment_text {
+    font-weight: bold;
+    margin-top: 0.7rem;
+    padding-left: 1rem;
+}
+.comment__date {
+    display: block;
+    margin-top: 1rem;
+    font-size: 11px;
+    color: gray;
 }
 </style>

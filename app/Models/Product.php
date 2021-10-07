@@ -29,7 +29,7 @@ class Product extends Model
      */
     public function mainImage():string
     {
-        return ($this->image_1) ? $this->image_1 : '';
+        return ($this->image_1) ? url( $this->image_1 ) : '';
     }
 
     /**

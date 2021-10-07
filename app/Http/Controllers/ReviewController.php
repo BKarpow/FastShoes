@@ -15,7 +15,10 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        return view('home.review.index', [
+            'reviews' => Review::orderBy('created_at', 'desc')
+            ->paginate(env('PER_PAGE', 15))
+        ]);
     }
 
     /**
@@ -100,8 +103,23 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $review->delete();
+        return redirect()->route('review');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Review  $review
+     * @return \Illuminate\Http\Response
+     */
+    public function toggleModerate(Review $review)
+    {
+        $review->moderate = !$review->moderate;
+        $review->save();
+        return redirect()->route('review');
+    }
+
 
     /**
      * Return resource reviews from product.
@@ -131,11 +149,18 @@ class ReviewController extends Controller
             'moderate' => true,
         ])->select('rating')->get();
         if ($reviews) {
-            $rtSumm = 0;
+            $rtSum = 0;
+            $rattingList = [];
             foreach($reviews as $r) {
-                $rtSumm += (int) $r->rating;
+                $rtSum += (int) $r->rating;
+                if (isset($rattingList[$r->rating])) {
+                    $rattingList[$r->rating]++;
+                } else {
+                    $rattingList[$r->rating] = 1;
+                }
             }
-            $rating['rating'] = round( (float)($rtSumm / $reviews->count()), 1 );
+            $rating['all'] = $rattingList;
+            $rating['rating'] = round( (float)($rtSum / $reviews->count()), 1 );
         }
         return response()->json($rating);
     }

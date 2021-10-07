@@ -3226,6 +3226,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3251,28 +3281,19 @@ __webpack_require__.r(__webpack_exports__);
       rating: 0,
       comment: "",
       maxLengthComment: 249,
-      showCreateForm: false
+      showCreateForm: false,
+      ratingProduct: 0
     };
   },
   computed: {
-    ratingProduct: function ratingProduct() {
-      var rating = 0;
-
-      if (this.reviews.length > 0) {
-        var sum = 0;
-        this.reviews.forEach(function (item) {
-          sum += item.rating;
-        });
-        rating = sum / this.reviews.length;
-      }
-
-      return rating;
-    },
     counterMaxLengthComment: function counterMaxLengthComment() {
       return "".concat(this.maxLengthComment, "/").concat(this.comment.length);
     },
     urlApiGet: function urlApiGet() {
       return "/api/reviews/from/" + Number(this.productId);
+    },
+    uriApiRating: function uriApiRating() {
+      return "/api/reviews/rating/from/".concat(this.productId);
     },
     cookieName: function cookieName() {
       return "orderFor_" + this.productId;
@@ -3314,6 +3335,8 @@ __webpack_require__.r(__webpack_exports__);
 
             _this.fetchReviews();
 
+            _this.fetchRating();
+
             _this.load = false;
           } else {
             console.error("Error create review.", response);
@@ -3331,10 +3354,23 @@ __webpack_require__.r(__webpack_exports__);
           console.error("Error getting reviews");
         }
       });
+    },
+    fetchRating: function fetchRating() {
+      var _this3 = this;
+
+      axios.get(this.uriApiRating).then(function (response) {
+        if (response.status === 200) {
+          _this3.ratingProduct = response.data.rating;
+          console.log("Response rating", response);
+        } else {
+          console.error("Error getting rating from product", response);
+        }
+      });
     }
   },
   mounted: function mounted() {
     this.fetchReviews();
+    this.fetchRating();
   }
 });
 
@@ -8125,7 +8161,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".comment[data-v-73f30362] {\n  display: block;\n  outline: none;\n  width: 100%;\n  height: auto;\n  margin-top: 0.8rem;\n  padding: 1rem;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid skyblue;\n  font-weight: 500;\n  font-size: 18px;\n}\n.circle[data-v-73f30362] {\n  -webkit-clip-path: circle(2.5rem);\n          clip-path: circle(2.5rem);\n}\n.comment[data-v-73f30362] {\n  padding: 0.3rem;\n  border: 1px solid skyblue;\n  border-radius: 9px;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".comment[data-v-73f30362] {\n  display: block;\n  outline: none;\n  width: 100%;\n  height: auto;\n  margin-top: 0.8rem;\n  padding: 1rem;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid skyblue;\n  font-weight: 500;\n  font-size: 18px;\n}\n.circle[data-v-73f30362] {\n  -webkit-clip-path: circle(2.1rem);\n          clip-path: circle(2.1rem);\n}\n.comment[data-v-73f30362] {\n  padding: 0.3rem;\n  border: 1px solid skyblue;\n  border-radius: 9px;\n}\n.comment_text[data-v-73f30362] {\n  font-weight: bold;\n  margin-top: 0.7rem;\n  padding-left: 1rem;\n}\n.comment__date[data-v-73f30362] {\n  display: block;\n  margin-top: 1rem;\n  font-size: 11px;\n  color: gray;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -47736,11 +47772,15 @@ var render = function() {
         _vm._v(" "),
         _c("star-rating", {
           attrs: {
-            "read-only": "true",
-            "show-rating": "true",
-            inline: "true",
-            "star-size": "50",
-            rating: _vm.ratingProduct
+            increment: 0.1,
+            "read-only": true,
+            "show-rating": true,
+            inline: true,
+            "fixed-points": 1,
+            "round-start-rating": false,
+            "star-size": 50,
+            rating: _vm.ratingProduct,
+            "text-class": "text-rating-product"
           }
         })
       ],
@@ -47862,48 +47902,84 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
+    _vm.authFlag != "1"
+      ? _c(
+          "div",
+          { staticClass: "my-1 alert alert-info", attrs: { id: "noAuth" } },
+          [_vm._m(1)]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.isProductOrdered
+      ? _c(
+          "div",
+          { staticClass: "my-1 alert alert-info", attrs: { id: "noOrder" } },
+          [
+            _c("strong", [
+              _vm._v(
+                "\n            Для того что-бы оставить отзыв, сделайте заказ.\n        "
+              )
+            ])
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "mt-2", attrs: { id: "reviewsList" } },
       _vm._l(_vm.reviews, function(review) {
         return _c("div", { key: review.id, staticClass: "comment my-1" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-2 col-md-1 col-3" }, [
+            _c("div", { staticClass: "col-lg-1 col-sm-3 col-md-2 col-4" }, [
               _c("img", {
                 staticClass: "circle",
                 attrs: { src: review.avatar }
               })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "pl-4 col-sm-10 col-md-11 col-9" }, [
-              _c("h6", [
-                _vm._v(
-                  "\n                        " +
-                    _vm._s(review.name) +
-                    "\n                    "
+            _c(
+              "div",
+              { staticClass: "pl-lg-4 col-lg-11 col-sm-9 col-md-10 col-4" },
+              [
+                _c("h6", [
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(review.name) +
+                      "\n                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "mt-1 " },
+                  [
+                    _c("star-rating", {
+                      attrs: {
+                        "read-only": true,
+                        "show-rating": true,
+                        inline: true,
+                        "star-size": 18,
+                        rating: review.rating
+                      }
+                    })
+                  ],
+                  1
                 )
-              ]),
-              _vm._v(" "),
-              _c(
-                "p",
-                { staticClass: "my-1" },
-                [
-                  _c("star-rating", {
-                    attrs: {
-                      "read-only": "true",
-                      "show-rating": "true",
-                      inline: "true",
-                      "star-size": "18",
-                      rating: review.rating
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col comment__text" }, [
               _c("p", [_vm._v(_vm._s(review.comment))]),
               _vm._v(" "),
-              _c("small", [_vm._v(" " + _vm._s(review.create) + " ")])
+              _c("small", { staticClass: "comment__date" }, [
+                _vm._v(
+                  "\n                        " +
+                    _vm._s(review.create) +
+                    "\n                    "
+                )
+              ])
             ])
           ])
         ])
@@ -47923,6 +47999,20 @@ var staticRenderFns = [
         { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
         [_vm._v("\n                    Оставить отзыв\n                ")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("strong", [
+      _vm._v(
+        "\n            Для того что-бы оставить отзыв, пожалуйста\n            "
+      ),
+      _c("a", { attrs: { href: "/login" } }, [
+        _vm._v(" авторизуйтесь на сайте ")
+      ]),
+      _vm._v(" и сделайте заказ\n            на этот товар.\n        ")
     ])
   }
 ]

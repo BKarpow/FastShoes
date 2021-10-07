@@ -41,7 +41,12 @@ Vue.component(
 );
 Vue.component("spoller", require("./components/Spoller.vue").default);
 
+import StarRating from "vue-star-rating";
+
+Vue.component("star-rating", StarRating);
+
 Vue.use(CKEditor);
+Vue.use(StarRating);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

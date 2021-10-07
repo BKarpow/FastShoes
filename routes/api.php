@@ -59,6 +59,7 @@ Route::group([
     'prefix' => '/reviews',
 ], function(){
     Route::get('/from/{product_id}', [ReviewController::class, 'fromProductId']);
+    Route::get('/rating/from/{product_id}', [ReviewController::class, 'computedRatingFromProductId']);
 });
 
 Route::get('/size', [SizeController::class, 'getAll'])->name('api.size.all');
