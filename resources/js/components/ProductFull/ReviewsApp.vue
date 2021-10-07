@@ -26,6 +26,19 @@
                             :star-size="18"
                             :rating="1"
                         />
+                        <div class="w-100 progress">
+                            <div
+                                class="progress__line"
+                                :style="
+                                    'width:' +
+                                        computedRatingPercentageFromItem(
+                                            allRatings['1']
+                                        )
+                                "
+                            ></div>
+                            <!-- /.progress__line -->
+                        </div>
+                        <!-- /.progress -->
                         <span>{{ allRatings["1"] }}</span>
                     </li>
                     <!-- /.list-group-item -->
@@ -40,6 +53,19 @@
                             :star-size="18"
                             :rating="2"
                         />
+                        <div class="w-100 progress">
+                            <div
+                                class="progress__line"
+                                :style="
+                                    'width:' +
+                                        computedRatingPercentageFromItem(
+                                            allRatings['2']
+                                        )
+                                "
+                            ></div>
+                            <!-- /.progress__line -->
+                        </div>
+                        <!-- /.progress -->
                         <span>{{ allRatings["2"] }}</span>
                     </li>
                     <!-- /.list-group-item -->
@@ -54,6 +80,19 @@
                             :star-size="18"
                             :rating="3"
                         />
+                        <div class="w-100 progress">
+                            <div
+                                class="progress__line"
+                                :style="
+                                    'width:' +
+                                        computedRatingPercentageFromItem(
+                                            allRatings['3']
+                                        )
+                                "
+                            ></div>
+                            <!-- /.progress__line -->
+                        </div>
+                        <!-- /.progress -->
                         <span>{{ allRatings["3"] }}</span>
                     </li>
                     <!-- /.list-group-item -->
@@ -68,6 +107,19 @@
                             :star-size="18"
                             :rating="4"
                         />
+                        <div class="w-100 progress">
+                            <div
+                                class="progress__line"
+                                :style="
+                                    'width:' +
+                                        computedRatingPercentageFromItem(
+                                            allRatings['4']
+                                        )
+                                "
+                            ></div>
+                            <!-- /.progress__line -->
+                        </div>
+                        <!-- /.progress -->
                         <span>{{ allRatings["4"] }}</span>
                     </li>
                     <!-- /.list-group-item -->
@@ -82,6 +134,19 @@
                             :star-size="18"
                             :rating="5"
                         />
+                        <div class="w-100 progress">
+                            <div
+                                class="progress__line"
+                                :style="
+                                    'width:' +
+                                        computedRatingPercentageFromItem(
+                                            allRatings['5']
+                                        )
+                                "
+                            ></div>
+                            <!-- /.progress__line -->
+                        </div>
+                        <!-- /.progress -->
                         <span>{{ allRatings["5"] }}</span>
                     </li>
                     <!-- /.list-group-item -->
@@ -266,6 +331,9 @@ export default {
         }
     },
     methods: {
+        computedRatingPercentageFromItem(count) {
+            return " " + (100 / this.countRatings) * count + "%";
+        },
         cleanCreateForm() {
             this.rating = 0;
             this.comment = "";
@@ -329,7 +397,7 @@ export default {
     width: 100%;
     height: auto;
     margin-top: 0.8rem;
-    padding: 1rem;
+    padding: 1.3rem;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -360,9 +428,19 @@ export default {
 .ratingsItemList {
     display: flex;
     justify-content: space-between;
+    column-gap: 1rem;
+    align-items: center;
     span {
         font-size: 20px;
         font-weight: bold;
+    }
+}
+.progress {
+    height: 0.4rem;
+    background: #d8d8d8;
+    &__line {
+        background: #ffd055;
+        height: 100%;
     }
 }
 </style>

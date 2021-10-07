@@ -3332,6 +3332,71 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3395,6 +3460,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    computedRatingPercentageFromItem: function computedRatingPercentageFromItem(count) {
+      return " " + 100 / this.countRatings * count + "%";
+    },
     cleanCreateForm: function cleanCreateForm() {
       this.rating = 0;
       this.comment = "";
@@ -8241,7 +8309,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".comment[data-v-73f30362] {\n  display: block;\n  outline: none;\n  width: 100%;\n  height: auto;\n  margin-top: 0.8rem;\n  padding: 1rem;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid skyblue;\n  font-weight: 500;\n  font-size: 18px;\n}\n.circle[data-v-73f30362] {\n  -webkit-clip-path: circle(2.1rem);\n          clip-path: circle(2.1rem);\n}\n.comment[data-v-73f30362] {\n  padding: 0.3rem;\n  border: 1px solid skyblue;\n  border-radius: 9px;\n}\n.comment_text[data-v-73f30362] {\n  font-weight: bold;\n  margin-top: 0.7rem;\n  padding-left: 1rem;\n}\n.comment__date[data-v-73f30362] {\n  display: block;\n  margin-top: 1rem;\n  font-size: 11px;\n  color: gray;\n}\n.ratingsItemList[data-v-73f30362] {\n  display: flex;\n  justify-content: space-between;\n}\n.ratingsItemList span[data-v-73f30362] {\n  font-size: 20px;\n  font-weight: bold;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".comment[data-v-73f30362] {\n  display: block;\n  outline: none;\n  width: 100%;\n  height: auto;\n  margin-top: 0.8rem;\n  padding: 1.3rem;\n  border-top: none;\n  border-left: none;\n  border-right: none;\n  border-bottom: 1px solid skyblue;\n  font-weight: 500;\n  font-size: 18px;\n}\n.circle[data-v-73f30362] {\n  -webkit-clip-path: circle(2.1rem);\n          clip-path: circle(2.1rem);\n}\n.comment[data-v-73f30362] {\n  padding: 0.3rem;\n  border: 1px solid skyblue;\n  border-radius: 9px;\n}\n.comment_text[data-v-73f30362] {\n  font-weight: bold;\n  margin-top: 0.7rem;\n  padding-left: 1rem;\n}\n.comment__date[data-v-73f30362] {\n  display: block;\n  margin-top: 1rem;\n  font-size: 11px;\n  color: gray;\n}\n.ratingsItemList[data-v-73f30362] {\n  display: flex;\n  justify-content: space-between;\n  -moz-column-gap: 1rem;\n       column-gap: 1rem;\n  align-items: center;\n}\n.ratingsItemList span[data-v-73f30362] {\n  font-size: 20px;\n  font-weight: bold;\n}\n.progress[data-v-73f30362] {\n  height: 0.4rem;\n  background: #d8d8d8;\n}\n.progress__line[data-v-73f30362] {\n  background: #ffd055;\n  height: 100%;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -47882,6 +47950,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _c("div", { staticClass: "w-100 progress" }, [
+                      _c("div", {
+                        staticClass: "progress__line",
+                        style:
+                          "width:" +
+                          _vm.computedRatingPercentageFromItem(
+                            _vm.allRatings["1"]
+                          )
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c("span", [_vm._v(_vm._s(_vm.allRatings["1"]))])
                   ],
                   1
@@ -47901,6 +47980,17 @@ var render = function() {
                         rating: 2
                       }
                     }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-100 progress" }, [
+                      _c("div", {
+                        staticClass: "progress__line",
+                        style:
+                          "width:" +
+                          _vm.computedRatingPercentageFromItem(
+                            _vm.allRatings["2"]
+                          )
+                      })
+                    ]),
                     _vm._v(" "),
                     _c("span", [_vm._v(_vm._s(_vm.allRatings["2"]))])
                   ],
@@ -47922,6 +48012,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _c("div", { staticClass: "w-100 progress" }, [
+                      _c("div", {
+                        staticClass: "progress__line",
+                        style:
+                          "width:" +
+                          _vm.computedRatingPercentageFromItem(
+                            _vm.allRatings["3"]
+                          )
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c("span", [_vm._v(_vm._s(_vm.allRatings["3"]))])
                   ],
                   1
@@ -47942,6 +48043,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _c("div", { staticClass: "w-100 progress" }, [
+                      _c("div", {
+                        staticClass: "progress__line",
+                        style:
+                          "width:" +
+                          _vm.computedRatingPercentageFromItem(
+                            _vm.allRatings["4"]
+                          )
+                      })
+                    ]),
+                    _vm._v(" "),
                     _c("span", [_vm._v(_vm._s(_vm.allRatings["4"]))])
                   ],
                   1
@@ -47961,6 +48073,17 @@ var render = function() {
                         rating: 5
                       }
                     }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-100 progress" }, [
+                      _c("div", {
+                        staticClass: "progress__line",
+                        style:
+                          "width:" +
+                          _vm.computedRatingPercentageFromItem(
+                            _vm.allRatings["5"]
+                          )
+                      })
+                    ]),
                     _vm._v(" "),
                     _c("span", [_vm._v(_vm._s(_vm.allRatings["5"]))])
                   ],
