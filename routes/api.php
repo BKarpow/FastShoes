@@ -10,6 +10,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,12 @@ Route::prefix('category')->group(function () {
 Route::prefix('product')->group(function () {
     Route::get('/category-id', [ProductController::class, 'getFromCategoryId']);
     Route::get('/{product}/images', [ProductController::class , 'getImagesFromProduct']);
+});
+
+Route::group([
+    'prefix' => '/reviews',
+], function(){
+    Route::get('/from/{product_id}', [ReviewController::class, 'fromProductId']);
 });
 
 Route::get('/size', [SizeController::class, 'getAll'])->name('api.size.all');

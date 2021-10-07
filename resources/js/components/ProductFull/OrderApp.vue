@@ -176,7 +176,7 @@ export default {
             return this.phoneMask.isComplete();
         },
         cookieName() {
-            return "orderrFor_" + this.productId;
+            return "orderFor_" + this.productId;
         },
         orderButtonInfo() {
             let text = `Вы заказываете ${this.selectSize}-й размер, с Вами свяжется за номером ${this.phone}.`;

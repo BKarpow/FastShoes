@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Traits\Meta;
+use App\Models\Traits\DateTrait;
 
 class Product extends Model
 {

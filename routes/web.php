@@ -11,6 +11,7 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SitemapXmlController;
+use App\Http\Controllers\ReviewController;
 use App\Models\Order;
 use App\Models\Category;
 use App\Models\ProductSection as Section;
@@ -98,6 +99,18 @@ Auth::routes();
 /** Orders from user */
 Route::post('/order', [OrderController::class, 'store'])->name('new.order');
 /** # orders from user */
+
+/**
+ * Reviews routes
+ */
+Route::group([
+    'prefix' => '/review',
+    'middleware' => 'auth'
+], function(){
+    Route::post('/create', [ReviewController::class, 'store'])
+    ->name('review.store');
+});
+ // # Reviews routes
 
 /**
  * SPA Product app FIX route path

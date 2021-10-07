@@ -35,6 +35,7 @@
         "swiper": "^7.0.6",
         "vue-meta": "^2.4.0",
         "vue-router": "^3.5.2",
-        "vue-select": "^3.13.0"
+        "vue-select": "^3.13.0",
+        "vue-star-rating": "^1.7.0"
     }
 }

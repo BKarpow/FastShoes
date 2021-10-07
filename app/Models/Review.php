@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\DateTrait;
 
-class File extends Model
+class Review extends Model
 {
     use HasFactory, DateTrait;
 
-    
+    /**
+     * Relation from user
+     */
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

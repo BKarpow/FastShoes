@@ -4,13 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import '@popperjs/core';
-import * as bootstrap from 'bootstrap';
+import "@popperjs/core";
+import * as bootstrap from "bootstrap";
 
-require('./bootstrap');
+require("./bootstrap");
 
-
-window.Vue = require('vue').default;
+window.Vue = require("vue").default;
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,11 +22,23 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('product-app', require('./components/ProductApp/Index.vue').default);
-Vue.component('product-images', require('./components/ProductFull/ImagesSlider.vue').default);
-Vue.component('product-order', require('./components/ProductFull/OrderApp.vue').default);  
-Vue.component('prompt', require('./components/Prompt.vue').default);
-
+Vue.component(
+    "product-app",
+    require("./components/ProductApp/Index.vue").default
+);
+Vue.component(
+    "product-images",
+    require("./components/ProductFull/ImagesSlider.vue").default
+);
+Vue.component(
+    "product-order",
+    require("./components/ProductFull/OrderApp.vue").default
+);
+Vue.component("prompt", require("./components/Prompt.vue").default);
+Vue.component(
+    "reviews-app",
+    require("./components/ProductFull/ReviewsApp.vue").default
+);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -35,32 +46,30 @@ Vue.component('prompt', require('./components/Prompt.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- window.tooltipList = [];
+window.tooltipList = [];
 
- window.setTooltips = () => {
-   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-   window.tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-     return new bootstrap.Tooltip(tooltipTriggerEl,  {trigger: 'hover'});
-   })
- }
+window.setTooltips = () => {
+    var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    window.tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, { trigger: "hover" });
+    });
+};
 
 const app = new Vue({
-    el: '#app',
+    el: "#app"
 });
-
 
 /**
  * Tooltips from Bootstrap
- * 
+ *
  */
 
-
 window.hideTooltips = () => {
-  window.tooltipList.forEach(item => {
-    item.hide();
-  });
-}
+    window.tooltipList.forEach(item => {
+        item.hide();
+    });
+};
 
 setTooltips();
-
- 

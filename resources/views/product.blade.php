@@ -52,6 +52,19 @@
             <!-- /.col-md-11 -->
         </div>
         <!-- /.row -->
+        <div class="row mt-2">
+            <div class="col-md-11">
+                <h4>Отзывы </h4>
+                <reviews-app 
+                product-id="{{$product->id}}"
+                @if (auth()->check())
+                auth-flag="1"
+                @endif
+                 />
+            </div>
+            <!-- /.col-md-11 -->
+        </div>
+        <!-- /.row mt-2 -->
     </div>
     <!-- /.container -->
 @endsection
