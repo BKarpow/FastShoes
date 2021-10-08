@@ -53,4 +53,13 @@ class User extends Authenticatable
     {
         return (int)$this->role === self::ROLE_ADMIN;
     }
+
+
+    /**
+     * Relation of Review
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'user_id', 'id');
+    }
 }

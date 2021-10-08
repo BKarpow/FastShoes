@@ -3463,10 +3463,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
+    userId: {
+      "default": function _default() {
+        return 0;
+      }
+    },
     productId: {
       "default": function _default() {
         return 0;
@@ -3489,6 +3536,8 @@ __webpack_require__.r(__webpack_exports__);
       comment: "",
       maxLengthComment: 249,
       showCreateForm: false,
+      updateMode: false,
+      updateReviewId: 0,
       ratingProduct: 0,
       allRatings: [],
       countRatings: 0,
@@ -3496,6 +3545,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    btnSubmitText: function btnSubmitText() {
+      return this.updateMode ? "Обновить" : "Оставить отзыв";
+    },
     userOrderedPhone: function userOrderedPhone() {
       return js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get("my_phone");
     },
@@ -3563,6 +3615,55 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    update: function update(r) {
+      this.updateMode = true;
+      this.updateReviewId = r.id;
+      this.showCreateForm = true;
+      this.comment = r.comment;
+      this.rating = r.rating;
+    },
+    updateReview: function updateReview(rid) {
+      var _this = this;
+
+      route("review.update", {
+        reviewId: rid
+      }).then(function (u) {
+        axios.put(u.data, _this.createReviewData).then(function (r) {
+          if (r.message === undefined) {
+            _this.showCreateForm = false;
+            _this.comment = "";
+            _this.rating = 0;
+
+            _this.fetchReviews();
+
+            _this.fetchRating();
+
+            console.log("Review updated", r);
+          } else {
+            console.error("Error update review", r);
+          }
+        });
+      });
+    },
+    deleteReview: function deleteReview(rid) {
+      var _this2 = this;
+
+      route("review.delete", {
+        reviewId: rid
+      }).then(function (u) {
+        axios["delete"](u.data).then(function (response) {
+          if (response.status === 200 && response.data.message === undefined) {
+            _this2.fetchReviews();
+
+            _this2.fetchRating();
+
+            console.log("Review deleted", response.data);
+          } else {
+            console.error("Error review deleted", response);
+          }
+        });
+      });
+    },
     goPage: function goPage(uriPage) {
       this.paginatePage = uriPage;
       this.fetchReviews();
@@ -3576,21 +3677,29 @@ __webpack_require__.r(__webpack_exports__);
       this.showCreateForm = false;
     },
     doCreateReviewSubmit: function doCreateReviewSubmit() {
-      var _this = this;
+      var _this3 = this;
+
+      if (this.updateMode) {
+        this.updateReview(this.updateReviewId);
+        this.updateMode = false;
+        this.updateReviewId = 0;
+        this.showCreateForm = false;
+        return;
+      }
 
       this.load = true;
       route("review.store").then(function (url) {
-        axios.post(url.data, _this.createReviewData).then(function (response) {
+        axios.post(url.data, _this3.createReviewData).then(function (response) {
           if (response.status === 200) {
             console.log("create review", response.data);
 
-            _this.cleanCreateForm();
+            _this3.cleanCreateForm();
 
-            _this.fetchReviews();
+            _this3.fetchReviews();
 
-            _this.fetchRating();
+            _this3.fetchRating();
 
-            _this.load = false;
+            _this3.load = false;
           } else {
             console.error("Error create review.", response);
           }
@@ -3598,24 +3707,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     fetchReviews: function fetchReviews() {
-      var _this2 = this;
+      var _this4 = this;
 
       axios(this.urlApiGet).then(function (response) {
         if (response.status === 200 && response.data.data !== undefined) {
-          _this2.reviews = response.data;
+          _this4.reviews = response.data;
+          _this4.showCreateForm = false;
+          _this4.comment = "";
+          _this4.rating = 0;
         } else {
           console.error("Error getting reviews");
         }
       });
     },
     fetchRating: function fetchRating() {
-      var _this3 = this;
+      var _this5 = this;
 
       axios.get(this.uriApiRating).then(function (response) {
         if (response.status === 200) {
-          _this3.ratingProduct = response.data.rating;
-          _this3.allRatings = response.data.all;
-          _this3.countRatings = response.data.count;
+          _this5.ratingProduct = response.data.rating;
+          _this5.allRatings = response.data.all;
+          _this5.countRatings = response.data.count;
           console.log("Response rating", response);
         } else {
           console.error("Error getting rating from product", response);
@@ -48315,7 +48427,22 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(0)
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-block",
+                        attrs: { type: "submit" }
+                      },
+                      [
+                        _vm._v(
+                          "\n                    " +
+                            _vm._s(_vm.btnSubmitText) +
+                            "\n                "
+                        )
+                      ]
+                    )
+                  ])
                 ]
               )
             : _vm._e()
@@ -48326,7 +48453,7 @@ var render = function() {
       ? _c(
           "div",
           { staticClass: "my-1 alert alert-info", attrs: { id: "noAuth" } },
-          [_vm._m(1)]
+          [_vm._m(0)]
         )
       : _vm._e(),
     _vm._v(" "),
@@ -48399,7 +48526,89 @@ var render = function() {
                     _vm._s(review.create) +
                     "\n                    "
                 )
-              ])
+              ]),
+              _vm._v(" "),
+              _vm.userId === review.userId
+                ? _c("div", { staticClass: " btn-group" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-secondary btn-sm",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.update(review)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "bi bi-pencil-fill",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              width: "16",
+                              height: "16",
+                              fill: "currentColor",
+                              viewBox: "0 0 16 16"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                            Редактировать\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-outline-danger btn-sm",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteReview(review.id)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "bi bi-trash-fill",
+                            attrs: {
+                              xmlns: "http://www.w3.org/2000/svg",
+                              width: "16",
+                              height: "16",
+                              fill: "currentColor",
+                              viewBox: "0 0 16 16"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              attrs: {
+                                d:
+                                  "M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                            Удалить\n                        "
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
             ])
           ])
         ])
@@ -48520,18 +48729,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary btn-block", attrs: { type: "submit" } },
-        [_vm._v("\n                    Оставить отзыв\n                ")]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

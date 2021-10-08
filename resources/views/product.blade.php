@@ -59,6 +59,7 @@
                 product-id="{{$product->id}}"
                 @if (auth()->check())
                 auth-flag="1"
+                :user-id="{{auth()->user()->id}}"
                 @endif
                  />
             </div>

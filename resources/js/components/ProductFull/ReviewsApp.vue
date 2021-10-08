@@ -198,7 +198,7 @@
                 <!-- /.form-group -->
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">
-                        Оставить отзыв
+                        {{ btnSubmitText }}
                     </button>
                     <!-- /.btn btn-primary btn-block -->
                 </div>
@@ -258,6 +258,48 @@
                         <small class="comment__date">
                             {{ review.create }}
                         </small>
+                        <div class=" btn-group" v-if="userId === review.userId">
+                            <button
+                                @click="update(review)"
+                                type="button"
+                                class="btn btn-outline-secondary btn-sm"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-pencil-fill"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+                                    />
+                                </svg>
+                                Редактировать
+                            </button>
+                            <button
+                                @click="deleteReview(review.id)"
+                                type="button"
+                                class="btn btn-outline-danger btn-sm"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-trash-fill"
+                                    viewBox="0 0 16 16"
+                                >
+                                    <path
+                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
+                                    />
+                                </svg>
+                                Удалить
+                            </button>
+                            <!-- /.btn btn-outline-danger btn-sm -->
+                        </div>
+                        <!-- /.btn-group d-block -->
                     </div>
                     <!-- /.col -->
                 </div>
@@ -336,6 +378,9 @@ import Cookie from "js-cookie";
 import StarRating from "vue-star-rating";
 export default {
     props: {
+        userId: {
+            default: () => 0
+        },
         productId: {
             default: () => 0
         },
@@ -354,6 +399,8 @@ export default {
             comment: "",
             maxLengthComment: 249,
             showCreateForm: false,
+            updateMode: false,
+            updateReviewId: 0,
             ratingProduct: 0,
             allRatings: [],
             countRatings: 0,
@@ -362,6 +409,9 @@ export default {
     },
 
     computed: {
+        btnSubmitText() {
+            return this.updateMode ? "Обновить" : "Оставить отзыв";
+        },
         userOrderedPhone() {
             return Cookie.get("my_phone");
         },
@@ -427,6 +477,45 @@ export default {
         }
     },
     methods: {
+        update(r) {
+            this.updateMode = true;
+            this.updateReviewId = r.id;
+            this.showCreateForm = true;
+            this.comment = r.comment;
+            this.rating = r.rating;
+        },
+        updateReview(rid) {
+            route("review.update", { reviewId: rid }).then(u => {
+                axios.put(u.data, this.createReviewData).then(r => {
+                    if (r.message === undefined) {
+                        this.showCreateForm = false;
+                        this.comment = "";
+                        this.rating = 0;
+                        this.fetchReviews();
+                        this.fetchRating();
+                        console.log("Review updated", r);
+                    } else {
+                        console.error("Error update review", r);
+                    }
+                });
+            });
+        },
+        deleteReview(rid) {
+            route("review.delete", { reviewId: rid }).then(u => {
+                axios.delete(u.data).then(response => {
+                    if (
+                        response.status === 200 &&
+                        response.data.message === undefined
+                    ) {
+                        this.fetchReviews();
+                        this.fetchRating();
+                        console.log("Review deleted", response.data);
+                    } else {
+                        console.error("Error review deleted", response);
+                    }
+                });
+            });
+        },
         goPage(uriPage) {
             this.paginatePage = uriPage;
             this.fetchReviews();
@@ -440,6 +529,13 @@ export default {
             this.showCreateForm = false;
         },
         doCreateReviewSubmit() {
+            if (this.updateMode) {
+                this.updateReview(this.updateReviewId);
+                this.updateMode = false;
+                this.updateReviewId = 0;
+                this.showCreateForm = false;
+                return;
+            }
             this.load = true;
             route("review.store").then(url => {
                 axios.post(url.data, this.createReviewData).then(response => {
@@ -462,6 +558,9 @@ export default {
                     response.data.data !== undefined
                 ) {
                     this.reviews = response.data;
+                    this.showCreateForm = false;
+                    this.comment = "";
+                    this.rating = 0;
                 } else {
                     console.error("Error getting reviews");
                 }

@@ -174,4 +174,41 @@ class ReviewController extends Controller
         }
         return response()->json($rating);
     }
+
+
+    /**
+     * Delete user review
+     */
+    public function deleteFromUser($review_id)
+    {
+        $rs = auth()->user()->reviews()->findOrFail($review_id);
+        if ($rs) {
+            $rs->delete();
+            return response()->json(['success'=>true]);
+        } else {
+            return response()->json(['message'=>'Error delete review']);
+        }
+    }
+
+    /**
+     * Update review
+     */
+    public function updateReviewOfUser(Request $request, $review_id)
+    {
+        $request->validate([
+            'comment' => 'required|string|max:249',
+            'rating' => 'string',
+            'phoneOrdered' => 'required|max:19|min:18',
+        ]);
+        $rs = auth()->user()->reviews()->findOrFail($review_id);
+        if ($rs) {
+            $rs->comment = $request->comment;
+            $rs->rating = $request->rating;
+            $rs->phone_ordered = $request->phoneOrdered;
+            $rs->save();
+            return response()->json(['success'=>true]);
+        } else {
+            return response()->json(['message'=>'Error delete review']);
+        }
+    }
 }

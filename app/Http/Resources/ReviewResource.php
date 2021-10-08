@@ -15,12 +15,13 @@ class ReviewResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => (int) $this->id,
+            'userId' => (int) $this->user_id,
             'create' => $this->createdDate(),
             'comment' => $this->comment,
             'avatar' => $this->user->avatar,
             'name' => $this->user->name,
-            'rating' => $this->rating,
+            'rating' => (int) $this->rating,
         ];
     }
 }

@@ -118,6 +118,11 @@ Route::group([
 ], function(){
     Route::post('/create', [ReviewController::class, 'store'])
     ->name('review.store');
+    Route::delete('/{reviewId}', [ReviewController::class, 'deleteFromUser'])
+    ->name('review.delete');
+    // updateReviewOfUser
+    Route::put('/{reviewId}', [ReviewController::class, 'updateReviewOfUser'])
+    ->name('review.update');
 });
  // # Reviews routes
 
