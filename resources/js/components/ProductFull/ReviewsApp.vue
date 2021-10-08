@@ -1,6 +1,6 @@
 <template>
     <div id="reviews">
-        <div id="rating" class="my-2">
+        <div id="rating" class="my-2" v-if="allRatings !== undefined">
             <h4>Рейтинг товара</h4>
             <star-rating
                 :increment="0.1"
@@ -207,21 +207,21 @@
         </div>
         <!-- /#formCreate -->
         <div class="my-1 alert alert-info" id="noAuth" v-if="authFlag != '1'">
-            <strong>
+            <p>
                 Для того что-бы оставить отзыв, пожалуйста
                 <a href="/login"> авторизуйтесь на сайте </a> и сделайте заказ
                 на этот товар.
-            </strong>
+            </p>
         </div>
         <!-- /#noAuth.my-1 alert alert-info -->
         <div
             class="my-1 alert alert-info"
             id="noOrder"
-            v-if="!isProductOrdered"
+            v-if="!isProductOrdered && authFlag == '1'"
         >
-            <strong>
+            <p>
                 Для того что-бы оставить отзыв, сделайте заказ.
-            </strong>
+            </p>
         </div>
         <!-- /#noOrder.my-1 alert alert-info -->
         <div id="reviewsList" class="mt-2">
@@ -362,6 +362,9 @@ export default {
     },
 
     computed: {
+        userOrderedPhone() {
+            return Cookie.get("my_phone");
+        },
         counterMaxLengthComment() {
             return `${this.maxLengthComment}/${this.comment.length}`;
         },
@@ -384,7 +387,8 @@ export default {
             return {
                 productId: this.productId,
                 comment: this.comment,
-                rating: String(this.rating)
+                rating: String(this.rating),
+                phoneOrdered: this.userOrderedPhone
             };
         },
         isPaginate() {

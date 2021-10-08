@@ -32,7 +32,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @if(auth()->check() )
+                            @if (auth()->user()->isAdmin())
+                                <li class="nav-item">
+                                    <a href="/home" class="nav-link">
+                                        Админка
+                                    </a>
+                                    <!-- /.nav-link -->
+                                </li>
+                                <!-- /.nav-item -->
+                            @endif
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

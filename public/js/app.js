@@ -3496,6 +3496,9 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    userOrderedPhone: function userOrderedPhone() {
+      return js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get("my_phone");
+    },
     counterMaxLengthComment: function counterMaxLengthComment() {
       return "".concat(this.maxLengthComment, "/").concat(this.comment.length);
     },
@@ -3519,7 +3522,8 @@ __webpack_require__.r(__webpack_exports__);
       return {
         productId: this.productId,
         comment: this.comment,
-        rating: String(this.rating)
+        rating: String(this.rating),
+        phoneOrdered: this.userOrderedPhone
       };
     },
     isPaginate: function isPaginate() {
@@ -48015,189 +48019,193 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { attrs: { id: "reviews" } }, [
-    _c(
-      "div",
-      { staticClass: "my-2", attrs: { id: "rating" } },
-      [
-        _c("h4", [_vm._v("Рейтинг товара")]),
-        _vm._v(" "),
-        _c("star-rating", {
-          attrs: {
-            increment: 0.1,
-            "read-only": true,
-            "show-rating": true,
-            inline: true,
-            "fixed-points": 1,
-            "round-start-rating": false,
-            "star-size": 50,
-            rating: _vm.ratingProduct,
-            "text-class": "text-rating-product"
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "mt-1" }, [
-          _c("h6", [_vm._v("Всего голосов " + _vm._s(_vm.countRatings) + ".")]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "list-group" }, [
-            _vm.allRatings["1"] !== undefined
-              ? _c(
-                  "li",
-                  { staticClass: "list-group-item ratingsItemList" },
-                  [
-                    _c("star-rating", {
-                      attrs: {
-                        "read-only": true,
-                        inline: true,
-                        "star-size": 18,
-                        rating: 1
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "w-100 progress" }, [
-                      _c("div", {
-                        staticClass: "progress__line",
-                        style:
-                          "width:" +
-                          _vm.computedRatingPercentageFromItem(
-                            _vm.allRatings["1"]
-                          )
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.allRatings["1"]))])
-                  ],
-                  1
-                )
-              : _vm._e(),
+    _vm.allRatings !== undefined
+      ? _c(
+          "div",
+          { staticClass: "my-2", attrs: { id: "rating" } },
+          [
+            _c("h4", [_vm._v("Рейтинг товара")]),
             _vm._v(" "),
-            _vm.allRatings["2"] !== undefined
-              ? _c(
-                  "li",
-                  { staticClass: "list-group-item ratingsItemList" },
-                  [
-                    _c("star-rating", {
-                      attrs: {
-                        "read-only": true,
-                        inline: true,
-                        "star-size": 18,
-                        rating: 2
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "w-100 progress" }, [
-                      _c("div", {
-                        staticClass: "progress__line",
-                        style:
-                          "width:" +
-                          _vm.computedRatingPercentageFromItem(
-                            _vm.allRatings["2"]
-                          )
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.allRatings["2"]))])
-                  ],
-                  1
-                )
-              : _vm._e(),
+            _c("star-rating", {
+              attrs: {
+                increment: 0.1,
+                "read-only": true,
+                "show-rating": true,
+                inline: true,
+                "fixed-points": 1,
+                "round-start-rating": false,
+                "star-size": 50,
+                rating: _vm.ratingProduct,
+                "text-class": "text-rating-product"
+              }
+            }),
             _vm._v(" "),
-            _vm.allRatings["3"] !== undefined
-              ? _c(
-                  "li",
-                  { staticClass: "list-group-item ratingsItemList" },
-                  [
-                    _c("star-rating", {
-                      attrs: {
-                        "read-only": true,
-                        inline: true,
-                        "star-size": 18,
-                        rating: 3
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "w-100 progress" }, [
-                      _c("div", {
-                        staticClass: "progress__line",
-                        style:
-                          "width:" +
-                          _vm.computedRatingPercentageFromItem(
-                            _vm.allRatings["3"]
-                          )
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.allRatings["3"]))])
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.allRatings["4"] !== undefined
-              ? _c(
-                  "li",
-                  { staticClass: "list-group-item ratingsItemList" },
-                  [
-                    _c("star-rating", {
-                      attrs: {
-                        "read-only": true,
-                        inline: true,
-                        "star-size": 18,
-                        rating: 4
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "w-100 progress" }, [
-                      _c("div", {
-                        staticClass: "progress__line",
-                        style:
-                          "width:" +
-                          _vm.computedRatingPercentageFromItem(
-                            _vm.allRatings["4"]
-                          )
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.allRatings["4"]))])
-                  ],
-                  1
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.allRatings["5"] !== undefined
-              ? _c(
-                  "li",
-                  { staticClass: "list-group-item ratingsItemList" },
-                  [
-                    _c("star-rating", {
-                      attrs: {
-                        "read-only": true,
-                        inline: true,
-                        "star-size": 18,
-                        rating: 5
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "w-100 progress" }, [
-                      _c("div", {
-                        staticClass: "progress__line",
-                        style:
-                          "width:" +
-                          _vm.computedRatingPercentageFromItem(
-                            _vm.allRatings["5"]
-                          )
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v(_vm._s(_vm.allRatings["5"]))])
-                  ],
-                  1
-                )
-              : _vm._e()
-          ])
-        ])
-      ],
-      1
-    ),
+            _c("div", { staticClass: "mt-1" }, [
+              _c("h6", [
+                _vm._v("Всего голосов " + _vm._s(_vm.countRatings) + ".")
+              ]),
+              _vm._v(" "),
+              _c("ul", { staticClass: "list-group" }, [
+                _vm.allRatings["1"] !== undefined
+                  ? _c(
+                      "li",
+                      { staticClass: "list-group-item ratingsItemList" },
+                      [
+                        _c("star-rating", {
+                          attrs: {
+                            "read-only": true,
+                            inline: true,
+                            "star-size": 18,
+                            rating: 1
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-100 progress" }, [
+                          _c("div", {
+                            staticClass: "progress__line",
+                            style:
+                              "width:" +
+                              _vm.computedRatingPercentageFromItem(
+                                _vm.allRatings["1"]
+                              )
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.allRatings["1"]))])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.allRatings["2"] !== undefined
+                  ? _c(
+                      "li",
+                      { staticClass: "list-group-item ratingsItemList" },
+                      [
+                        _c("star-rating", {
+                          attrs: {
+                            "read-only": true,
+                            inline: true,
+                            "star-size": 18,
+                            rating: 2
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-100 progress" }, [
+                          _c("div", {
+                            staticClass: "progress__line",
+                            style:
+                              "width:" +
+                              _vm.computedRatingPercentageFromItem(
+                                _vm.allRatings["2"]
+                              )
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.allRatings["2"]))])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.allRatings["3"] !== undefined
+                  ? _c(
+                      "li",
+                      { staticClass: "list-group-item ratingsItemList" },
+                      [
+                        _c("star-rating", {
+                          attrs: {
+                            "read-only": true,
+                            inline: true,
+                            "star-size": 18,
+                            rating: 3
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-100 progress" }, [
+                          _c("div", {
+                            staticClass: "progress__line",
+                            style:
+                              "width:" +
+                              _vm.computedRatingPercentageFromItem(
+                                _vm.allRatings["3"]
+                              )
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.allRatings["3"]))])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.allRatings["4"] !== undefined
+                  ? _c(
+                      "li",
+                      { staticClass: "list-group-item ratingsItemList" },
+                      [
+                        _c("star-rating", {
+                          attrs: {
+                            "read-only": true,
+                            inline: true,
+                            "star-size": 18,
+                            rating: 4
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-100 progress" }, [
+                          _c("div", {
+                            staticClass: "progress__line",
+                            style:
+                              "width:" +
+                              _vm.computedRatingPercentageFromItem(
+                                _vm.allRatings["4"]
+                              )
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.allRatings["4"]))])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.allRatings["5"] !== undefined
+                  ? _c(
+                      "li",
+                      { staticClass: "list-group-item ratingsItemList" },
+                      [
+                        _c("star-rating", {
+                          attrs: {
+                            "read-only": true,
+                            inline: true,
+                            "star-size": 18,
+                            rating: 5
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-100 progress" }, [
+                          _c("div", {
+                            staticClass: "progress__line",
+                            style:
+                              "width:" +
+                              _vm.computedRatingPercentageFromItem(
+                                _vm.allRatings["5"]
+                              )
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(_vm._s(_vm.allRatings["5"]))])
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              ])
+            ])
+          ],
+          1
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.isProductOrdered && _vm.authFlag == "1"
       ? _c("div", { attrs: { id: "formCreate" } }, [
@@ -48322,12 +48330,12 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    !_vm.isProductOrdered
+    !_vm.isProductOrdered && _vm.authFlag == "1"
       ? _c(
           "div",
           { staticClass: "my-1 alert alert-info", attrs: { id: "noOrder" } },
           [
-            _c("strong", [
+            _c("p", [
               _vm._v(
                 "\n            Для того что-бы оставить отзыв, сделайте заказ.\n        "
               )
@@ -48528,7 +48536,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("strong", [
+    return _c("p", [
       _vm._v(
         "\n            Для того что-бы оставить отзыв, пожалуйста\n            "
       ),

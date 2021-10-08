@@ -18,6 +18,7 @@ class CreateReviewsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->string('comment');
+            $table->string('phone_ordered')->nullable();
             $table->integer('rating')->default(0);
             $table->boolean('moderate')->default(true);
             $table->string('ip', 75)->nullable();

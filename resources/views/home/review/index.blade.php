@@ -30,13 +30,16 @@
                                 </td>
                                 <td>
                                     <star-rating 
-                                        star-size="18"
-                                        read-only="true"
-                                        rating="{{$review->rating}}"
-                                        inline="true"
+                                        :star-size="18"
+                                        :read-only="true"
+                                        :rating="{{(int)$review->rating}}"
+                                        :inline="true"
                                     > </star-rating>
                                     <p>
                                         {{$review->comment}}
+                                    </p>
+                                    <p>
+                                        {{ $review->phone_ordered }}
                                     </p>
                                     <div class="mt-1">
                                         <div class="btn-group">

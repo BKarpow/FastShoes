@@ -43,6 +43,7 @@ class ReviewController extends Controller
             'comment' => 'required|string|max:249',
             'productId' => 'required|exists:products,id',
             'rating' => 'string',
+            'phoneOrdered' => 'required|max:19|min:18',
         ]);
         
         $rating = intval($request->rating);
@@ -56,6 +57,7 @@ class ReviewController extends Controller
         $r->product_id = $request->productId;
         $r->comment = $request->comment;
         $r->rating = $rating;
+        $r->phone_ordered = $request->phoneOrdered;
         $r->ip = $request->ip();
         $r->save();
         return response($r->jsonSerialize());
@@ -162,7 +164,13 @@ class ReviewController extends Controller
             }
             $rating['all'] = $rattingList;
             $rating['count'] = $reviews->count();
-            $rating['rating'] = round( (float)($rtSum / $reviews->count()), 1 );
+            // FIX division on zero
+            if ($reviews->count() > 0) {
+                $rating['rating'] = round( (float)($rtSum / $reviews->count()), 1 );
+            } else {
+                $rating['rating'] = 0.0;
+            }
+            
         }
         return response()->json($rating);
     }
