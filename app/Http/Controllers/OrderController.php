@@ -35,6 +35,13 @@ class OrderController extends Controller
             'useMessager' => 'max:20',
         ]);
         // todo add event for create new order
+        /**
+         * FIX
+         * Validate phone of pattern reg.
+         */
+        if (!preg_match('#^\+380\(\d\d\)\s\d\d\d\-\d\d-\d\d$#si', $request->phone)) {
+            return response()->json(['message'=>'Bad number phone.'], 405);
+        }
         Product::findOrFail($request->productId)->increment('orders');
         $o = new Order();
         $o->phone = $request->phone;

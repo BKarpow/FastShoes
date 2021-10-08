@@ -3074,7 +3074,7 @@ __webpack_require__.r(__webpack_exports__);
 
       route("new.order").then(function (r) {
         axios.post(r.data, _this.formData).then(function (resp) {
-          if (resp.status === 200 && resp.data.errors === undefined) {
+          if (resp.status === 200 && resp.data.errors === undefined && resp.data.message === undefined) {
             _this.successCreated = true;
             js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set(_this.cookieName, "1", {
               expires: 6
@@ -3091,6 +3091,11 @@ __webpack_require__.r(__webpack_exports__);
           } else if (resp.data.errors) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
               title: "Ошибка формы заказа",
+              icon: "error"
+            });
+          } else if (resp.data.message !== undefined) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+              title: resp.data.message.toString(),
               icon: "error"
             });
           } else {
@@ -3397,6 +3402,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3425,7 +3491,8 @@ __webpack_require__.r(__webpack_exports__);
       showCreateForm: false,
       ratingProduct: 0,
       allRatings: [],
-      countRatings: 0
+      countRatings: 0,
+      paginatePage: ""
     };
   },
   computed: {
@@ -3433,7 +3500,11 @@ __webpack_require__.r(__webpack_exports__);
       return "".concat(this.maxLengthComment, "/").concat(this.comment.length);
     },
     urlApiGet: function urlApiGet() {
-      return "/api/reviews/from/" + Number(this.productId);
+      if (this.paginatePage === "") {
+        return "/api/reviews/from/" + Number(this.productId);
+      }
+
+      return this.paginatePage;
     },
     uriApiRating: function uriApiRating() {
       return "/api/reviews/rating/from/".concat(this.productId);
@@ -3450,6 +3521,34 @@ __webpack_require__.r(__webpack_exports__);
         comment: this.comment,
         rating: String(this.rating)
       };
+    },
+    isPaginate: function isPaginate() {
+      if (this.reviews.links === undefined) {
+        return false;
+      }
+
+      if (this.reviews.links.prev === null && this.reviews.links.next === null) {
+        return false;
+      }
+
+      return true;
+    },
+    nextPage: function nextPage() {
+      if (this.reviews.links.next === null) {
+        return false;
+      }
+
+      return this.reviews.links.next;
+    },
+    prevPage: function prevPage() {
+      if (this.reviews.links.prev === null) {
+        return false;
+      }
+
+      return this.reviews.links.prev;
+    },
+    pageText: function pageText() {
+      return "".concat(this.reviews.meta.current_page, "/").concat(this.reviews.meta.last_page);
     }
   },
   watch: {
@@ -3460,6 +3559,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    goPage: function goPage(uriPage) {
+      this.paginatePage = uriPage;
+      this.fetchReviews();
+    },
     computedRatingPercentageFromItem: function computedRatingPercentageFromItem(count) {
       return " " + 100 / this.countRatings * count + "%";
     },
@@ -3495,7 +3598,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios(this.urlApiGet).then(function (response) {
         if (response.status === 200 && response.data.data !== undefined) {
-          _this2.reviews = response.data.data;
+          _this2.reviews = response.data;
         } else {
           console.error("Error getting reviews");
         }
@@ -8261,7 +8364,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".pageBox[data-v-7ea8565b] {\n  display: grid;\n  grid-template-columns: 1fr 4rem 1fr;\n  margin-top: 0.7rem;\n}\n.pageBox .p-btn[data-v-7ea8565b] {\n  width: 100%;\n  outline: none;\n  background: inherit;\n  border: 1px solid #383838;\n  padding: 1rem;\n  border-radius: 10px;\n  transition: all 0.6s;\n}\n.pageBox .p-btn[data-v-7ea8565b]:hover {\n  background: #383838;\n  color: white;\n  transition: all 0.6s;\n}\n.pageBox .p-prev[data-v-7ea8565b] {\n  grid-column: 1/2;\n}\n.pageBox .p-text[data-v-7ea8565b] {\n  padding: 0.2rem;\n  grid-column: 2/3;\n}\n.pageBox .p-text .pageText[data-v-7ea8565b] {\n  font-weight: bold;\n  font-size: 18px;\n}\n.pageBox .p-next[data-v-7ea8565b] {\n  grid-column: 3/4;\n}\n.noProducts[data-v-7ea8565b] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  height: 100%;\n}\n.items[data-v-7ea8565b] {\n  display: flex;\n  flex-wrap: wrap;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".noProducts[data-v-7ea8565b] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  height: 100%;\n}\n.items[data-v-7ea8565b] {\n  display: flex;\n  flex-wrap: wrap;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -48236,7 +48339,7 @@ var render = function() {
     _c(
       "div",
       { staticClass: "mt-2", attrs: { id: "reviewsList" } },
-      _vm._l(_vm.reviews, function(review) {
+      _vm._l(_vm.reviews.data, function(review) {
         return _c("div", { key: review.id, staticClass: "comment my-1" }, [
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-lg-1 col-sm-3 col-md-2 col-4" }, [
@@ -48294,7 +48397,118 @@ var render = function() {
         ])
       }),
       0
-    )
+    ),
+    _vm._v(" "),
+    _vm.isPaginate
+      ? _c("div", { staticClass: "pageBox" }, [
+          _vm.prevPage
+            ? _c(
+                "button",
+                {
+                  staticClass: "p-btn p-prev",
+                  attrs: {
+                    "data-bs-toggle": "tooltip",
+                    "data-bs-placement": "top",
+                    title: "Предыдущая страница",
+                    type: "button"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.goPage(_vm.prevPage)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi bi-caret-left",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "24",
+                        height: "24",
+                        fill: "currentColor",
+                        viewBox: "0 0 16 16"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "p-text d-flex align-items-center justify-content-center"
+            },
+            [
+              _c(
+                "span",
+                {
+                  staticClass: "pagesText",
+                  attrs: {
+                    "data-bs-toggle": "tooltip",
+                    title: "Поточна/Всього сторінок"
+                  }
+                },
+                [_vm._v(_vm._s(_vm.pageText))]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _vm.nextPage
+            ? _c(
+                "button",
+                {
+                  staticClass: "p-btn p-next",
+                  attrs: {
+                    "data-bs-toggle": "tooltip",
+                    "data-bs-placement": "top",
+                    title: "Следующая страница",
+                    type: "button"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.goPage(_vm.nextPage)
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi bi-caret-right",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "24",
+                        height: "24",
+                        fill: "currentColor",
+                        viewBox: "0 0 16 16"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            : _vm._e()
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [

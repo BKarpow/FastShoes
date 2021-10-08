@@ -227,7 +227,7 @@
         <div id="reviewsList" class="mt-2">
             <div
                 class="comment my-1"
-                v-for="review in reviews"
+                v-for="review in reviews.data"
                 :key="review.id"
             >
                 <div class="row">
@@ -266,6 +266,67 @@
             <!-- /.comment -->
         </div>
         <!-- /#reviewsList -->
+        <div class="pageBox" v-if="isPaginate">
+            <button
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Предыдущая страница"
+                v-if="prevPage"
+                type="button"
+                @click="goPage(prevPage)"
+                class="p-btn p-prev"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    class="bi bi-caret-left"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"
+                    />
+                </svg>
+            </button>
+            <!-- /.p-btn -->
+            <div
+                class="p-text d-flex align-items-center justify-content-center"
+            >
+                <span
+                    data-bs-toggle="tooltip"
+                    title="Поточна/Всього сторінок"
+                    class="pagesText"
+                    >{{ pageText }}</span
+                >
+                <!-- /.pagesText -->
+            </div>
+            <!-- /.p-text -->
+            <button
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Следующая страница"
+                v-if="nextPage"
+                type="button"
+                @click="goPage(nextPage)"
+                class="p-btn p-next"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    class="bi bi-caret-right"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"
+                    />
+                </svg>
+            </button>
+            <!-- /.p-btn -->
+        </div>
+        <!-- /.pageBox -->
     </div>
     <!-- /#reviews -->
 </template>
@@ -295,7 +356,8 @@ export default {
             showCreateForm: false,
             ratingProduct: 0,
             allRatings: [],
-            countRatings: 0
+            countRatings: 0,
+            paginatePage: ""
         };
     },
 
@@ -304,7 +366,10 @@ export default {
             return `${this.maxLengthComment}/${this.comment.length}`;
         },
         urlApiGet() {
-            return "/api/reviews/from/" + Number(this.productId);
+            if (this.paginatePage === "") {
+                return "/api/reviews/from/" + Number(this.productId);
+            }
+            return this.paginatePage;
         },
         uriApiRating() {
             return `/api/reviews/rating/from/${this.productId}`;
@@ -321,6 +386,33 @@ export default {
                 comment: this.comment,
                 rating: String(this.rating)
             };
+        },
+        isPaginate() {
+            if (this.reviews.links === undefined) {
+                return false;
+            }
+            if (
+                this.reviews.links.prev === null &&
+                this.reviews.links.next === null
+            ) {
+                return false;
+            }
+            return true;
+        },
+        nextPage() {
+            if (this.reviews.links.next === null) {
+                return false;
+            }
+            return this.reviews.links.next;
+        },
+        prevPage() {
+            if (this.reviews.links.prev === null) {
+                return false;
+            }
+            return this.reviews.links.prev;
+        },
+        pageText() {
+            return `${this.reviews.meta.current_page}/${this.reviews.meta.last_page}`;
         }
     },
     watch: {
@@ -331,6 +423,10 @@ export default {
         }
     },
     methods: {
+        goPage(uriPage) {
+            this.paginatePage = uriPage;
+            this.fetchReviews();
+        },
         computedRatingPercentageFromItem(count) {
             return " " + (100 / this.countRatings) * count + "%";
         },
@@ -361,7 +457,7 @@ export default {
                     response.status === 200 &&
                     response.data.data !== undefined
                 ) {
-                    this.reviews = response.data.data;
+                    this.reviews = response.data;
                 } else {
                     console.error("Error getting reviews");
                 }

@@ -1,0 +1,33 @@
+.pageBox {
+    display: grid;
+    grid-template-columns: 1fr 4rem 1fr;
+    margin-top: 0.7rem;
+    .p-btn {
+        width: 100%;
+        outline: none;
+        background: inherit;
+        border: 1px solid #383838;
+        padding: 1rem;
+        border-radius: 10px;
+        transition: all 0.6s;
+        &:hover {
+            background: #383838;
+            color: white;
+            transition: all 0.6s;
+        }
+    }
+    .p-prev {
+        grid-column: 1/2;
+    }
+    .p-text {
+        padding: 0.2rem;
+        grid-column: 2/3;
+        .pageText {
+            font-weight: bold;
+            font-size: 18px;
+        }
+    }
+    .p-next {
+        grid-column: 3/4;
+    }
+}

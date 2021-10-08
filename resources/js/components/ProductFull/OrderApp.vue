@@ -219,7 +219,11 @@ export default {
             }
             route("new.order").then(r => {
                 axios.post(r.data, this.formData).then(resp => {
-                    if (resp.status === 200 && resp.data.errors === undefined) {
+                    if (
+                        resp.status === 200 &&
+                        resp.data.errors === undefined &&
+                        resp.data.message === undefined
+                    ) {
                         this.successCreated = true;
 
                         Cookies.set(this.cookieName, "1", { expires: 6 });
@@ -234,6 +238,11 @@ export default {
                     } else if (resp.data.errors) {
                         Swal.fire({
                             title: "Ошибка формы заказа",
+                            icon: "error"
+                        });
+                    } else if (resp.data.message !== undefined) {
+                        Swal.fire({
+                            title: resp.data.message.toString(),
                             icon: "error"
                         });
                     } else {
