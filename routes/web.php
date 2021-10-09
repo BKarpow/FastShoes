@@ -159,6 +159,9 @@ Route::group([
     ->name('cabinet.index');
 });
 
+/** Pages */
+Route::view('/about', 'pages.about')->name('about');
+
 //Route from Google auth
 Route::get('/redirect', [LoginController::class, 'redirectToProvider'])
     ->name('google.login');

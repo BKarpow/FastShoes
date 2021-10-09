@@ -6,7 +6,7 @@
     @yield('meta')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @yield('title') </title>
+    <title> @yield('title') | Fast - магазин кожаной обуви </title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,10 +18,10 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
+<body class="h-100" background="red">
+    <div id="app" >
             @include('inc.heder')
-        <main class="py-4">
+        <main class="py-4 h-100">
             @yield('content')
         </main>
         @include('inc.footer')
