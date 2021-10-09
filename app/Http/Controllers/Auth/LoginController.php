@@ -62,7 +62,6 @@ class LoginController extends Controller
         try {
             $user = Socialite::driver('google')->user();
         } catch (\Exception $e) {
-            dd($e);
             return redirect('/login');
         }        // only allow people with @company.com to login
         if(explode("@", $user->email)[1] !== 'gmail.com') {
@@ -73,11 +72,12 @@ class LoginController extends Controller
             /**
              * Save user ordered amd phone
              */
-            UserOrderController::saveOrdered();
+            
             if (empty( $existingUser->phone ) ) {
                 $existingUser->phone = $_COOKIE["my_phone"] ?? '';
                 $existingUser->save();
             }
+            UserOrderController::saveOrdered((int)$existingUser->id);
             auth()->login($existingUser, true);
         } else {
             // create a new user
@@ -88,7 +88,7 @@ class LoginController extends Controller
             $newUser->avatar          = $user->avatar;
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
-            UserOrderController::saveOrdered();
+            UserOrderController::saveOrdered((int)$newUser->id);
             auth()->login($newUser, true);
         }
         return redirect()->to($this->redirectTo);

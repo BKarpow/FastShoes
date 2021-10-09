@@ -163,6 +163,18 @@
                 v-if="!showCreateForm"
                 @click="showCreateForm = true"
             >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-chat-left-dots-fill"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                    />
+                </svg>
                 Оставить свой отзыв
             </button>
             <form @submit.prevent="doCreateReviewSubmit" v-if="showCreateForm">
@@ -232,7 +244,7 @@
             >
                 <div class="row">
                     <div class="col-lg-1 col-sm-3 col-md-2 col-4">
-                        <img class="circle" :src="review.avatar" />
+                        <img class="circle img-fluid" :src="review.avatar" />
                     </div>
                     <!-- /.col-sm-2 col-md-1 col-3 avatar -->
                     <div class="pl-lg-4 col-lg-11 col-sm-9 col-md-10 col-4">

@@ -11,22 +11,22 @@ class UserOrderController extends Controller
     /**
      * Method saved orders of cookie by register new user.
      */
-    static public function saveOrdered()
+    static public function saveOrdered(int $userId )
     {
-        if (!auth()->check()) {
-            return false;
-        }
+        /**
+         * FIX bug added orders
+         */
         $ps = Product::select('id')->get();
         if ($ps) {
             foreach($ps as $p) {
                 if (isset($_COOKIE['orderFor_'.$p->id])) {
                     $val = explode('|',  $_COOKIE['orderFor_'.$p->id]);
                     $uo = new UserOrder();
-                    $uo->user_id = auth()->id();
+                    $uo->user_id = $userId;
                     $uo->order_id = (int) $val[0];
                     $uo->product_id = (int) $val[1];
                     if (!UserOrder::where([
-                        ['user_id', '=', auth()->id()],
+                        ['user_id', '=', $userId],
                         ['order_id', '=', (int) $val[0]],
                         ['product_id', '=', (int) $val[1]],
                     ])->first()) {
@@ -45,6 +45,7 @@ class UserOrderController extends Controller
 
         return view('cabinet', [
             'user' => auth()->user(),
+            'countOrders' => auth()->user()->orders()->get()->count(),
             'orders' => auth()->user()->orders()
                 ->orderBy('created_at', 'desc')
                 ->paginate(env('PER_PAGE', 20))

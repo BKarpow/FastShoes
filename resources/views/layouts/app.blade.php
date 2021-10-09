@@ -21,10 +21,10 @@
 <body>
     <div id="app">
             @include('inc.heder')
-
         <main class="py-4">
             @yield('content')
         </main>
+        @include('inc.footer')
     </div>
 </body>
 </html>

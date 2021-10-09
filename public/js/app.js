@@ -2779,6 +2779,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // Import Swiper Vue.js components
 
 
@@ -2792,7 +2793,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       images: [],
-      swiper: '',
+      swiper: "",
       swiperConfig: {
         speed: 400,
         spaceBetween: 100
@@ -2820,7 +2821,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     initSwiper: function initSwiper() {
-      this.swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"]('.swiper', this.swiperConfig);
+      this.swiper = new swiper__WEBPACK_IMPORTED_MODULE_0__["default"](".swiper", this.swiperConfig);
     }
   },
   updated: function updated() {
@@ -3149,6 +3150,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/dist/js.cookie.mjs");
 /* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-star-rating */ "./node_modules/vue-star-rating/dist/VueStarRating.common.js");
 /* harmony import */ var vue_star_rating__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_star_rating__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -47853,7 +47866,9 @@ var render = function() {
         ),
         _vm._v(" "),
         _vm.isManyImages
-          ? _c("prompt", [_c("p", [_vm._v("Свайпай для перегляду фото")])])
+          ? _c("prompt", [
+              _c("p", [_vm._v("Свайпай для просмотра других фото")])
+            ])
           : _vm._e()
       ],
       1
@@ -48371,7 +48386,30 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            Оставить свой отзыв\n        ")]
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi bi-chat-left-dots-fill",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "16",
+                        height: "16",
+                        fill: "currentColor",
+                        viewBox: "0 0 16 16"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v("\n            Оставить свой отзыв\n        ")
+                ]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -48517,7 +48555,7 @@ var render = function() {
           _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "col-lg-1 col-sm-3 col-md-2 col-4" }, [
               _c("img", {
-                staticClass: "circle",
+                staticClass: "circle img-fluid",
                 attrs: { src: review.avatar }
               })
             ]),
