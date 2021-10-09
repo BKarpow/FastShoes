@@ -2991,6 +2991,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     price: {
       type: String
+    },
+    isOrderedProduct: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
     }
   },
   components: {
@@ -3006,7 +3012,8 @@ __webpack_require__.r(__webpack_exports__);
       phoneError: false,
       useMessager: false,
       showOrderForm: false,
-      successCreated: false
+      successCreated: false,
+      order: {}
     };
   },
   watch: {// phone(){
@@ -3021,10 +3028,21 @@ __webpack_require__.r(__webpack_exports__);
       return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get("my_phone");
     },
     isOrdered: function isOrdered() {
-      return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get(this.cookieName) !== undefined;
+      if (this.isOrderedProduct || js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get(this.cookieName) !== undefined) {
+        return true;
+      }
+
+      return false;
     },
     isValidPhone: function isValidPhone() {
       return this.phoneMask.isComplete();
+    },
+    cookieValue: function cookieValue() {
+      if (this.order.id !== undefined) {
+        return "".concat(this.order.id, "|").concat(this.productId);
+      } else {
+        return "0";
+      }
     },
     cookieName: function cookieName() {
       return "orderFor_" + this.productId;
@@ -3076,7 +3094,8 @@ __webpack_require__.r(__webpack_exports__);
         axios.post(r.data, _this.formData).then(function (resp) {
           if (resp.status === 200 && resp.data.errors === undefined && resp.data.message === undefined) {
             _this.successCreated = true;
-            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set(_this.cookieName, "1", {
+            _this.order = resp.data;
+            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set(_this.cookieName, _this.cookieValue, {
               expires: 6
             });
             js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set("my_phone", _this.phone, {
@@ -3523,6 +3542,12 @@ __webpack_require__.r(__webpack_exports__);
       "default": function _default() {
         return 0;
       }
+    },
+    isOrderedProduct: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
     }
   },
   components: {
@@ -3568,7 +3593,11 @@ __webpack_require__.r(__webpack_exports__);
       return "orderFor_" + this.productId;
     },
     isProductOrdered: function isProductOrdered() {
-      return js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get(this.cookieName) !== undefined;
+      if (this.isOrderedProduct || Cookies.get(this.cookieName) !== undefined) {
+        return true;
+      }
+
+      return false;
     },
     createReviewData: function createReviewData() {
       return {
@@ -3852,11 +3881,14 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bootstrap__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inputmask */ "./node_modules/inputmask/dist/inputmask.js");
+/* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(inputmask__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+
 
 
 
@@ -3902,6 +3934,12 @@ var app = new Vue({
  * Tooltips from Bootstrap
  *
  */
+
+var phoneRegister = document.querySelector("[data-register-phone]");
+
+if (phoneRegister !== null) {
+  inputmask__WEBPACK_IMPORTED_MODULE_1___default()("+380(99) 999-99-99").mask(phoneRegister);
+}
 
 window.hideTooltips = function () {
   window.tooltipList.forEach(function (item) {
@@ -47847,7 +47885,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "order" }, [
     _c("div", { staticClass: "order__title" }, [
-      _c("h3", [_vm._v("Быстрий заказ")]),
+      _c("h3", [_vm._v("Заказ товара")]),
       _vm._v(" "),
       _c("div", { staticClass: "my-1" }, [
         _vm.isOrdered || _vm.successCreated
@@ -47887,7 +47925,7 @@ var render = function() {
                   })
                 ]
               ),
-              _vm._v("\n            Купить в один клик\n        ")
+              _vm._v("\n            Купить\n        ")
             ]
           )
         : _vm._e()

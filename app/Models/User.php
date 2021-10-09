@@ -62,4 +62,25 @@ class User extends Authenticatable
     {
         return $this->hasMany(Review::class, 'user_id', 'id');
     }
+
+    /**
+     * Getting correct path for avatar
+     * @return string
+     */
+    public function getPathAvatar():string
+    {
+        if (!empty($this->avatar)) {
+            return (string) $this->avatar;
+        } else {
+            return env('NO_IMAGE_DEFAULT', '/images/noavatar.webp');
+        }
+    }
+
+    /**
+     * Relation from orders list
+     */
+    public function orders()
+    {
+        return $this->hasMany(UserOrder::class, 'user_id', 'id');
+    }
 }

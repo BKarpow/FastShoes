@@ -19,7 +19,7 @@ class ReviewResource extends JsonResource
             'userId' => (int) $this->user_id,
             'create' => $this->createdDate(),
             'comment' => $this->comment,
-            'avatar' => $this->user->avatar,
+            'avatar' => $this->user->getPathAvatar(),
             'name' => $this->user->name,
             'rating' => (int) $this->rating,
         ];

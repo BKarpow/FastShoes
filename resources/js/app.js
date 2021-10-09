@@ -6,6 +6,7 @@
 
 import "@popperjs/core";
 import * as bootstrap from "bootstrap";
+import Inputmask from "inputmask";
 
 require("./bootstrap");
 
@@ -65,6 +66,12 @@ const app = new Vue({
  * Tooltips from Bootstrap
  *
  */
+
+const phoneRegister = document.querySelector("[data-register-phone]");
+
+if (phoneRegister !== null) {
+    Inputmask("+380(99) 999-99-99").mask(phoneRegister);
+}
 
 window.hideTooltips = () => {
     window.tooltipList.forEach(item => {

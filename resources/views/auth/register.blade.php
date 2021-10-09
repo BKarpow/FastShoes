@@ -40,6 +40,26 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="phone" class="col-md-4 col-form-label text-md-right">
+                                Ваш телефон
+                            </label>
+
+                            <div class="col-md-6">
+                                <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" 
+                                name="phone" 
+                                data-register-phone=""
+                                value="{{ $_COOKIE['my_phone'] ?? '' }}"  >
+
+                                @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

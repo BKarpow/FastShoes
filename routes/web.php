@@ -12,6 +12,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SitemapXmlController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserOrderController;
 use App\Models\Order;
 use App\Models\Category;
 use App\Models\ProductSection as Section;
@@ -146,6 +147,17 @@ Route::get('/category/{id}/{alias}', function ($id, $alias) {
  * Sitemaps
  */
 Route::get('/sitemap.xml', [SitemapXmlController::class, 'products'])->name('sitemap.product');
+
+/**
+ * MyCabinet
+ */
+Route::group([
+    'prefix' => '/my',
+    'middleware' => 'auth',
+], function(){
+    Route::get('/', [UserOrderController::class, 'cabinet'])
+    ->name('cabinet.index');
+});
 
 //Route from Google auth
 Route::get('/redirect', [LoginController::class, 'redirectToProvider'])

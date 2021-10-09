@@ -386,6 +386,12 @@ export default {
         },
         authFlag: {
             default: () => 0
+        },
+        isOrderedProduct: {
+            type: Boolean,
+            default: () => {
+                return false;
+            }
         }
     },
     components: {
@@ -431,7 +437,13 @@ export default {
             return "orderFor_" + this.productId;
         },
         isProductOrdered() {
-            return Cookie.get(this.cookieName) !== undefined;
+            if (
+                this.isOrderedProduct ||
+                Cookies.get(this.cookieName) !== undefined
+            ) {
+                return true;
+            }
+            return false;
         },
         createReviewData() {
             return {

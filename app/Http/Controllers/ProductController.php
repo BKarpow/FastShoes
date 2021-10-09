@@ -193,7 +193,13 @@ class ProductController extends Controller
     public function showPage(Product $product)
     {
         $product->increment('view');
-        return view('product', ['product' => $product]);
+        $ordered = false;
+        if (auth()->check()) {
+            if ( auth()->user()->orders()->whereProductId($product->id)->first() ) {
+                $ordered = true;
+            }
+        }
+        return view('product', ['product' => $product, 'ordered' => $ordered]);
     }
 
 

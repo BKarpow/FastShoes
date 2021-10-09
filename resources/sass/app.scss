@@ -31,3 +31,13 @@ body {
     background: #ef4b4c !important;
     color: #e9e9eb !important;
 }
+
+/* Cabinet */
+
+.circle {
+    clip-path: circle(3rem);
+}
+
+.circle-min {
+    clip-path: circle(0.8rem);
+}

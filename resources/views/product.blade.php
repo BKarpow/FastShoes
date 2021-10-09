@@ -31,6 +31,7 @@
                         price="{{$product->price}}" 
                         size-data="{{$product->sizes}}" 
                         product-id="{{$product->id}}"
+                        @if ($ordered) :is-ordered-product="true" @endif
                     />
                 </div>
                 <!-- /.mt-2 -->
@@ -60,6 +61,7 @@
                 @if (auth()->check())
                 auth-flag="1"
                 :user-id="{{auth()->user()->id}}"
+                @if ($ordered) :is-ordered-product="true" @endif
                 @endif
                  />
             </div>

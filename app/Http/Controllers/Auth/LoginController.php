@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Http\Controllers\UserOrderController;
 
 class LoginController extends Controller
 {
@@ -69,6 +70,14 @@ class LoginController extends Controller
         }        // check if they're an existing user
         $existingUser = User::where('email', $user->email)->first();        if($existingUser){
             // log them in
+            /**
+             * Save user ordered amd phone
+             */
+            UserOrderController::saveOrdered();
+            if (empty( $existingUser->phone ) ) {
+                $existingUser->phone = $_COOKIE["my_phone"] ?? '';
+                $existingUser->save();
+            }
             auth()->login($existingUser, true);
         } else {
             // create a new user
@@ -79,6 +88,7 @@ class LoginController extends Controller
             $newUser->avatar          = $user->avatar;
             $newUser->avatar_original = $user->avatar_original;
             $newUser->save();
+            UserOrderController::saveOrdered();
             auth()->login($newUser, true);
         }
         return redirect()->to($this->redirectTo);

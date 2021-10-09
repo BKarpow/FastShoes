@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\UserOrder;
 
 class OrderController extends Controller
 {
@@ -57,6 +58,14 @@ class OrderController extends Controller
         }
         $o->ip = $request->ip();
         $o->save();
+        if (auth()->check()){
+            $uo = new UserOrder();
+            $uo->user_id = auth()->id();
+            $uo->product_id = $request->productId;
+            $uo->order_id = $o->id;
+            $uo->save();
+        }
+        
         return response($o->jsonSerialize(), 200);
     }
 

@@ -1,7 +1,7 @@
 <template>
     <div class="order">
         <div class="order__title">
-            <h3>Быстрий заказ</h3>
+            <h3>Заказ товара</h3>
             <div class="my-1">
                 <div
                     class="alert alert-success"
@@ -30,7 +30,7 @@
                         d="M1.5 1.5A.5.5 0 0 0 1 2v4.8a2.5 2.5 0 0 0 2.5 2.5h9.793l-3.347 3.346a.5.5 0 0 0 .708.708l4.2-4.2a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 8.3H3.5A1.5 1.5 0 0 1 2 6.8V2a.5.5 0 0 0-.5-.5z"
                     />
                 </svg>
-                Купить в один клик
+                Купить
             </button>
             <!-- /.btn btn-success btn-lg -->
         </div>
@@ -139,6 +139,12 @@ export default {
         },
         price: {
             type: String
+        },
+        isOrderedProduct: {
+            type: Boolean,
+            default: () => {
+                return false;
+            }
         }
     },
     components: {
@@ -154,7 +160,8 @@ export default {
             phoneError: false,
             useMessager: false,
             showOrderForm: false,
-            successCreated: false
+            successCreated: false,
+            order: {}
         };
     },
     watch: {
@@ -170,10 +177,23 @@ export default {
             return Cookies.get("my_phone");
         },
         isOrdered() {
-            return Cookies.get(this.cookieName) !== undefined;
+            if (
+                this.isOrderedProduct ||
+                Cookies.get(this.cookieName) !== undefined
+            ) {
+                return true;
+            }
+            return false;
         },
         isValidPhone() {
             return this.phoneMask.isComplete();
+        },
+        cookieValue() {
+            if (this.order.id !== undefined) {
+                return `${this.order.id}|${this.productId}`;
+            } else {
+                return "0";
+            }
         },
         cookieName() {
             return "orderFor_" + this.productId;
@@ -225,8 +245,10 @@ export default {
                         resp.data.message === undefined
                     ) {
                         this.successCreated = true;
-
-                        Cookies.set(this.cookieName, "1", { expires: 6 });
+                        this.order = resp.data;
+                        Cookies.set(this.cookieName, this.cookieValue, {
+                            expires: 6
+                        });
                         Cookies.set("my_phone", this.phone, { expires: 100 });
                         Swal.fire({
                             title: "Заказ успешно создан.",

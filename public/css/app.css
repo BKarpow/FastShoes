@@ -502,3 +502,14 @@ body {
   background: #ef4b4c !important;
   color: #e9e9eb !important;
 }
+
+/* Cabinet */
+.circle {
+  -webkit-clip-path: circle(3rem);
+          clip-path: circle(3rem);
+}
+
+.circle-min {
+  -webkit-clip-path: circle(0.8rem);
+          clip-path: circle(0.8rem);
+}
