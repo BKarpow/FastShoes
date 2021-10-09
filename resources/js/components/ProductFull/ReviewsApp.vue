@@ -451,7 +451,7 @@ export default {
         isProductOrdered() {
             if (
                 this.isOrderedProduct ||
-                Cookies.get(this.cookieName) !== undefined
+                Cookie.get(this.cookieName) !== undefined
             ) {
                 return true;
             }

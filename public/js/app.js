@@ -3606,7 +3606,7 @@ __webpack_require__.r(__webpack_exports__);
       return "orderFor_" + this.productId;
     },
     isProductOrdered: function isProductOrdered() {
-      if (this.isOrderedProduct || Cookies.get(this.cookieName) !== undefined) {
+      if (this.isOrderedProduct || js_cookie__WEBPACK_IMPORTED_MODULE_0__["default"].get(this.cookieName) !== undefined) {
         return true;
       }
 

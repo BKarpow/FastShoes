@@ -26,5 +26,6 @@
         </main>
         @include('inc.footer')
     </div>
+    @yield('script-b')
 </body>
 </html>
