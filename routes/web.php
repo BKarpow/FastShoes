@@ -12,6 +12,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SitemapXmlController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserOrderController;
 use App\Models\Order;
 use App\Models\Category;
@@ -126,6 +127,25 @@ Route::group([
     ->name('review.update');
 });
  // # Reviews routes
+
+
+ /**
+ * Cart routes
+ */
+Route::post('/cart/sum', [CartController::class, 'getCartSum']);
+Route::group([
+    'prefix' => '/cart',
+    'middleware' => 'auth'
+], function(){
+    Route::get('/', [CartController::class, 'index'])->name('cart');
+    Route::get('/delete-product/{id}', [CartController::class, 'destroy'])->name('cart.delete');
+
+    Route::post('/add', [CartController::class, 'addProduct'])
+    ->name('cart.addProduct');
+    
+});
+ // # Cart routes
+
 
 /**
  * SPA Product app FIX route path

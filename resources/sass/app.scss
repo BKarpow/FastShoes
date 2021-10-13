@@ -59,3 +59,18 @@ body {
 .circle-min {
     clip-path: circle(0.8rem);
 }
+
+/* Cart */
+.cart-info {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+/* Header */
+
+.logo-block {
+    justify-self: center !important;
+}

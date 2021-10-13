@@ -4,9 +4,9 @@
 
 @section('meta')
     <meta name="description" content="{{ $product-> metaDescription() }}" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="product" />
     <meta property="og:title" content="{{ $product->title }}" />
-    <meta property="og:image" content="{{ $product->mainImage() }}" />
+    <meta property="og:image" content="{{ $product->image_1 }}" />
     <meta property="og:url" content="{{ $product->uri() }}" />
     <meta property="og:description" content="{{ $product-> metaDescription() }}" />
 @endsection
@@ -35,6 +35,14 @@
                     />
                 </div>
                 <!-- /.mt-2 -->
+                <div class="mt-1">
+                    <add-to-cart 
+                        @success="updateCart"
+                        :product-id="{{$product->id}}"
+                        :sizes='{{$product->sizes}}'
+                    ></add-to-cart>
+                </div>
+                <!-- /.mt-1 -->
                 <div class="mt-1">
                     <h5>Доступные размеры.</h5>
                     <strong> {{ join(', ', $product->sizesArray() ) }} </strong>

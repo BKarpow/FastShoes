@@ -41,6 +41,13 @@ Vue.component(
     require("./components/ProductFull/ReviewsApp.vue").default
 );
 
+Vue.component(
+    "add-to-cart",
+    require("./components/ProductFull/AddToCart.vue").default
+);
+
+Vue.component("cart", require("./components/Cart.vue").default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -59,7 +66,17 @@ window.setTooltips = () => {
 };
 
 const app = new Vue({
-    el: "#app"
+    el: "#app",
+    methods: {
+        updateCart() {
+            if (this.$refs.cart !== undefined) {
+                this.$refs.cart.fetchSum();
+            }
+        }
+    },
+    mounted() {
+        this.updateCart();
+    }
 });
 
 /**
