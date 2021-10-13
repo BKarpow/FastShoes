@@ -62,6 +62,10 @@
                                             </li>
                                             <!-- /.list-group-item -->
                                             <li class="list-group-item">
+                                                Количество: {{$order->info->count}} 
+                                            </li>
+                                            <!-- /.list-group-item -->
+                                            <li class="list-group-item">
                                                 Номер телефона: {{$order->info->phone}} 
                                             </li>
                                             <!-- /.list-group-item -->

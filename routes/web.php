@@ -142,6 +142,8 @@ Route::group([
 
     Route::post('/add', [CartController::class, 'addProduct'])
     ->name('cart.addProduct');
+    Route::post('/cart/order', [CartController::class,'createOrders'])
+    ->name('cart.order');
     
 });
  // # Cart routes

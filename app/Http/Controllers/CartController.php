@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\CartProduct;
-use Illuminate\Validation\Rules\Exists;
+use App\Models\Order;
+use App\Models\UserOrder;
 
 class CartController extends Controller
 {
@@ -110,5 +111,41 @@ class CartController extends Controller
             $item->delete();
         }
         return redirect()->back();
+    }
+
+    /**
+     * Create new order from cart
+     * @param Illuminate\Http\Request $request 
+     * @return Illuminate\Http\Response 
+     */
+    public function createOrders(Request $request)
+    {
+        $request->validate([
+            'phone' => 'required|min:15|max:18|string',
+        ]);
+        $productsFromCart = $this->getOrCreate()->products()->get();
+        if ($productsFromCart) {
+            foreach($productsFromCart as $product) {
+                //Create Orders
+                $o = new Order();
+                $o->phone = $request->phone;
+                $o->ip = $request->ip();
+                $o->size = $product->size;
+                $o->product_id = $product->product_id;
+                $o->price = $product->product->price;
+                $o->count = $product->count;
+                $o->save();
+                //User order cabinet
+                $uo = new UserOrder();
+                $uo->user_id = auth()->id();
+                $uo->product_id = $product->product_id;
+                $uo->order_id = $o->id;
+                $uo->save();
+                // Delete item for cart list
+                $product->delete();
+            }
+        }
+        return redirect()->route('cart'
+        )->withStatus('Заказ создан, ожидайте с Вами скоро свяжутся для уточнения деталей отправки.');
     }
 }

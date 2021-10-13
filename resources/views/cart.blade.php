@@ -8,7 +8,13 @@
             <div class="col-md-9">
                 
                 <!-- /.row -->
-                <h3>В корзине</h3>
+                <h1>Корзина</h1>
+                @if (session('status'))
+                    <div class="alert my-1 alert-success">
+                        {{session('status')}}
+                    </div>
+                    <!-- /.alert my-1 alert-success -->
+                @endif
                 @if ($cartProducts->count() == 0)
                     <div class="alert alert-info">
                         <h5>У Вас пока нет товаров в корзине.</h5>
@@ -69,11 +75,45 @@
                                     
                                 </tr>
                             @endforeach
+                            <tr>
+                                
+                                <td colspan="3" class=" text-right">
+                                  <strong>  Всего за товар </strong>
+                                </td>
+                                <td>
+                                    <strong>
+                                        {{$allPrice}}грн.
+                                    </strong>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <!-- /.table -->
+
                     <div class="mt-2">
-                        <h3>Цена з все : {{$allPrice}}грн. </h3>
+                        <span class="h5">Ваши данные</span>
+                        <p>
+                            Мы Вам позвоним (в течении 15 минут) и обсудим доставку и оплату.
+                        </p>
+                        <form action="{{route('cart.order')}}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="phone">Ваш телефон</label>
+                                <input 
+                                type="tel" 
+                                data-register-phone="" 
+                                class="form-control" 
+                                id="phone" 
+                                name="phone"
+                                value="{{auth()->user()->phone}}"
+                                >
+                            </div>
+                            <!-- /.form-group -->
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block">Заказать</button>
+                            </div>
+                            <!-- /.form-group -->
+                        </form>
                     </div>
                     <!-- /.mt-2 -->
                 @endif

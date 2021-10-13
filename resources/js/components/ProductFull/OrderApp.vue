@@ -1,17 +1,6 @@
 <template>
     <div class="order">
         <div class="order__title">
-            <h3>Заказ товара</h3>
-            <div class="my-1">
-                <div
-                    class="alert alert-success"
-                    v-if="isOrdered || successCreated"
-                >
-                    <strong>Вы уже делали заказ на этот товар.</strong>
-                </div>
-                <!-- /.alert alert-success -->
-            </div>
-            <!-- /.my-1 -->
             <button
                 v-if="!showOrderForm"
                 class="btn btn-success btn-lg"
@@ -37,15 +26,6 @@
         <!-- /.order__title -->
         <div class="order__form" v-show="showOrderForm">
             <form action="" @submit.prevent="doOrder">
-                <div class="form-group">
-                    <vSelect
-                        :options="sizes"
-                        v-model="selectSize"
-                        placeholder="Какой Ваш размер?"
-                    >
-                    </vSelect>
-                </div>
-                <!-- /.form-group -->
                 <div class="form-group">
                     <label for="phone-number">Укажите Ваш телефон?</label>
                     <input
@@ -89,7 +69,7 @@
                     </div>
                 </div>
                 <!-- /.form-group -->
-                <div class="form-group">
+                <div class="form-group btn-group">
                     <button
                         data-bs-toggle="tooltip"
                         :title="orderButtonInfo"
@@ -111,6 +91,26 @@
                         Заказать
                     </button>
                     <!-- /.btn btn-primary -->
+                    <button
+                        class="btn btn-warning"
+                        type="button"
+                        @click="hideForm"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            class="bi bi-x-circle-fill"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"
+                            />
+                        </svg>
+                        Отмена
+                    </button>
+                    <!-- /.btn btn-warning -->
                 </div>
                 <!-- /.form-group -->
             </form>
@@ -123,19 +123,20 @@
 </template>
 
 <script>
-import vSelect from "vue-select";
 import Inputmask from "inputmask";
 import Info from "../Info.vue";
 
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 export default {
+    name: "OrderApp",
     props: {
-        sizeData: {
-            type: String
+        selectSize: {
+            type: String,
+            default: () => ""
         },
         productId: {
-            type: String
+            default: () => ""
         },
         price: {
             type: String
@@ -145,16 +146,16 @@ export default {
             default: () => {
                 return false;
             }
+        },
+        count: {
+            default: () => ""
         }
     },
     components: {
-        vSelect,
         Info
     },
     data() {
         return {
-            sizes: JSON.parse(this.sizeData),
-            selectSize: "",
             phone: "",
             phoneMask: "",
             phoneError: false,
@@ -163,11 +164,6 @@ export default {
             successCreated: false,
             order: {}
         };
-    },
-    watch: {
-        // phone(){
-        //     console.log('isComplit', this.phoneMask.isComplete())
-        // },
     },
     computed: {
         isSavedUserPhone() {
@@ -214,11 +210,19 @@ export default {
                 phone: this.phone,
                 size: this.selectSize,
                 price: this.price,
-                useMessager: this.useMessager
+                useMessager: this.useMessager,
+                count: this.count
             };
         }
     },
     methods: {
+        hideForm() {
+            this.showOrderForm = false;
+            if (this.isSavedUserPhone) {
+                this.phone = this.getSavedUserPhone;
+            }
+            this.$emit("show:form", !this.showOrderForm);
+        },
         showForm() {
             this.showOrderForm = true;
             this.phoneMask = Inputmask("+380(99) 999-99-99").mask(
@@ -227,15 +231,20 @@ export default {
             if (this.isSavedUserPhone) {
                 this.phone = this.getSavedUserPhone;
             }
+            this.$emit("show:form", !this.showOrderForm);
         },
 
         doOrder() {
-            this.showOrderForm = false;
+            this.hideForm();
             if (!this.isValidPhone) {
                 this.phoneError = true;
                 return;
             } else {
                 this.phoneError = false;
+            }
+            if (this.selectSize === "") {
+                this.$emit("error:size", true);
+                return;
             }
             route("new.order").then(r => {
                 axios.post(r.data, this.formData).then(resp => {
@@ -275,12 +284,7 @@ export default {
         }
     },
     mounted() {
-        // this.phoneMask = Inputmask('+380(99) 999-99-99').mask(this.$refs.phoneField);
         window.setTooltips();
-    },
-    updated() {
-        // window.setTooltips();
-        // this.phoneMask = Inputmask('+380(99) 999-99-99').mask(this.$refs.phoneField);
     }
 };
 </script>

@@ -26,18 +26,11 @@
                </div>
                <!-- /.price my-1 -->
                 
-                <div class="my-2">
-                    <product-order 
-                        price="{{$product->price}}" 
-                        size-data="{{$product->sizes}}" 
-                        product-id="{{$product->id}}"
-                        @if ($ordered) :is-ordered-product="true" @endif
-                    />
-                </div>
-                <!-- /.mt-2 -->
+                
                 <div class="mt-1">
                     <add-to-cart 
                         @success="updateCart"
+                        price="{{$product->price}}"
                         :product-id="{{$product->id}}"
                         :sizes='{{$product->sizes}}'
                     ></add-to-cart>

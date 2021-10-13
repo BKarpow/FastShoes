@@ -2817,6 +2817,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _OrderApp_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OrderApp.vue */ "./resources/js/components/ProductFull/OrderApp.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2897,8 +2910,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    OrderApp: _OrderApp_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: {
+    price: {
+      "default": function _default() {
+        return 0;
+      }
+    },
     sizes: {
       type: Array,
       "default": function _default() {
@@ -2921,7 +2943,8 @@ __webpack_require__.r(__webpack_exports__);
       count: 1,
       selectSize: "",
       isValidSize: true,
-      isValidCount: true
+      isValidCount: true,
+      showBtnAddToCart: true
     };
   },
   computed: {
@@ -2956,6 +2979,10 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    toggleBtnAddToCart: function toggleBtnAddToCart(flag) {
+      console.log("show form");
+      this.showBtnAddToCart = flag;
+    },
     addToCart: function addToCart() {
       var _this = this;
 
@@ -2969,7 +2996,7 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
 
-            _this.$emit('success', true);
+            _this.$emit("success", true);
           } else {
             console.error("Error add to cart", r);
           }
@@ -3085,14 +3112,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-select */ "./node_modules/vue-select/dist/vue-select.js");
-/* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! inputmask */ "./node_modules/inputmask/dist/inputmask.js");
-/* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(inputmask__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Info_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Info.vue */ "./resources/js/components/Info.vue");
-/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/dist/js.cookie.mjs");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! inputmask */ "./node_modules/inputmask/dist/inputmask.js");
+/* harmony import */ var inputmask__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(inputmask__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Info_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Info.vue */ "./resources/js/components/Info.vue");
+/* harmony import */ var js_cookie__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/dist/js.cookie.mjs");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
 //
 //
 //
@@ -3217,18 +3242,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "OrderApp",
   props: {
-    sizeData: {
-      type: String
+    selectSize: {
+      type: String,
+      "default": function _default() {
+        return "";
+      }
     },
     productId: {
-      type: String
+      "default": function _default() {
+        return "";
+      }
     },
     price: {
       type: String
@@ -3238,16 +3268,18 @@ __webpack_require__.r(__webpack_exports__);
       "default": function _default() {
         return false;
       }
+    },
+    count: {
+      "default": function _default() {
+        return "";
+      }
     }
   },
   components: {
-    vSelect: (vue_select__WEBPACK_IMPORTED_MODULE_0___default()),
-    Info: _Info_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Info: _Info_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
-      sizes: JSON.parse(this.sizeData),
-      selectSize: "",
       phone: "",
       phoneMask: "",
       phoneError: false,
@@ -3257,19 +3289,15 @@ __webpack_require__.r(__webpack_exports__);
       order: {}
     };
   },
-  watch: {// phone(){
-    //     console.log('isComplit', this.phoneMask.isComplete())
-    // },
-  },
   computed: {
     isSavedUserPhone: function isSavedUserPhone() {
-      return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get("my_phone") !== undefined;
+      return js_cookie__WEBPACK_IMPORTED_MODULE_2__["default"].get("my_phone") !== undefined;
     },
     getSavedUserPhone: function getSavedUserPhone() {
-      return js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get("my_phone");
+      return js_cookie__WEBPACK_IMPORTED_MODULE_2__["default"].get("my_phone");
     },
     isOrdered: function isOrdered() {
-      if (this.isOrderedProduct || js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].get(this.cookieName) !== undefined) {
+      if (this.isOrderedProduct || js_cookie__WEBPACK_IMPORTED_MODULE_2__["default"].get(this.cookieName) !== undefined) {
         return true;
       }
 
@@ -3306,23 +3334,35 @@ __webpack_require__.r(__webpack_exports__);
         phone: this.phone,
         size: this.selectSize,
         price: this.price,
-        useMessager: this.useMessager
+        useMessager: this.useMessager,
+        count: this.count
       };
     }
   },
   methods: {
-    showForm: function showForm() {
-      this.showOrderForm = true;
-      this.phoneMask = inputmask__WEBPACK_IMPORTED_MODULE_1___default()("+380(99) 999-99-99").mask(this.$refs.phoneField);
+    hideForm: function hideForm() {
+      this.showOrderForm = false;
 
       if (this.isSavedUserPhone) {
         this.phone = this.getSavedUserPhone;
       }
+
+      this.$emit("show:form", !this.showOrderForm);
+    },
+    showForm: function showForm() {
+      this.showOrderForm = true;
+      this.phoneMask = inputmask__WEBPACK_IMPORTED_MODULE_0___default()("+380(99) 999-99-99").mask(this.$refs.phoneField);
+
+      if (this.isSavedUserPhone) {
+        this.phone = this.getSavedUserPhone;
+      }
+
+      this.$emit("show:form", !this.showOrderForm);
     },
     doOrder: function doOrder() {
       var _this = this;
 
-      this.showOrderForm = false;
+      this.hideForm();
 
       if (!this.isValidPhone) {
         this.phoneError = true;
@@ -3331,30 +3371,35 @@ __webpack_require__.r(__webpack_exports__);
         this.phoneError = false;
       }
 
+      if (this.selectSize === "") {
+        this.$emit("error:size", true);
+        return;
+      }
+
       route("new.order").then(function (r) {
         axios.post(r.data, _this.formData).then(function (resp) {
           if (resp.status === 200 && resp.data.errors === undefined && resp.data.message === undefined) {
             _this.successCreated = true;
             _this.order = resp.data;
-            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set(_this.cookieName, _this.cookieValue, {
+            js_cookie__WEBPACK_IMPORTED_MODULE_2__["default"].set(_this.cookieName, _this.cookieValue, {
               expires: 6
             });
-            js_cookie__WEBPACK_IMPORTED_MODULE_3__["default"].set("my_phone", _this.phone, {
+            js_cookie__WEBPACK_IMPORTED_MODULE_2__["default"].set("my_phone", _this.phone, {
               expires: 100
             });
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
               title: "Заказ успешно создан.",
               html: "<p>Ожидайте, с Вами свяжется наш менеджер для уточнения заказа.</p>",
               icon: "success"
             });
             console.log("Order created");
           } else if (resp.data.errors) {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
               title: "Ошибка формы заказа",
               icon: "error"
             });
           } else if (resp.data.message !== undefined) {
-            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
               title: resp.data.message.toString(),
               icon: "error"
             });
@@ -3366,11 +3411,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    // this.phoneMask = Inputmask('+380(99) 999-99-99').mask(this.$refs.phoneField);
     window.setTooltips();
-  },
-  updated: function updated() {// window.setTooltips();
-    // this.phoneMask = Inputmask('+380(99) 999-99-99').mask(this.$refs.phoneField);
   }
 });
 
@@ -48414,7 +48455,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "button-count" }, [
+    _c("div", { staticClass: "my-1" }, [
       _c("div", { staticClass: "count" }, [
         _c("label", { attrs: { for: "input-count" } }, [_vm._v("Количество")]),
         _vm._v(" "),
@@ -48456,51 +48497,75 @@ var render = function() {
               ])
             ])
           : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "button" }, [
-        _c(
-          "button",
-          {
-            staticClass: "btn  btn-lg",
-            class: {
-              "btn-dark": !_vm.isInCart,
-              "btn-outline-dark": _vm.isInCart
-            },
-            on: { click: _vm.addToCart }
-          },
-          [
-            !_vm.isInCart
-              ? _c(
-                  "svg",
-                  {
-                    staticClass: "bi bi-cart-plus-fill",
-                    attrs: {
-                      xmlns: "http://www.w3.org/2000/svg",
-                      width: "26",
-                      height: "26",
-                      fill: "currentColor",
-                      viewBox: "0 0 16 16"
-                    }
-                  },
-                  [
-                    _c("path", {
-                      attrs: {
-                        d:
-                          "M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"
-                      }
-                    })
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(
-              "\n                " +
-                _vm._s(_vm.textBtnAddToCart) +
-                "\n            "
-            )
-          ]
-        )
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "button-count" }, [
+      _c(
+        "div",
+        { staticClass: "button btn-group" },
+        [
+          _c("OrderApp", {
+            attrs: {
+              "select-size": _vm.selectSize,
+              count: _vm.count,
+              price: _vm.price,
+              productId: _vm.productId
+            },
+            on: {
+              "show:form": _vm.toggleBtnAddToCart,
+              "error:size": function($event) {
+                _vm.isValidSize = false
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.showBtnAddToCart
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn  btn-lg",
+                  class: {
+                    "btn-dark": !_vm.isInCart,
+                    "btn-outline-dark": _vm.isInCart
+                  },
+                  on: { click: _vm.addToCart }
+                },
+                [
+                  !_vm.isInCart
+                    ? _c(
+                        "svg",
+                        {
+                          staticClass: "bi bi-cart-plus-fill",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            width: "26",
+                            height: "26",
+                            fill: "currentColor",
+                            viewBox: "0 0 16 16"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            attrs: {
+                              d:
+                                "M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"
+                            }
+                          })
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.textBtnAddToCart) +
+                      "\n            "
+                  )
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      )
     ])
   ])
 }
@@ -48585,16 +48650,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "order" }, [
     _c("div", { staticClass: "order__title" }, [
-      _c("h3", [_vm._v("Заказ товара")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "my-1" }, [
-        _vm.isOrdered || _vm.successCreated
-          ? _c("div", { staticClass: "alert alert-success" }, [
-              _c("strong", [_vm._v("Вы уже делали заказ на этот товар.")])
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
       !_vm.showOrderForm
         ? _c(
             "button",
@@ -48657,27 +48712,6 @@ var render = function() {
             }
           },
           [
-            _c(
-              "div",
-              { staticClass: "form-group" },
-              [
-                _c("vSelect", {
-                  attrs: {
-                    options: _vm.sizes,
-                    placeholder: "Какой Ваш размер?"
-                  },
-                  model: {
-                    value: _vm.selectSize,
-                    callback: function($$v) {
-                      _vm.selectSize = $$v
-                    },
-                    expression: "selectSize"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
             _c("div", { staticClass: "form-group" }, [
               _c("label", { attrs: { for: "phone-number" } }, [
                 _vm._v("Укажите Ваш телефон?")
@@ -48800,7 +48834,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
+            _c("div", { staticClass: "form-group btn-group" }, [
               _c(
                 "button",
                 {
@@ -48834,6 +48868,39 @@ var render = function() {
                     ]
                   ),
                   _vm._v("\n                    Заказать\n                ")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-warning",
+                  attrs: { type: "button" },
+                  on: { click: _vm.hideForm }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "bi bi-x-circle-fill",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "16",
+                        height: "16",
+                        fill: "currentColor",
+                        viewBox: "0 0 16 16"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v("\n                    Отмена\n                ")
                 ]
               )
             ])

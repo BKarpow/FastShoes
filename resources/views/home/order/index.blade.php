@@ -30,7 +30,7 @@
                             <tr class="  ">
                                 <td>
                                     <h4>{{ $order->product->title }}</h4>
-                                    <h5> {{ $order->product->price }} </h5>
+                                    <h5> {{ (int) $order->product->price * (int) $order->count }} (X{{$order->count}})  </h5>
                                     <img src="{{$order->product->image_1}}"
                                      class="img-thumbnail" width="100" alt="{{ $order->product->title }}">
                                 </td>
@@ -72,6 +72,10 @@
                                     </strong>
                                     <spoller btn-show-text="Показать детали заказа."> 
                                         <ul class="list-group">
+                                            <li class="list-group-item">
+                                                Количество - {{$order->count}}
+                                            </li>
+                                            <!-- /.list-group-item -->
                                             <li class="list-group-item">
                                                 IP - {{$order->ip}}
                                             </li>

@@ -22,7 +22,7 @@
             <!-- /.alert alert-warning -->
         </div>
         <!-- /.sizes -->
-        <div class="button-count">
+        <div class="my-1">
             <div class="count">
                 <label for="input-count">Количество</label>
                 <input
@@ -43,10 +43,22 @@
                 <!-- /.mt-1 alert alert-warning -->
             </div>
             <!-- /.count -->
-            <div class="button">
+        </div>
+        <!-- /.my-1 -->
+        <div class="button-count">
+            <div class="button btn-group">
+                <OrderApp
+                    :select-size="selectSize"
+                    :count="count"
+                    :price="price"
+                    :productId="productId"
+                    @show:form="toggleBtnAddToCart"
+                    @error:size="isValidSize = false"
+                />
                 <button
                     class="btn  btn-lg"
                     @click="addToCart"
+                    v-if="showBtnAddToCart"
                     :class="{
                         'btn-dark': !isInCart,
                         'btn-outline-dark': isInCart
@@ -79,8 +91,15 @@
 
 <script>
 import Swal from "sweetalert2";
+import OrderApp from "./OrderApp.vue";
 export default {
+    components: {
+        OrderApp
+    },
     props: {
+        price: {
+            default: () => 0
+        },
         sizes: {
             type: Array,
             default: () => {
@@ -101,7 +120,8 @@ export default {
             count: 1,
             selectSize: "",
             isValidSize: true,
-            isValidCount: true
+            isValidCount: true,
+            showBtnAddToCart: true
         };
     },
 
@@ -137,6 +157,10 @@ export default {
         }
     },
     methods: {
+        toggleBtnAddToCart(flag) {
+            console.log("show form");
+            this.showBtnAddToCart = flag;
+        },
         addToCart() {
             if (this.isValidForm) {
                 axios.post("/cart/add", this.dataForm).then(r => {
@@ -147,7 +171,7 @@ export default {
                             html: '<a href="/cart">Перейти в корзину</a>',
                             icon: "success"
                         });
-                        this.$emit('success', true)
+                        this.$emit("success", true);
                     } else {
                         console.error("Error add to cart", r);
                     }
