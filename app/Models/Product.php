@@ -150,9 +150,4 @@ class Product extends Model
         return $colors;
     }
 
-
-    
-
-
-    
 }

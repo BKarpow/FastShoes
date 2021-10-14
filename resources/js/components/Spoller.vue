@@ -1,9 +1,7 @@
 <template>
     <div class="spo">
-        <div class="button-box">
-            <span class="button" @click="showText = !showText">{{
-                textButton
-            }}</span>
+        <div class="button-box" @click="showText = !showText">
+            <span class="button">{{ textButton }}</span>
         </div>
         <!-- /.button-box -->
         <div class="text" v-if="showText">
@@ -40,7 +38,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$border-radius: 9px;
+$border-radius: 6px;
 .spo {
     border: 1px solid #43506c;
     border-radius: $border-radius;
@@ -49,8 +47,8 @@ $border-radius: 9px;
     }
     .button-box {
         border-radius: $border-radius $border-radius 0 0;
-        background: #ef4b4c;
-        padding: 0.2rem;
+        background: #ebebeb;
+        padding: 0.5rem;
         .button {
             cursor: pointer;
         }

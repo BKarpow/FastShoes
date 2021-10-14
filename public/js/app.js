@@ -2909,6 +2909,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2948,6 +2953,13 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   computed: {
+    isSelectSize: function isSelectSize() {
+      if (this.selectSize === "") {
+        return false;
+      }
+
+      return true;
+    },
     textBtnAddToCart: function textBtnAddToCart() {
       if (this.isInCart) {
         return "Товар уже в корзине";
@@ -2981,6 +2993,12 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     toggleBtnAddToCart: function toggleBtnAddToCart(flag) {
       console.log("show form");
+      console.log("Valid", this.isValidForm);
+
+      if (this.isValidForm) {
+        this.isValidSize = true;
+      }
+
       this.showBtnAddToCart = flag;
     },
     addToCart: function addToCart() {
@@ -3237,11 +3255,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -3249,6 +3262,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "OrderApp",
   props: {
+    disabled: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
+    },
     selectSize: {
       type: String,
       "default": function _default() {
@@ -3347,17 +3366,21 @@ __webpack_require__.r(__webpack_exports__);
         this.phone = this.getSavedUserPhone;
       }
 
-      this.$emit("show:form", !this.showOrderForm);
+      this.$emit("show:form", true);
     },
     showForm: function showForm() {
+      if (this.disabled) {
+        this.$emit("error:disabled");
+        return;
+      }
+
+      this.$emit("show:form", false);
       this.showOrderForm = true;
       this.phoneMask = inputmask__WEBPACK_IMPORTED_MODULE_0___default()("+380(99) 999-99-99").mask(this.$refs.phoneField);
 
       if (this.isSavedUserPhone) {
         this.phone = this.getSavedUserPhone;
       }
-
-      this.$emit("show:form", !this.showOrderForm);
     },
     doOrder: function doOrder() {
       var _this = this;
@@ -3381,6 +3404,7 @@ __webpack_require__.r(__webpack_exports__);
           if (resp.status === 200 && resp.data.errors === undefined && resp.data.message === undefined) {
             _this.successCreated = true;
             _this.order = resp.data;
+            _this.showOrderForm = false;
             js_cookie__WEBPACK_IMPORTED_MODULE_2__["default"].set(_this.cookieName, _this.cookieValue, {
               expires: 6
             });
@@ -3393,6 +3417,8 @@ __webpack_require__.r(__webpack_exports__);
               icon: "success"
             });
             console.log("Order created");
+
+            _this.$emit("show:form", true);
           } else if (resp.data.errors) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
               title: "Ошибка формы заказа",
@@ -8872,7 +8898,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button[data-v-424a2c90] {\n  align-self: flex-end;\n}\n.button-count[data-v-424a2c90] {\n  display: flex;\n  -moz-column-gap: 0.6em;\n       column-gap: 0.6em;\n}\n.input-count[data-v-424a2c90] {\n  display: block;\n  padding: 0.4em;\n  outline: none;\n  border: 1px solid #00ffa9;\n  border-radius: 6px;\n}\n.sizes[data-v-424a2c90] {\n  display: flex;\n  align-items: center;\n  -moz-column-gap: 1rem;\n       column-gap: 1rem;\n}\n.custom-radio[data-v-424a2c90] {\n  position: absolute;\n  z-index: -1;\n  opacity: 0;\n}\n.custom-radio + label[data-v-424a2c90] {\n  display: inline-flex;\n  align-items: center;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.custom-radio + label[data-v-424a2c90] {\n  display: inline-block;\n  padding: 0.4em;\n  flex-shrink: 0;\n  flex-grow: 0;\n  border: 1px solid #3ae2ce;\n  transition: all 0.3s;\n  border-radius: 6px;\n  background-repeat: no-repeat;\n  background-position: center center;\n  background-size: 50% 50%;\n}\n.custom-radio:not(:disabled):not(:checked) + label[data-v-424a2c90]:hover {\n  border-color: #00ffa9;\n}\n.custom-radio:not(:disabled):active + label[data-v-424a2c90] {\n  border-color: #28a745;\n}\n.custom-radio:focus + label[data-v-424a2c90] {\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\n}\n.custom-radio:focus:not(:checked) + label[data-v-424a2c90] {\n  border-color: #80bdff;\n}\n.custom-radio:checked + label[data-v-424a2c90] {\n  border-color: #28a745;\n  background-color: rgba(40, 167, 69, 0.2);\n}\n.custom-radio:disabled + label[data-v-424a2c90] {\n  background-color: #e9ecef;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".red-border[data-v-424a2c90] {\n  border: 2px solid red;\n  border-radius: 7px;\n}\n.button[data-v-424a2c90] {\n  align-self: flex-end;\n}\n.button-count[data-v-424a2c90] {\n  display: flex;\n  -moz-column-gap: 0.6em;\n       column-gap: 0.6em;\n}\n.input-count[data-v-424a2c90] {\n  display: block;\n  padding: 0.4em;\n  outline: none;\n  border: 1px solid #00ffa9;\n  border-radius: 6px;\n}\n.sizes[data-v-424a2c90] {\n  display: flex;\n  align-items: center;\n  -moz-column-gap: 1rem;\n       column-gap: 1rem;\n}\n.custom-radio[data-v-424a2c90] {\n  position: absolute;\n  z-index: -1;\n  opacity: 0;\n}\n.custom-radio + label[data-v-424a2c90] {\n  display: inline-flex;\n  align-items: center;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.custom-radio + label[data-v-424a2c90] {\n  display: inline-block;\n  padding: 0.4em;\n  flex-shrink: 0;\n  flex-grow: 0;\n  border: 1px solid #3ae2ce;\n  transition: all 0.3s;\n  border-radius: 6px;\n  background-repeat: no-repeat;\n  background-position: center center;\n  background-size: 50% 50%;\n}\n.custom-radio:not(:disabled):not(:checked) + label[data-v-424a2c90]:hover {\n  border-color: #00ffa9;\n}\n.custom-radio:not(:disabled):active + label[data-v-424a2c90] {\n  border-color: #28a745;\n}\n.custom-radio:focus + label[data-v-424a2c90] {\n  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);\n}\n.custom-radio:focus:not(:checked) + label[data-v-424a2c90] {\n  border-color: #80bdff;\n}\n.custom-radio:checked + label[data-v-424a2c90] {\n  border-color: #28a745;\n  background-color: rgba(40, 167, 69, 0.2);\n}\n.custom-radio:disabled + label[data-v-424a2c90] {\n  background-color: #e9ecef;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -8968,7 +8994,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.transit[data-v-a619bc62] {\r\n    transition: all 0.8s !important;\n}\n.red-border[data-v-a619bc62] {\r\n    border: 2px solid red;\r\n    border-radius: 12px;\r\n    padding: 1.5rem;\r\n    transition: all 0.8s !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.transit[data-v-a619bc62] {\r\n    transition: all 0.8s !important;\n}\n.red-border[data-v-a619bc62] {\r\n    border: 2px solid red;\r\n    border-radius: 12px;\r\n    padding: 1.5rem;\r\n    transition: all 0.8s !important;\n}\n.phone-field[data-v-a619bc62] {\r\n    padding: 1rem;\r\n    font-size: 30px;\r\n    font-weight: bold;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -48413,47 +48439,45 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "sizes" },
-      [
-        _vm._l(_vm.sizes, function(s, i) {
-          return _c("div", { key: i, staticClass: "size" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectSize,
-                  expression: "selectSize"
-                }
-              ],
-              staticClass: "size__item custom-radio",
-              attrs: { id: s + "-size", name: "size", type: "radio" },
-              domProps: { value: s, checked: _vm._q(_vm.selectSize, s) },
-              on: {
-                change: function($event) {
-                  _vm.selectSize = s
-                }
+      { staticClass: "sizes p-1", class: { "red-border": !_vm.isValidSize } },
+      _vm._l(_vm.sizes, function(s, i) {
+        return _c("div", { key: i, staticClass: "size" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectSize,
+                expression: "selectSize"
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              { staticClass: "size__item label", attrs: { for: s + "-size" } },
-              [_vm._v(_vm._s(s))]
-            )
-          ])
-        }),
-        _vm._v(" "),
-        !_vm.isValidSize
-          ? _c("div", { staticClass: "my-1 alert alert-warning" }, [
-              _c("span", { staticClass: "h5" }, [
-                _vm._v("Нужно выбрать размер")
-              ])
-            ])
-          : _vm._e()
-      ],
-      2
+            ],
+            staticClass: "size__item custom-radio",
+            attrs: { id: s + "-size", name: "size", type: "radio" },
+            domProps: { value: s, checked: _vm._q(_vm.selectSize, s) },
+            on: {
+              change: function($event) {
+                _vm.selectSize = s
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "size__item label", attrs: { for: s + "-size" } },
+            [_vm._v(_vm._s(s))]
+          )
+        ])
+      }),
+      0
     ),
+    _vm._v(" "),
+    _c("div", { staticClass: "mt-1" }, [
+      !_vm.isValidSize
+        ? _c("div", { staticClass: "my-1 alert alert-danger" }, [
+            _c("span", { staticClass: "h5" }, [_vm._v("Нужно выбрать размер")])
+          ])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "my-1" }, [
       _c("div", { staticClass: "count" }, [
@@ -48510,11 +48534,15 @@ var render = function() {
               "select-size": _vm.selectSize,
               count: _vm.count,
               price: _vm.price,
-              productId: _vm.productId
+              productId: _vm.productId,
+              disabled: !_vm.isSelectSize
             },
             on: {
               "show:form": _vm.toggleBtnAddToCart,
               "error:size": function($event) {
+                _vm.isValidSize = false
+              },
+              "error:disabled": function($event) {
                 _vm.isValidSize = false
               }
             }
@@ -48727,7 +48755,7 @@ var render = function() {
                   }
                 ],
                 ref: "phoneField",
-                staticClass: "form-control transit",
+                staticClass: "form-control phone-field transit",
                 class: { "red-border": _vm.phoneError },
                 attrs: { type: "tel", id: "phone-number" },
                 domProps: { value: _vm.phone },
@@ -48837,14 +48865,7 @@ var render = function() {
             _c("div", { staticClass: "form-group btn-group" }, [
               _c(
                 "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: {
-                    "data-bs-toggle": "tooltip",
-                    title: _vm.orderButtonInfo,
-                    type: "submit"
-                  }
-                },
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
                 [
                   _c(
                     "svg",

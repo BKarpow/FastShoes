@@ -33,7 +33,7 @@
                         type="tel"
                         id="phone-number"
                         :class="{ 'red-border': phoneError }"
-                        class="form-control transit"
+                        class="form-control phone-field transit"
                         ref="phoneField"
                     />
                     <p class="mt-1" v-if="phoneError" style="color:red;">
@@ -70,12 +70,7 @@
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group btn-group">
-                    <button
-                        data-bs-toggle="tooltip"
-                        :title="orderButtonInfo"
-                        class="btn btn-primary"
-                        type="submit"
-                    >
+                    <button class="btn btn-primary" type="submit">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="16"
@@ -131,6 +126,10 @@ import Swal from "sweetalert2";
 export default {
     name: "OrderApp",
     props: {
+        disabled: {
+            type: Boolean,
+            default: () => false
+        },
         selectSize: {
             type: String,
             default: () => ""
@@ -221,9 +220,14 @@ export default {
             if (this.isSavedUserPhone) {
                 this.phone = this.getSavedUserPhone;
             }
-            this.$emit("show:form", !this.showOrderForm);
+            this.$emit("show:form", true);
         },
         showForm() {
+            if (this.disabled) {
+                this.$emit("error:disabled");
+                return;
+            }
+            this.$emit("show:form", false);
             this.showOrderForm = true;
             this.phoneMask = Inputmask("+380(99) 999-99-99").mask(
                 this.$refs.phoneField
@@ -231,7 +235,6 @@ export default {
             if (this.isSavedUserPhone) {
                 this.phone = this.getSavedUserPhone;
             }
-            this.$emit("show:form", !this.showOrderForm);
         },
 
         doOrder() {
@@ -255,6 +258,7 @@ export default {
                     ) {
                         this.successCreated = true;
                         this.order = resp.data;
+                        this.showOrderForm = false;
                         Cookies.set(this.cookieName, this.cookieValue, {
                             expires: 6
                         });
@@ -266,6 +270,7 @@ export default {
                             icon: "success"
                         });
                         console.log("Order created");
+                        this.$emit("show:form", true);
                     } else if (resp.data.errors) {
                         Swal.fire({
                             title: "Ошибка формы заказа",
@@ -298,5 +303,11 @@ export default {
     border-radius: 12px;
     padding: 1.5rem;
     transition: all 0.8s !important;
+}
+
+.phone-field {
+    padding: 1rem;
+    font-size: 30px;
+    font-weight: bold;
 }
 </style>

@@ -21,10 +21,23 @@
             <div class="col-md-6">
                 <h5>{{$product->title}}</h5>
                 
-               <div class="price-item my-1">
+               <div class="price-item mt-1">
                    <span>{{$product->price}}</span>
                </div>
                <!-- /.price my-1 -->
+               <div class="mt-1">
+                   <span class="h6 d-block">
+                       Раздел: <a href="{{ $product->category->section->fullHref() }}">
+                           {{ $product->category->section->title }}
+                       </a>
+                   </span>
+                   <span class="h6 d-block">
+                       Категория: <a href="{{ $product->category->fullHref() }}">
+                           {{ $product->category->title }}
+                       </a>
+                   </span>
+               </div>
+               <!-- /.mt-1 -->
                 
                 
                 <div class="mt-1">
@@ -36,20 +49,23 @@
                     ></add-to-cart>
                 </div>
                 <!-- /.mt-1 -->
-                <div class="mt-1">
-                    <h5>Доступные размеры.</h5>
-                    <strong> {{ join(', ', $product->sizesArray() ) }} </strong>
-                </div>
-                <!-- /.mt-1 -->
                 
             </div>
             <!-- /.col-md-9 -->
         </div>
         <!-- /.row -->
+        
         <div class="row mt-2">
             <div class="col-md-11">
                 <h5>Описывания товара</h5>
                 {!! $product->description !!}
+            </div>
+            <!-- /.col-md-11 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-11">
+                <span class="d-block meta-item" >Заказов: {{$product->orders}}</span>
             </div>
             <!-- /.col-md-11 -->
         </div>

@@ -1,7 +1,7 @@
 <template>
     <div class="add-to-cart">
         <span class="h5 my-1">Выбираете размер.</span>
-        <div class="sizes">
+        <div class="sizes p-1" :class="{ 'red-border': !isValidSize }">
             <div class="size" v-for="(s, i) in sizes" :key="i">
                 <input
                     :id="s + '-size'"
@@ -16,12 +16,15 @@
                 }}</label>
             </div>
             <!-- /.size -->
-            <div class="my-1 alert alert-warning" v-if="!isValidSize">
+        </div>
+        <!-- /.sizes -->
+        <div class="mt-1">
+            <div class="my-1 alert alert-danger" v-if="!isValidSize">
                 <span class="h5">Нужно выбрать размер</span>
             </div>
             <!-- /.alert alert-warning -->
         </div>
-        <!-- /.sizes -->
+        <!-- /.mt-1 -->
         <div class="my-1">
             <div class="count">
                 <label for="input-count">Количество</label>
@@ -52,8 +55,10 @@
                     :count="count"
                     :price="price"
                     :productId="productId"
+                    :disabled="!isSelectSize"
                     @show:form="toggleBtnAddToCart"
                     @error:size="isValidSize = false"
+                    @error:disabled="isValidSize = false"
                 />
                 <button
                     class="btn  btn-lg"
@@ -126,6 +131,12 @@ export default {
     },
 
     computed: {
+        isSelectSize() {
+            if (this.selectSize === "") {
+                return false;
+            }
+            return true;
+        },
         textBtnAddToCart() {
             if (this.isInCart) {
                 return "Товар уже в корзине";
@@ -159,6 +170,10 @@ export default {
     methods: {
         toggleBtnAddToCart(flag) {
             console.log("show form");
+            console.log("Valid", this.isValidForm);
+            if (this.isValidForm) {
+                this.isValidSize = true;
+            }
             this.showBtnAddToCart = flag;
         },
         addToCart() {
@@ -183,6 +198,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.red-border {
+    border: 2px solid red;
+    border-radius: 7px;
+}
 .button {
     align-self: flex-end;
 }
