@@ -20,14 +20,12 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'categoryName' => $this->category->title,
             'sectionName' => $this->category->section->title,
+            'sectionId' => $this->category->section->id,
+            'sectionAlias' => $this->category->section->alias,
             'image_1' => $this->imageItem_1(),
             'image_2' => $this->imageItem_2(),
             'image_3' => $this->imageItem_3(),
-            'image_4' => $this->imageItem_4(),
-            'image_5' => $this->imageItem_5(),
-            'image_6' => $this->imageItem_6(),
-            'image_7' => $this->imageItem_7(),
-            'image_8' => $this->imageItem_8(),
+            
             'uri' => $this->uri(),
             'show' => (bool)$this->show,
         ];

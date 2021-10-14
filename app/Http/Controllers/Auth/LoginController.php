@@ -79,6 +79,7 @@ class LoginController extends Controller
             }
             UserOrderController::saveOrdered((int)$existingUser->id);
             auth()->login($existingUser, true);
+
         } else {
             // create a new user
             $newUser                  = new User;
@@ -91,7 +92,12 @@ class LoginController extends Controller
             UserOrderController::saveOrdered((int)$newUser->id);
             auth()->login($newUser, true);
         }
-        return redirect()->to($this->redirectTo);
+        // XSS protect
+        if (!preg_match('#^'.preg_quote(url('/')).'\/*?#si', $_COOKIE['redirect_to'])){
+            abort(404);
+        }
+        setcookie('redirect_to', null);
+        return redirect()->to($_COOKIE['redirect_to'] ??  $this->redirectTo);
     }
 
 

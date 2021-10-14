@@ -3,7 +3,7 @@
         <div class="order__title">
             <button
                 v-if="!showOrderForm"
-                class="btn btn-success btn-lg"
+                class="btn btn-success btn-block py-3"
                 @click="showForm"
             >
                 <svg

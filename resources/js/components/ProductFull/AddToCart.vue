@@ -48,26 +48,25 @@
             <!-- /.count -->
         </div>
         <!-- /.my-1 -->
-        <div class="button-count">
-            <div class="button btn-group">
-                <OrderApp
-                    :select-size="selectSize"
-                    :count="count"
-                    :price="price"
-                    :productId="productId"
-                    :disabled="!isSelectSize"
-                    @show:form="toggleBtnAddToCart"
-                    @error:size="isValidSize = false"
-                    @error:disabled="isValidSize = false"
-                />
+        <div class="mt-1">
+            <OrderApp
+                :select-size="selectSize"
+                :count="count"
+                :price="price"
+                :productId="productId"
+                :disabled="!isSelectSize"
+                @show:form="toggleBtnAddToCart"
+                @error:size="isValidSize = false"
+                @error:disabled="isValidSize = false"
+            />
+        </div>
+        <!-- /.mt-1 -->
+        <div class="button-count mt-2">
+            <div class="button d-flex justify-content-center">
                 <button
-                    class="btn  btn-lg"
+                    class="btn  btn-light "
                     @click="addToCart"
                     v-if="showBtnAddToCart"
-                    :class="{
-                        'btn-dark': !isInCart,
-                        'btn-outline-dark': isInCart
-                    }"
                 >
                     <!-- icon add to cart -->
                     <svg
@@ -97,11 +96,18 @@
 <script>
 import Swal from "sweetalert2";
 import OrderApp from "./OrderApp.vue";
+import Cookie from "js-cookie";
 export default {
     components: {
         OrderApp
     },
     props: {
+        auth: {
+            type: Boolean,
+            default: () => {
+                return false;
+            }
+        },
         price: {
             default: () => 0
         },
@@ -177,6 +183,11 @@ export default {
             this.showBtnAddToCart = flag;
         },
         addToCart() {
+            if (!this.auth) {
+                Cookie.set("redirect_to", window.location.href);
+                window.location.href = window.siteRoot + "/login";
+                return;
+            }
             if (this.isValidForm) {
                 axios.post("/cart/add", this.dataForm).then(r => {
                     if (r.status === 200 && r.data.message === undefined) {

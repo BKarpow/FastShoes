@@ -4424,7 +4424,7 @@ try {
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -4451,7 +4451,14 @@ window.route = function (nameRoute) {
   }
 
   return axios.get(uri);
-};
+}; // Set siteRootUrl
+
+
+var siteRoot = document.querySelector("[name=site-root]");
+
+if (siteRoot !== null || siteRoot !== undefined) {
+  window.siteRoot = siteRoot.content;
+}
 
 /***/ }),
 
@@ -9105,7 +9112,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".spo[data-v-8a221e78] {\n  border: 1px solid #43506c;\n  border-radius: 6px;\n}\n.spo .text[data-v-8a221e78] {\n  padding: 0.2rem;\n}\n.spo .button-box[data-v-8a221e78] {\n  border-radius: 6px 6px 0 0;\n  background: #ebebeb;\n  padding: 0.5rem;\n}\n.spo .button-box .button[data-v-8a221e78] {\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".button[data-v-8a221e78] {\n  font-size: 18px;\n  font-weight: bold;\n}\n.spo[data-v-8a221e78] {\n  border-radius: 6px;\n}\n.spo .text[data-v-8a221e78] {\n  padding: 0.2rem;\n}\n.spo .button-box[data-v-8a221e78] {\n  border-radius: 6px 6px 0 0;\n  background: #f8f9fa;\n  padding: 0.5rem;\n}\n.spo .button-box .button[data-v-8a221e78] {\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -47290,7 +47297,11 @@ var render = function() {
           }
         }
       },
-      [_c("span", { staticClass: "button" }, [_vm._v(_vm._s(_vm.textButton))])]
+      [
+        _c("span", { staticClass: "button d-block text-center" }, [
+          _vm._v(_vm._s(_vm.textButton))
+        ])
+      ]
     ),
     _vm._v(" "),
     _vm.showText

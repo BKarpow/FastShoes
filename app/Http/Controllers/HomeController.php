@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -15,6 +17,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        
+        return view('home', [
+            'countProducts' => Product::all()->count(),
+            'countOrders' => Order::all()->count(),
+            'countNewOrders' => Order::whereNew(true)->get()->count()
+        ]);
     }
 }

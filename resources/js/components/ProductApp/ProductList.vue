@@ -1,5 +1,40 @@
 <template>
     <div class="productList">
+        <div class="my-1">
+            <button @click="toSectionPage" class="btn btn-dark btn-sm">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-backspace-fill"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"
+                    />
+                </svg>
+                {{ sectionName }}
+            </button>
+            <!-- /.btn btn-dark btn-sm -->
+            <button @click="toCategoryPage" class="btn btn-dark btn-sm">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-backspace-fill"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                        d="M15.683 3a2 2 0 0 0-2-2h-7.08a2 2 0 0 0-1.519.698L.241 7.35a1 1 0 0 0 0 1.302l4.843 5.65A2 2 0 0 0 6.603 15h7.08a2 2 0 0 0 2-2V3zM5.829 5.854a.5.5 0 1 1 .707-.708l2.147 2.147 2.146-2.147a.5.5 0 1 1 .707.708L9.39 8l2.146 2.146a.5.5 0 0 1-.707.708L8.683 8.707l-2.147 2.147a.5.5 0 0 1-.707-.708L7.976 8 5.829 5.854z"
+                    />
+                </svg>
+                {{ categoryName }}
+            </button>
+            <!-- /.btn btn-dark btn-sm -->
+        </div>
+        <!-- /.my-1 -->
         <FiltersList :category-id="categoryId" @updated="changeFilters" />
         <div class="noProducts" v-if="products.length === 0">
             <Spiner />
@@ -105,6 +140,58 @@ export default {
         };
     },
     computed: {
+        sectionAlias() {
+            if (this.products.hasOwnProperty("data")) {
+                if (
+                    Array.isArray(this.products.data) &&
+                    this.products.data.length > 0
+                ) {
+                    return this.products.data[0].hasOwnProperty("sectionAlias")
+                        ? this.products.data[0].sectionAlias
+                        : "";
+                }
+            }
+            return "";
+        },
+        sectionId() {
+            if (this.products.hasOwnProperty("data")) {
+                if (
+                    Array.isArray(this.products.data) &&
+                    this.products.data.length > 0
+                ) {
+                    return this.products.data[0].hasOwnProperty("sectionId")
+                        ? this.products.data[0].sectionId
+                        : 0;
+                }
+            }
+            return 0;
+        },
+        categoryName() {
+            if (this.products.hasOwnProperty("data")) {
+                if (
+                    Array.isArray(this.products.data) &&
+                    this.products.data.length > 0
+                ) {
+                    return this.products.data[0].hasOwnProperty("categoryName")
+                        ? this.products.data[0].categoryName
+                        : "К выбору категории";
+                }
+            }
+            return "К выбору категории";
+        },
+        sectionName() {
+            if (this.products.hasOwnProperty("data")) {
+                if (
+                    Array.isArray(this.products.data) &&
+                    this.products.data.length > 0
+                ) {
+                    return this.products.data[0].hasOwnProperty("sectionName")
+                        ? this.products.data[0].sectionName
+                        : "К выбору секции";
+                }
+            }
+            return "К выбору секции";
+        },
         queryUri() {
             let uri = "/api/product/category-id?categoryId=" + this.categoryId;
             if (this.filterParams !== null || this.filterParams !== "") {
@@ -144,6 +231,18 @@ export default {
         }
     },
     methods: {
+        toSectionPage() {
+            this.$router.push({ name: "Section" });
+        },
+        toCategoryPage() {
+            this.$router.push({
+                name: "Category",
+                params: {
+                    id: this.sectionId,
+                    alias: this.sectionAlias
+                }
+            });
+        },
         goPage(urlPage) {
             let page = urlPage.match(/page\=(\d+)/);
             if (Array.isArray(page)) {

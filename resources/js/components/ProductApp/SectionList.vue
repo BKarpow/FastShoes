@@ -7,7 +7,11 @@
                 :key="category.id"
                 :to="{
                     name: 'Category',
-                    params: { id: category.id, alias: category.alias }
+                    params: {
+                        id: category.id,
+                        alias: category.alias,
+                        name: category.title
+                    }
                 }"
                 >{{ category.title }}</router-link
             >
@@ -48,7 +52,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$color-bg: #ff6262;
+$color-bg: #28a745;
 
 .section-list {
     display: flex;
@@ -76,7 +80,7 @@ a {
         color: white;
     }
     &:active {
-        background: darken($color-bg, 75);
+        background: darken($color-bg, 15);
     }
 }
 </style>

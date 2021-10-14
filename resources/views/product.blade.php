@@ -43,6 +43,7 @@
                 <div class="mt-1">
                     <add-to-cart 
                         @success="updateCart"
+                        @if (auth()->check()) :auth="true" @endif
                         price="{{$product->price}}"
                         :product-id="{{$product->id}}"
                         :sizes='{{$product->sizes}}'
