@@ -1,5 +1,5 @@
 <header>
-<nav class="navbar navbar-expand-md navbar-light bg-success shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark bg-success shadow-sm">
             <div class="container ">
                 <a class="navbar-brand logo-block" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -60,6 +60,7 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
+                                
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     
                                     
@@ -71,7 +72,7 @@
                                      alt="">
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right mt-3" aria-labelledby="navbarDropdown">
+                                <div class="dropdown-menu dropdown-menu-right mt-md-2" aria-labelledby="navbarDropdown">
                                     <a href="{{ route('cabinet.index') }}" class="dropdown-item">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-fill" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>

@@ -26,7 +26,7 @@ const routes = [
         component: SectionList
     },
     {
-        path: "/section/:id/:alias/:name",
+        path: "/section/:id/:alias",
         name: "Category",
         component: CategoryList
     },

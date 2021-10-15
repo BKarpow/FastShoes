@@ -486,6 +486,17 @@ blockquote p {
   opacity: 1;
 }
 
+.column-footer {
+  border-radius: 6px !important;
+  background-color: #181818 !important;
+}
+
+.body-footer {
+  padding-top: 1rem;
+  background-color: #121212 !important;
+  color: white !important;
+}
+
 @font-face {
   font-family: "Comfortaa";
   font-style: normal;
@@ -500,6 +511,10 @@ html {
 body {
   font-family: "Comfortaa";
   min-height: 100% !important;
+}
+
+[v-cloak] {
+  display: none !important;
 }
 
 #app {
@@ -530,7 +545,7 @@ body {
 /* Cart */
 .cart-info {
   text-decoration: none;
-  color: inherit;
+  color: white !important;
 }
 .cart-info:hover {
   text-decoration: none;
@@ -539,4 +554,16 @@ body {
 /* Header */
 .logo-block {
   justify-self: center !important;
+}
+
+.dropdown-menu {
+  background-color: #269f42 !important;
+}
+
+.dropdown-item {
+  color: white !important;
+  transition: all 0.3s !important;
+}
+.dropdown-item:hover {
+  background-color: #24973e !important;
 }

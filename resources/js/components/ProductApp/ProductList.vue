@@ -124,7 +124,7 @@ import Spiner from "../Spiner.vue";
 export default {
     name: "ProductList",
     metaInfo: {
-        title: "Ось що ми знайшли"
+        title: "Категория"
     },
     components: {
         Product,

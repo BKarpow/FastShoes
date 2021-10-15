@@ -7,6 +7,8 @@ use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Order;
 use App\Models\UserOrder;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Feedback;
 
 class CartController extends Controller
 {
@@ -145,6 +147,7 @@ class CartController extends Controller
                 $product->delete();
             }
         }
+        Mail::to('xymerone@gmail.com')->send(new Feedback(['message' => 'text']));
         return redirect()->route('cart'
         )->withStatus('Заказ создан, ожидайте с Вами скоро свяжутся для уточнения деталей отправки.');
     }

@@ -10,6 +10,8 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~vue-select/src/scss/vue-select.scss";
 
+@import "footer";
+
 @font-face {
     font-family: "Comfortaa";
     font-style: normal;
@@ -29,6 +31,10 @@ html {
 body {
     font-family: "Comfortaa";
     min-height: 100% !important;
+}
+
+[v-cloak] {
+    display: none !important;
 }
 
 #app {
@@ -63,7 +69,7 @@ body {
 /* Cart */
 .cart-info {
     text-decoration: none;
-    color: inherit;
+    color: white !important;
     &:hover {
         text-decoration: none;
     }
@@ -73,4 +79,16 @@ body {
 
 .logo-block {
     justify-self: center !important;
+}
+
+.dropdown-menu {
+    background-color: darken(#28a745, 2) !important;
+}
+
+.dropdown-item {
+    color: white !important;
+    transition: all 0.3s !important;
+    &:hover {
+        background-color: darken(#28a745, 4) !important;
+    }
 }

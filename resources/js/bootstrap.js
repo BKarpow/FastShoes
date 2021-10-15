@@ -56,6 +56,7 @@ window.route = (nameRoute, params = null) => {
 // Set siteRootUrl
 
 const siteRoot = document.querySelector("[name=site-root]");
-if (siteRoot !== null || siteRoot !== undefined) {
+console.log(siteRoot);
+if (siteRoot !== null) {
     window.siteRoot = siteRoot.content;
 }

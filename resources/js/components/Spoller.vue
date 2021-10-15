@@ -1,5 +1,5 @@
 <template>
-    <div class="spo">
+    <div class="spo" v-cloak>
         <div class="button-box" @click="showText = !showText">
             <span class="button d-block text-center">{{ textButton }}</span>
         </div>
@@ -38,6 +38,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+[v-cloak] {
+    display: none;
+}
 $border-radius: 6px;
 .button {
     font-size: 18px;
@@ -51,7 +54,7 @@ $border-radius: 6px;
     }
     .button-box {
         border-radius: $border-radius $border-radius 0 0;
-        background: #f8f9fa;
+        background: #bdbdbd;
         padding: 0.5rem;
         .button {
             cursor: pointer;

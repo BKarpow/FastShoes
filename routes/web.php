@@ -30,7 +30,7 @@ use App\Models\ProductSection as Section;
 */
 
 Route::get('/test', function (Request $request) {
-    dd($_COOKIE['my_phone'] ?? false);
+    dd(Config::get('mail'));
 });
 
 Route::get('/', function () {

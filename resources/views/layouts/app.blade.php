@@ -22,8 +22,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="h-100" background="red">
-    <div id="app" >
+<body class="h-100">
+    <div id="app" v-cloak >
             @include('inc.heder')
         <main class="py-4 h-100">
             @yield('content')

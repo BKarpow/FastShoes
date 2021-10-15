@@ -4455,8 +4455,9 @@ window.route = function (nameRoute) {
 
 
 var siteRoot = document.querySelector("[name=site-root]");
+console.log(siteRoot);
 
-if (siteRoot !== null || siteRoot !== undefined) {
+if (siteRoot !== null) {
   window.siteRoot = siteRoot.content;
 }
 
@@ -9112,7 +9113,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".button[data-v-8a221e78] {\n  font-size: 18px;\n  font-weight: bold;\n}\n.spo[data-v-8a221e78] {\n  border-radius: 6px;\n}\n.spo .text[data-v-8a221e78] {\n  padding: 0.2rem;\n}\n.spo .button-box[data-v-8a221e78] {\n  border-radius: 6px 6px 0 0;\n  background: #f8f9fa;\n  padding: 0.5rem;\n}\n.spo .button-box .button[data-v-8a221e78] {\n  cursor: pointer;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "[v-cloak][data-v-8a221e78] {\n  display: none;\n}\n.button[data-v-8a221e78] {\n  font-size: 18px;\n  font-weight: bold;\n}\n.spo[data-v-8a221e78] {\n  border-radius: 6px;\n}\n.spo .text[data-v-8a221e78] {\n  padding: 0.2rem;\n}\n.spo .button-box[data-v-8a221e78] {\n  border-radius: 6px 6px 0 0;\n  background: #bdbdbd;\n  padding: 0.5rem;\n}\n.spo .button-box .button[data-v-8a221e78] {\n  cursor: pointer;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

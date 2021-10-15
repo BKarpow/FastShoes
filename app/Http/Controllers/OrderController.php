@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\UserOrder;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderMail;
 
 class OrderController extends Controller
 {
@@ -38,6 +40,11 @@ class OrderController extends Controller
             'useMessager' => 'max:20',
         ]);
         // todo add event for create new order
+        Mail::to(env('MAIL_ORDERED'))->send(new OrderMail([
+            'product' => Product::findOrFail($request->productId),
+            'phone' => $request->phone,
+            'size' => $request->size,
+        ]));
         /**
          * FIX
          * Validate phone of pattern reg.

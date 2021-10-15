@@ -9,8 +9,7 @@
                     name: 'Category',
                     params: {
                         id: category.id,
-                        alias: category.alias,
-                        name: category.title
+                        alias: category.alias
                     }
                 }"
                 >{{ category.title }}</router-link

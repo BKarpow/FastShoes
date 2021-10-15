@@ -46,6 +46,8 @@ Vue.component(
     require("./components/ProductFull/AddToCart.vue").default
 );
 
+Vue.component("hide-box", require("./components/Spoller.vue").default);
+
 Vue.component("cart", require("./components/Cart.vue").default);
 
 /**
