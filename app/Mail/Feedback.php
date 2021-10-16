@@ -6,17 +6,19 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use App\Lib\TelegramTrait;
 
 class Feedback extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable, SerializesModels,TelegramTrait;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($param)
+    private array $param;
+    public function __construct(array $param)
     {
         $this->param = $param;
     }
@@ -28,6 +30,25 @@ class Feedback extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.feedback')->with($this->param);
+        $this->sendToTelegram();
+        return $this->subject('Сообщения из сайта')
+        ->from(env('MAIL_FROM_ADDRESS'))
+        ->markdown('emails.feedback')
+        ->with($this->param);
+    }
+
+
+    /**
+     * Send info in Telegram
+     * 
+     */
+    private function sendToTelegram():void
+    {
+        $text = "Сообщения на сайте.\n";
+        $text .= "Email: {$this->param['feedback']->email}.\n";
+        $text .= "Feedback ID: {$this->param['feedback']->id}.\n";
+        $text .= "Сообщения:\n";
+        $text .= "{$this->param['feedback']->message}";
+        $this->sendMessageToTelegram($text);
     }
 }

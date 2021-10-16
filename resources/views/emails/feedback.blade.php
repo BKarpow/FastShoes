@@ -1,12 +1,11 @@
 @component('mail::message')
 # Сообщения из формы обратной связи
 
-{{ $message }}
+Email: {{$feedback->email}}.
+FeedBack id: {{$feedback->id}}.
+Сообщения:
+{{ $feedback->message }}
 
-@component('mail::button', ['url' => ''])
-Button Text
-@endcomponent
-
-Thanks,<br>
+Отправлено из сайта {{ url('/') }},<br>
 {{ config('app.name') }}
 @endcomponent

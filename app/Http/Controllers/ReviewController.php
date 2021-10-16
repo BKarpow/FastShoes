@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Review;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Resources\ReviewResource;
+use App\Lib\TelegramTrait;
 
 class ReviewController extends Controller
 {
+    use TelegramTrait;
     /**
      * Display a listing of the resource.
      *
@@ -21,15 +24,6 @@ class ReviewController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,9 +34,9 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'comment' => 'required|string|max:249',
+            'comment' => 'max:249',
             'productId' => 'required|exists:products,id',
-            'rating' => 'string',
+            'rating' => 'required|string',
             'phoneOrdered' => 'required|max:19|min:18',
         ]);
         
@@ -52,6 +46,8 @@ class ReviewController extends Controller
         } elseif ($rating < 0) {
             $rating = 0;
         } 
+        $un = auth()->user()->name;
+        $product = Product::findOrFail($request->productId);
         $r = new Review();
         $r->user_id = auth()->user()->id;
         $r->product_id = $request->productId;
@@ -60,6 +56,8 @@ class ReviewController extends Controller
         $r->phone_ordered = $request->phoneOrdered;
         $r->ip = $request->ip();
         $r->save();
+        //TODO Create new Mail helper
+        $this->sendMessageToTelegram("Новый отзыв (id {$r->id})\nПользователь: {$un}\n{$request->comment}\nРейтинг: {$rating}\nТовар: {$product->uri()}");
         return response($r->jsonSerialize());
     }
 

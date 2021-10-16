@@ -9,7 +9,7 @@
         </div>
         <!-- /.col-md-4 -->
         <div class="col-md-4 column-footer">
-            <span class="h5">
+            <span class="h3">
                 Наш адрес
             </span>
             <!-- /.h5 -->
@@ -18,7 +18,10 @@
             </p>
         </div>
         <!-- /.col-md-4 -->
-        <div class="col-md-4 column-footer"></div>
+        <div class="col-md-4 column-footer">
+            <span class="h3">Форма для связи</span>
+            <feedback-form></feedback-form>
+        </div>
         <!-- /.col-md-4 -->
     </div>
     <!-- /.row -->

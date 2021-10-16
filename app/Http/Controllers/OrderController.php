@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\UserOrder;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderMail;
+use App\Mail\OrderSuccess;
 
 class OrderController extends Controller
 {
@@ -39,11 +40,13 @@ class OrderController extends Controller
             'price' => 'max:20',
             'useMessager' => 'max:20',
         ]);
-        // todo add event for create new order
+        // Send message email and Telegram
         Mail::to(env('MAIL_ORDERED'))->send(new OrderMail([
             'product' => Product::findOrFail($request->productId),
             'phone' => $request->phone,
             'size' => $request->size,
+            'price' => $request->price,
+            'useMessage' => (!empty($request->useMessager)) ? 'Да' : 'Нет',
         ]));
         /**
          * FIX
@@ -99,6 +102,11 @@ class OrderController extends Controller
     public function disableNew(Order $order)
     {
         $order->new = false;
+        $userOrder =  UserOrder::whereOrderId($order->id)->first();
+        if ($userOrder) {
+            Mail::to($userOrder->user->email)
+                ->send(new OrderSuccess(['product' => $userOrder->product]));
+        }
         $order->save();
         return redirect()->route('home.order.index');
     }

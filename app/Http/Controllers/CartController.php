@@ -8,7 +8,7 @@ use App\Models\CartProduct;
 use App\Models\Order;
 use App\Models\UserOrder;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Feedback;
+use App\Mail\OrderCart as OrderCartMessage;
 
 class CartController extends Controller
 {
@@ -127,6 +127,7 @@ class CartController extends Controller
         ]);
         $productsFromCart = $this->getOrCreate()->products()->get();
         if ($productsFromCart) {
+            $fp = 0;
             foreach($productsFromCart as $product) {
                 //Create Orders
                 $o = new Order();
@@ -135,6 +136,7 @@ class CartController extends Controller
                 $o->size = $product->size;
                 $o->product_id = $product->product_id;
                 $o->price = $product->product->price;
+                $fp += $product->product->price;
                 $o->count = $product->count;
                 $o->save();
                 //User order cabinet
@@ -146,8 +148,14 @@ class CartController extends Controller
                 // Delete item for cart list
                 $product->delete();
             }
+            Mail::to( auth()->user()->email )
+            ->send(new OrderCartMessage([
+                'products' => $productsFromCart,
+                'fullPrice' => $fp,
+                'phone' => $request->phone,
+            ]));
         }
-        Mail::to('xymerone@gmail.com')->send(new Feedback(['message' => 'text']));
+        
         return redirect()->route('cart'
         )->withStatus('Заказ создан, ожидайте с Вами скоро свяжутся для уточнения деталей отправки.');
     }

@@ -14,6 +14,7 @@ use App\Http\Controllers\SitemapXmlController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserOrderController;
+use App\Http\Controllers\FeedbackController;
 use App\Models\Order;
 use App\Models\Category;
 use App\Models\ProductSection as Section;
@@ -30,7 +31,8 @@ use App\Models\ProductSection as Section;
 */
 
 Route::get('/test', function (Request $request) {
-    dd(Config::get('mail'));
+    $t = new Telegram(env('TELEGRAM_TOKEN'));
+    dd($t->getUpdates());
 });
 
 Route::get('/', function () {
@@ -180,6 +182,13 @@ Route::group([
     Route::get('/', [UserOrderController::class, 'cabinet'])
     ->name('cabinet.index');
 });
+
+/**  
+ * Feedback routes;
+ * 
+ */
+Route::post('/feedback', [FeedbackController::class, 'store'])
+    ->name('feedback.store');
 
 /** Pages */
 Route::view('/about', 'pages.about')->name('about');

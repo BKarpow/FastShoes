@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Lib\TelegramTrait;
 
-class OrderMail extends Mailable
+class OrderCart extends Mailable
 {
     use Queueable, SerializesModels, TelegramTrait;
 
@@ -31,24 +31,24 @@ class OrderMail extends Mailable
     public function build()
     {
         $this->sendToTelegram();
-        return $this->subject('Заказан товар')
-                    ->from(env('MAIL_FROM_ADDRESS'))
-                    ->markdown('emails.ordermail')
-                    ->with($this->param);
+        return $this->from(env('MAIL_FROM_ADDRESS'))
+        ->subject('Ваш заказ оформлен')
+        ->markdown('emails.orderCart')
+        ->with($this->param);
     }
 
     /**
-     * Send info in Telegram
+     * Send info in Telegram.
      * 
      */
     private function sendToTelegram():void
     {
-        $text = "Заказан товар {$this->param['product']->title}.\n";
-        $text .= "Размер: {$this->param['size']}.\n";
-        $text .= "Цена: {$this->param['price']}.\n";
-        $text .= "Куда звонить: {$this->param['phone']}\n";
-        $text .= "Общаться через мессенджеры: {$this->param['useMessage']}.\n";
-        $text .= "Товар: {$this->param['product']->uri()}\n";
+        
+        foreach($this->param['products'] as $p) {
+            $text .= "{$p->product->title} {$p->size} {$p->product->price}x{$p->count}\n";
+        }
+        $text .= "Полная сума заказа: {$this->param['fullPrice']}.\n";
+        $text .= "Телефон: {$this->param['phone']}.\n";
         $this->sendMessageToTelegram($text);
     }
 }
