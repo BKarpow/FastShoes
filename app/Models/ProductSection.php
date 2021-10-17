@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Traits\DateTrait;
+use App\Models\Traits\Meta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Traits\Meta;
-use App\Models\Traits\DateTrait;
 
 class ProductSection extends Model
 {
@@ -21,5 +21,13 @@ class ProductSection extends Model
             'id' => $this->id,
             'alias' => $this->alias,
         ]);
+    }
+    /**
+     * Relation for category
+     *
+     */
+    public function categories()
+    {
+        return $this->hasMany(Category::class, 'section_id', 'id');
     }
 }

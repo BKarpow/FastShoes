@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
+use App\Lib\TelegramTrait;
+use App\Lib\TranslitStr;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use App\Lib\TranslitStr;
-use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
+    use TelegramTrait;
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +20,7 @@ class ProductController extends Controller
     {
         return ProductResource::collection(
             Product::orderBy('view', 'desc')
-            ->paginate(env('PRODUCT_PER_PAGE', 15))
+                ->paginate(env('PRODUCT_PER_PAGE', 15))
         );
     }
 
@@ -44,14 +46,14 @@ class ProductController extends Controller
             'title' => 'required|max:250|min:5',
             'price' => 'required|max:7',
             'description' => 'max:5000',
-            'colors' => 'string', 
-            'sizes' => 'string', 
-            
+            'colors' => 'string',
+            'sizes' => 'string',
+
             'categoryId' => 'required|exists:categories,id',
         ]);
         $p = new Product();
         $p->title = $request->title;
-        $p->alias = TranslitStr::convert( $request->title);
+        $p->alias = TranslitStr::convert($request->title);
         $p->price = $request->price;
         $p->description = $request->description;
         $p->colors = $request->colors;
@@ -67,6 +69,7 @@ class ProductController extends Controller
         $p->image_7 = $request->image_7;
         $p->image_8 = $request->image_8;
         $p->save();
+        $this->sendInfoProductToChanelTelegram($p);
         return response($p->jsonSerialize(), 200);
     }
 
@@ -118,7 +121,7 @@ class ProductController extends Controller
 
     /**
      * Update price in the product
-     * 
+     *
      */
     public function updatePrice(Request $request, $id)
     {
@@ -126,7 +129,7 @@ class ProductController extends Controller
             'newPrice' => 'required|max:10|string',
         ]);
         $p = Product::findOrFail($id);
-        $p->price = (int)$request->newPrice;
+        $p->price = (int) $request->newPrice;
         $p->save();
         return response($p->jsonSerialize(), 200);
     }
@@ -144,25 +147,25 @@ class ProductController extends Controller
             ['category_id', '=', $request->categoryId],
         ];
         if ($request->input('size', false) &&
-         !$request->input('color', false)){
-            $w[] = [ 'sizes', 'LIKE', "%{$request->size}%" ];
+            !$request->input('color', false)) {
+            $w[] = ['sizes', 'LIKE', "%{$request->size}%"];
         } elseif ($request->input('size', false) &&
-                    $request->input('color', false)){
-           $w[] = [ 'sizes', 'LIKE', "%{$request->size}%" ];
-           $w[] = [ 'colors', 'LIKE', "%{$request->color}%" ];
-       } elseif (!$request->input('size', false) &&
-                $request->input('color', false)){
-            $w[] = [ 'colors', 'LIKE', "%{$request->color}%" ];
+            $request->input('color', false)) {
+            $w[] = ['sizes', 'LIKE', "%{$request->size}%"];
+            $w[] = ['colors', 'LIKE', "%{$request->color}%"];
+        } elseif (!$request->input('size', false) &&
+            $request->input('color', false)) {
+            $w[] = ['colors', 'LIKE', "%{$request->color}%"];
         } else {
             $w = $w;
         }
         if ($request->input('price', false)) {
             $t = ($request->price == 'desc') ? 'DESC' : 'ASC';
             $p = Product::where($w)->orderBy('price', $t)
-            ->paginate( env('PRODUCT_PER_PAGE', 15) );
+                ->paginate(env('PRODUCT_PER_PAGE', 15));
         } else {
             $p = Product::where($w)->orderBy('created_at', 'DESC')
-            ->paginate( env('PRODUCT_PER_PAGE', 15) );
+                ->paginate(env('PRODUCT_PER_PAGE', 15));
         }
         return ProductResource::collection($p);
     }
@@ -170,7 +173,7 @@ class ProductController extends Controller
     /**
      * Return Images List from product
      * @param Product
-     * 
+     *
      */
     public function getImagesFromProduct(Product $product)
     {
@@ -195,13 +198,12 @@ class ProductController extends Controller
         $product->increment('view');
         $ordered = false;
         if (auth()->check()) {
-            if ( auth()->user()->orders()->whereProductId($product->id)->first() ) {
+            if (auth()->user()->orders()->whereProductId($product->id)->first()) {
                 $ordered = true;
             }
         }
         return view('product', ['product' => $product, 'ordered' => $ordered]);
     }
-
 
     /**
      * Get params from products of category
@@ -218,18 +220,18 @@ class ProductController extends Controller
             $arrData = [];
             $arrDataSizes = [];
             $prices = [];
-            foreach($products as $product) {
-                $prices[] = (int)$product->price;
+            foreach ($products as $product) {
+                $prices[] = (int) $product->price;
                 if ($product->colors) {
                     $d = json_decode($product->colors, true);
-                    foreach($d as $i) {
-                        $arrData[$i] = (isset($arrData[$i])) ? $arrData[$i]+1 : 1 ;
+                    foreach ($d as $i) {
+                        $arrData[$i] = (isset($arrData[$i])) ? $arrData[$i] + 1 : 1;
                     }
                 }
                 if ($product->sizes) {
                     $d = json_decode($product->sizes, true);
-                    foreach($d as $i) {
-                        $arrDataSizes[$i] = (isset($arrDataSizes[$i])) ? $arrDataSizes[$i]+1 : 1 ;
+                    foreach ($d as $i) {
+                        $arrDataSizes[$i] = (isset($arrDataSizes[$i])) ? $arrDataSizes[$i] + 1 : 1;
                     }
                 }
             }
@@ -241,16 +243,16 @@ class ProductController extends Controller
             ], 200);
         } else {
             return response()->json(null, 205);
-        } 
+        }
 
     }
 
     /**
-     * Enable/Disable a visability product for page 
+     * Enable/Disable a visability product for page
      */
     public function showToggle(Product $product)
     {
-        $product->show = !(bool)$product->show;
+        $product->show = !(bool) $product->show;
         $product->save();
         response(null, 200);
     }

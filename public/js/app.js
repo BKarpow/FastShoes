@@ -2165,6 +2165,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2174,6 +2201,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       process: false,
+      showForm: false,
       name: "",
       email: "",
       message: ""
@@ -4420,10 +4448,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Spiner",
-  mounted: function mounted() {
-    console.log("Spiners");
-  }
+  name: "Spiner"
 });
 
 /***/ }),
@@ -48490,107 +48515,163 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      staticClass: "feedback-form",
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.doSubmit.apply(null, arguments)
-        }
-      }
-    },
-    [
-      _c("input", {
-        directives: [
+  return _c("div", { staticClass: "feedback-wrapper mt-2" }, [
+    !_vm.showForm
+      ? _c(
+          "button",
           {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.name,
-            expression: "name"
-          }
-        ],
-        staticClass: "feedback-form__input",
-        attrs: { type: "text", placeholder: "Имя", maxlength: "50" },
-        domProps: { value: _vm.name },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+            staticClass: "btn btn-success btn-lg",
+            attrs: { type: "button" },
+            on: {
+              click: function($event) {
+                _vm.showForm = true
+              }
             }
-            _vm.name = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "bi bi-envelope-fill",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  width: "16",
+                  height: "16",
+                  fill: "currentColor",
+                  viewBox: "0 0 16 16"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"
+                  }
+                })
+              ]
+            ),
+            _vm._v("\n        Отправить сообщения\n    ")
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.showForm
+      ? _c(
+          "form",
           {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.email,
-            expression: "email"
-          }
-        ],
-        staticClass: "feedback-form__input",
-        attrs: {
-          type: "email",
-          maxlength: "50",
-          required: "",
-          placeholder: "Ваш Email"
-        },
-        domProps: { value: _vm.email },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+            staticClass: "feedback-form",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.doSubmit.apply(null, arguments)
+              }
             }
-            _vm.email = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("textarea", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.message,
-            expression: "message"
-          }
-        ],
-        staticClass: "feedback-form__input",
-        attrs: {
-          required: "",
-          maxlength: "1000",
-          placeholder: "Сообщения",
-          cols: "30",
-          rows: "10"
-        },
-        domProps: { value: _vm.message },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.message = $event.target.value
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        { attrs: { type: "submit" } },
-        [
-          _vm.process ? _c("Spiner") : _vm._e(),
-          _vm._v(" "),
-          _c("span", [_vm._v(" Отправить ")])
-        ],
-        1
-      )
-    ]
-  )
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
+                }
+              ],
+              staticClass: "feedback-form__input",
+              attrs: { type: "text", placeholder: "Имя", maxlength: "50" },
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.email,
+                  expression: "email"
+                }
+              ],
+              staticClass: "feedback-form__input",
+              attrs: {
+                type: "email",
+                maxlength: "50",
+                required: "",
+                placeholder: "Ваш Email"
+              },
+              domProps: { value: _vm.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.email = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.message,
+                  expression: "message"
+                }
+              ],
+              staticClass: "feedback-form__input",
+              attrs: {
+                required: "",
+                maxlength: "1000",
+                placeholder: "Сообщения",
+                cols: "30",
+                rows: "10"
+              },
+              domProps: { value: _vm.message },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.message = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              { attrs: { type: "submit" } },
+              [
+                _vm.process ? _c("Spiner") : _vm._e(),
+                _vm._v(" "),
+                _c("span", [_vm._v(" Отправить ")])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.showForm = false
+                  }
+                }
+              },
+              [_c("span", [_vm._v(" Отмена ")])]
+            )
+          ]
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

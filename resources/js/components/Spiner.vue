@@ -4,9 +4,6 @@
 
 <script>
 export default {
-    name: "Spiner",
-    mounted() {
-        console.log("Spiners");
-    }
+    name: "Spiner"
 };
 </script>

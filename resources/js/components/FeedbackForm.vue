@@ -1,35 +1,62 @@
 <template>
-    <form @submit.prevent="doSubmit" class="feedback-form">
-        <input
-            type="text"
-            v-model="name"
-            class="feedback-form__input"
-            placeholder="Имя"
-            maxlength="50"
-        />
-        <input
-            type="email"
-            v-model="email"
-            maxlength="50"
-            required
-            class="feedback-form__input"
-            placeholder="Ваш Email"
-        />
-        <textarea
-            required
-            maxlength="1000"
-            placeholder="Сообщения"
-            v-model="message"
-            cols="30"
-            rows="10"
-            class="feedback-form__input"
-        ></textarea>
-        <!-- /#.feedback-form__textarea -->
-        <button type="submit">
-            <Spiner v-if="process" /> <span> Отправить </span>
+    <div class="feedback-wrapper mt-2">
+        <button
+            class="btn btn-success btn-lg"
+            type="button"
+            v-if="!showForm"
+            @click="showForm = true"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-envelope-fill"
+                viewBox="0 0 16 16"
+            >
+                <path
+                    d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z"
+                />
+            </svg>
+            Отправить сообщения
         </button>
-    </form>
-    <!-- /.feedback-form -->
+        <!-- /.btn btn-success btn-lg -->
+        <form @submit.prevent="doSubmit" class="feedback-form" v-if="showForm">
+            <input
+                type="text"
+                v-model="name"
+                class="feedback-form__input"
+                placeholder="Имя"
+                maxlength="50"
+            />
+            <input
+                type="email"
+                v-model="email"
+                maxlength="50"
+                required
+                class="feedback-form__input"
+                placeholder="Ваш Email"
+            />
+            <textarea
+                required
+                maxlength="1000"
+                placeholder="Сообщения"
+                v-model="message"
+                cols="30"
+                rows="10"
+                class="feedback-form__input"
+            ></textarea>
+            <!-- /#.feedback-form__textarea -->
+            <button type="submit">
+                <Spiner v-if="process" /> <span> Отправить </span>
+            </button>
+            <button type="button" @click="showForm = false">
+                <span> Отмена </span>
+            </button>
+        </form>
+        <!-- /.feedback-form -->
+    </div>
+    <!-- /.feedback-wrapper -->
 </template>
 
 <script>
@@ -42,6 +69,7 @@ export default {
     data() {
         return {
             process: false,
+            showForm: false,
             name: "",
             email: "",
             message: ""

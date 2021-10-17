@@ -1,6 +1,7 @@
 @extends('layouts.home')
-
+ 
 @section('title') Заказы @endsection
+
 
 @section('content')
     <div class="container">

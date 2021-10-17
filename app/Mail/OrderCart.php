@@ -2,11 +2,10 @@
 
 namespace App\Mail;
 
+use App\Lib\TelegramTrait;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Lib\TelegramTrait;
 
 class OrderCart extends Mailable
 {
@@ -17,7 +16,7 @@ class OrderCart extends Mailable
      *
      * @return void
      */
-    private array $param;
+    private $param;
     public function __construct(array $param)
     {
         $this->param = $param;
@@ -32,19 +31,19 @@ class OrderCart extends Mailable
     {
         $this->sendToTelegram();
         return $this->from(env('MAIL_FROM_ADDRESS'))
-        ->subject('Ваш заказ оформлен')
-        ->markdown('emails.orderCart')
-        ->with($this->param);
+            ->subject('Ваш заказ оформлен')
+            ->markdown('emails.orderCart')
+            ->with($this->param);
     }
 
     /**
      * Send info in Telegram.
-     * 
+     *
      */
-    private function sendToTelegram():void
+    private function sendToTelegram(): void
     {
-        
-        foreach($this->param['products'] as $p) {
+        $text = "Заказана группа товаров.\n";
+        foreach ($this->param['products'] as $p) {
             $text .= "{$p->product->title} {$p->size} {$p->product->price}x{$p->count}\n";
         }
         $text .= "Полная сума заказа: {$this->param['fullPrice']}.\n";

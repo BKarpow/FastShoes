@@ -9,13 +9,13 @@
         </div>
         <!-- /.col-md-4 -->
         <div class="col-md-4 column-footer">
-            <span class="h3">
-                Наш адрес
+            <span class="h3 d-block pb-2">
+                Меню
             </span>
             <!-- /.h5 -->
-            <p>
-                Украина, Черкаськая область, г. Городище, рыночная площадь, контейнер №60.
-            </p>
+            <a href="{{route('sitemap.html')}}">
+                Карта сайта
+            </a>
         </div>
         <!-- /.col-md-4 -->
         <div class="col-md-4 column-footer">
@@ -34,6 +34,6 @@
     <!-- /.row -->
     </div>
     <!-- /.container -->
-    
+
 
 </footer>
