@@ -1,7 +1,7 @@
 <template>
     <div class="productList">
         <div class="my-1">
-            <button @click="toSectionPage" class="btn btn-dark btn-sm">
+            <button @click="toSectionPage" class="btn btn-dark btn-sm mt-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -17,7 +17,7 @@
                 {{ sectionName }}
             </button>
             <!-- /.btn btn-dark btn-sm -->
-            <button @click="toCategoryPage" class="btn btn-dark btn-sm">
+            <button @click="toCategoryPage" class="btn btn-dark btn-sm mt-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"

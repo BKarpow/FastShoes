@@ -1,7 +1,7 @@
 <template>
     <div class="category">
         <div class="my-1">
-            <button @click="backToMain" class="btn btn-dark btn-sm">
+            <button @click="backToMain" class="btn btn-dark btn-sm mt-1">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"

@@ -254,6 +254,21 @@ class ProductController extends Controller
     {
         $product->show = !(bool) $product->show;
         $product->save();
-        response(null, 200);
+        return response(null, 200);
+    }
+
+
+    /**
+     * Last product collection
+     * 
+     * @return App\Http\Resources\ProductResource
+     */
+    public function lastProduct()
+    {
+        return ProductResource::collection(
+            Product::whereShow(true)
+                ->orderBy('created_at', 'desc')
+                ->get()
+        );
     }
 }

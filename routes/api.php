@@ -53,6 +53,7 @@ Route::prefix('category')->group(function () {
 Route::prefix('product')->group(function () {
     Route::get('/category-id', [ProductController::class, 'getFromCategoryId']);
     Route::get('/{product}/images', [ProductController::class , 'getImagesFromProduct']);
+    Route::get('/last', [ProductController::class , 'lastProduct']);
 });
 
 Route::group([

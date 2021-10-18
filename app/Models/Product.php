@@ -33,82 +33,99 @@ class Product extends Model
     }
 
     /**
+     * Method return object File model for image or null
+     * 
+     * @param string $column - Column of image uri
+     * @param bool $fullInfo - default false
+     * @return App\Models\File | null
+     */
+    private function relationImage(string $column, bool $fulIInfo = false)
+    {
+        $file = $this->hasMany(File::class, 'uri', $column);
+        if (!$fulIInfo) {
+            $file ->select('id', 'name', 'uri');
+        }
+        return $file->first();
+            
+    }
+
+    /**
      * Getting info from files images
      */
-    public function imageItem_1()
+    public function imageItem_1(bool $fulIInfo = false)
     {
         if (!empty($this->image_1)) {
-            return $this->hasMany(File::class, 'uri', 'image_1')->first();
+            return $this->relationImage('image_1', $fulIInfo);
         } 
     }
 
     /**
      * Getting info from files images
      */
-    public function imageItem_2()
+    public function imageItem_2(bool $fulIInfo = false)
     {
         if (!empty($this->image_2)) {
-            return $this->hasMany(File::class, 'uri', 'image_2')->first();
+            return $this->relationImage('image_2', $fulIInfo);
         } 
     }
 
     /**
      * Getting info from files images
      */
-    public function imageItem_3()
+    public function imageItem_3(bool $fulIInfo = false)
     {
         if (!empty($this->image_3)) {
-            return $this->hasMany(File::class, 'uri', 'image_3')->first();
+            return $this->relationImage('image_3', $fulIInfo);
         } 
     }
 
     /**
      * Getting info from files images
      */
-    public function imageItem_4()
+    public function imageItem_4(bool $fulIInfo = false)
     {
         if (!empty($this->image_4)) {
-            return $this->hasMany(File::class, 'uri', 'image_4')->first();
+            return $this->relationImage('image_4', $fulIInfo);
         } 
     }
 
     /**
      * Getting info from files images
      */
-    public function imageItem_5()
+    public function imageItem_5(bool $fulIInfo = false)
     {
         if (!empty($this->image_5)) {
-            return $this->hasMany(File::class, 'uri', 'image_5')->first();
+            return $this->relationImage('image_5', $fulIInfo);
         } 
     }
 
     /**
      * Getting info from files images
      */
-    public function imageItem_6()
+    public function imageItem_6(bool $fulIInfo = false)
     {
         if (!empty($this->image_6)) {
-            return $this->hasMany(File::class, 'uri', 'image_6')->first();
+            return $this->relationImage('image_6', $fulIInfo);
         } 
     }
 
     /**
      * Getting info from files images
      */
-    public function imageItem_7()
+    public function imageItem_7(bool $fulIInfo = false)
     {
         if (!empty($this->image_7)) {
-            return $this->hasMany(File::class, 'uri', 'image_7')->first();
+            return $this->relationImage('image_7', $fulIInfo);
         } 
     }
 
     /**
      * Getting info from files images
      */
-    public function imageItem_8()
+    public function imageItem_8(bool $fulIInfo = false)
     {
         if (!empty($this->image_8)) {
-            return $this->hasMany(File::class, 'uri', 'image_8')->first();
+            return $this->relationImage('image_8', $fulIInfo);
         } 
     }
 
@@ -148,6 +165,22 @@ class Product extends Model
             $colors = json_decode($this->colors, true);
         }
         return $colors;
+    }
+
+    /**
+     * Method computed rating for product
+     * 
+     */
+    public function rating()
+    {
+       $rating = Review::where('product_id', $this->id)->avg('rating');
+       if ($rating) {
+            $rating = (float)$rating;
+            $rating = round($rating, 2);
+       } else {
+           $rating = 0;
+       }
+       return $rating;
     }
 
 }

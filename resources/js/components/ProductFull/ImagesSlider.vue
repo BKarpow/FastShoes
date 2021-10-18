@@ -30,7 +30,6 @@
 // Import Swiper Vue.js components
 import Swiper, { Navigation, Pagination, Zoom } from "swiper";
 import "swiper/css";
-import Swal from "sweetalert2";
 
 export default {
     props: {
@@ -123,6 +122,7 @@ export default {
     align-items: center;
     column-gap: 0.7rem;
     margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
 }
 .swiper-pagination-bullet {
     display: block;

@@ -92,12 +92,19 @@ class LoginController extends Controller
             UserOrderController::saveOrdered((int)$newUser->id);
             auth()->login($newUser, true);
         }
-        // XSS protect
-        if (!preg_match('#^'.preg_quote(url('/')).'\/*?#si', $_COOKIE['redirect_to'])){
-            abort(404);
+        
+        $red = $this->redirectTo;
+        if (!empty($_COOKIE['redirect_to'])) {
+            $red = $_COOKIE['redirect_to'];
+            // XSS protect
+            if (!preg_match('#^'.preg_quote(url('/')).'\/*?#si', $_COOKIE['redirect_to'])){
+                abort(404);
+            }
+            setcookie('redirect_to', null);
+
         }
-        setcookie('redirect_to', null);
-        return redirect()->to($_COOKIE['redirect_to'] ??  $this->redirectTo);
+        
+        return redirect()->to($red);
     }
 
 

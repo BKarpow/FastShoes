@@ -16,13 +16,22 @@
             >
         </div>
         <!-- /.section-list -->
+        <h3 class="mt-2 text-center">
+            Последние товары
+        </h3>
+        <!-- /.mt-2 text-center -->
+        <LastProducts />
     </div>
     <!-- /.section -->
 </template>
 
 <script>
+import LastProducts from "./LastProducts.vue";
 export default {
     name: "SectionList",
+    components: {
+        LastProducts
+    },
     metaInfo: {
         title: "Найти обувь ето просто"
     },

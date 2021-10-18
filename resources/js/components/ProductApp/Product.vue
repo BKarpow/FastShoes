@@ -3,8 +3,17 @@
         <div class="product__image">
             <img :src="product.image_1.uri" alt="" />
         </div>
-        <div class="product__title">
+        <div class="product__title pl-2">
             <h3>{{ product.title }}</h3>
+            <star-rating
+                v-if="isRating"
+                :read-only="true"
+                :increment="0.1"
+                :show-rating="true"
+                :inline="true"
+                :star-size="24"
+                :rating="rating"
+            />
         </div>
         <div class="product__link">
             <a :href="product.uri">
@@ -18,8 +27,12 @@
 </template>
 
 <script>
+import StarRating from "vue-star-rating";
 export default {
     name: "Product",
+    components: {
+        StarRating
+    },
     props: {
         product: {
             type: Object,
@@ -36,6 +49,20 @@ export default {
             //     uri: '',
             //   }
         };
+    },
+    computed: {
+        isRating() {
+            if (!this.product.hasOwnProperty("rating")) {
+                return false;
+            }
+            if (this.product.rating > 0) {
+                return true;
+            }
+            return false;
+        },
+        rating() {
+            return this.product.rating;
+        }
     },
     methods: {
         goToProduct(u) {
