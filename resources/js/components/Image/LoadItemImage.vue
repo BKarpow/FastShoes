@@ -53,6 +53,10 @@
 export default {
     name: "ImageUploadBox",
     props: {
+        imageIndex: {
+            type: Number,
+            default: () => 0
+        },
         nameField: {
             type: String,
             default: () => ""
@@ -149,6 +153,10 @@ export default {
                             this.deleteIcon = true;
                             this.responseFile = resp.data;
                             this.$emit("upload", this.responseFile);
+                            this.$emit("upload:index", {
+                                data: this.responseFile,
+                                index: this.imageIndex
+                            });
                         })
                         .catch(err => {
                             console.error("Error load file");

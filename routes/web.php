@@ -108,6 +108,8 @@ Route::group([
         'prefix' => '/product'
     ], function () {
         Route::put('/', [AdminUpdateProductController::class, 'updateCategory']);
+        Route::put('/title-price', [AdminUpdateProductController::class, 'updateTitlePrice']);
+        Route::put('/images', [AdminUpdateProductController::class, 'updateImages']);
     });
 });
 

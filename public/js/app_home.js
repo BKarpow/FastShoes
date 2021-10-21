@@ -4161,6 +4161,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ImageUploadBox",
   props: {
+    imageIndex: {
+      type: Number,
+      "default": function _default() {
+        return 0;
+      }
+    },
     nameField: {
       type: String,
       "default": function _default() {
@@ -4250,6 +4256,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           _this.responseFile = resp.data;
 
           _this.$emit("upload", _this.responseFile);
+
+          _this.$emit("upload:index", {
+            data: _this.responseFile,
+            index: _this.imageIndex
+          });
         })["catch"](function (err) {
           console.error("Error load file");
           _this.spiner = false;

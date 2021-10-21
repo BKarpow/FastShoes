@@ -58,13 +58,23 @@
         
         <div class="row mt-2">
             <div class="col-md-11">
+                @if (auth()->check())
+                @if (auth()->user()->isAdmin())
                 <div class="pt-1">
                     <admin-product
                         :category-id="{{ $product->category_id }}"
+                        title-product="{{ $product->title }}"
+                        price-product="{{ $product->price }}"
                         :product-id="{{ $product->id }}"
+                        @if(!empty($product->imageItem_1(true))) :image-self-one='{{ $product->imageItem_1(true) }}' @endif
+                        @if(!empty($product->imageItem_2(true))) :image-self-two='{{ $product->imageItem_2(true) }}' @endif
+                        @if(!empty($product->imageItem_3(true))) :image-self-three='{{ $product->imageItem_3(true) }}' @endif
+                        
                     ></admin-product>
                 </div>
                 <!-- /.pt-1 -->
+                @endif
+                @endif
                 <div class="py-1">
                     <hide-box v-cloak btn-show-text="Таблица размеров" btn-hide-text="Скрыть таблицу">
                         <table class="table table-responsive table-hover">
