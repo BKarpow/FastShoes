@@ -13,6 +13,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\SitemapXmlController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UserOrderController;
+use App\Http\Controllers\AdminUpdateProductController;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\ProductSection as Section;
@@ -81,6 +82,7 @@ Route::group([
      */
     Route::view('/product/spa', 'home.product.spa')->name('product.spa');
     Route::resource('/product', ProductController::class);
+    Route::get('/product/{product}/edit-page', [ProductController::class, 'edit']);
     Route::put('/product/{id}/price/', [ProductController::class, 'updatePrice'])
         ->name('product.update.price');
     Route::put('/product/{product}/show', [ProductController::class, 'showToggle'])
@@ -93,6 +95,20 @@ Route::group([
 
     Route::post('/size', [SizeController::class, 'store'])->name('size.store');
     Route::post('/color', [ColorController::class, 'store'])->name('color.store');
+});
+
+/**
+ * Admin update routes
+ */
+Route::group([
+    'prefix' => '/admin',
+    'middleware' => 'admin',
+], function(){
+    Route::group([
+        'prefix' => '/product'
+    ], function () {
+        Route::put('/', [AdminUpdateProductController::class, 'updateCategory']);
+    });
 });
 
 Route::group([

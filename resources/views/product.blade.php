@@ -58,6 +58,13 @@
         
         <div class="row mt-2">
             <div class="col-md-11">
+                <div class="pt-1">
+                    <admin-product
+                        :category-id="{{ $product->category_id }}"
+                        :product-id="{{ $product->id }}"
+                    ></admin-product>
+                </div>
+                <!-- /.pt-1 -->
                 <div class="py-1">
                     <hide-box v-cloak btn-show-text="Таблица размеров" btn-hide-text="Скрыть таблицу">
                         <table class="table table-responsive table-hover">

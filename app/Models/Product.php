@@ -37,16 +37,16 @@ class Product extends Model
      * 
      * @param string $column - Column of image uri
      * @param bool $fullInfo - default false
-     * @return App\Models\File | null
+     * @return App\Models\File |string (json) | null
      */
     private function relationImage(string $column, bool $fulIInfo = false)
     {
         $file = $this->hasMany(File::class, 'uri', $column);
         if (!$fulIInfo) {
             $file ->select('id', 'name', 'uri');
+            return $file->first();
         }
-        return $file->first();
-            
+        return json_encode( $file->first());
     }
 
     /**

@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-11">
-                <form action="{{route('home.product.updateFull')}}" method="PUT">
+                <form  method="PUT">
                     @csrf;
                     <div class="form-group">
                         <label for="name">Имя товара</label>
@@ -28,6 +28,14 @@
                             class="form-control col-md-3"
                             value="{{ $product->price }}"
                         >
+                    </div>
+                    <!-- /.form-group -->
+                    
+                    <div class="form-group images-box">
+                        <item-image :hidden-block="true" name-field="image_1" :image-self='{{ $product->imageItem_1(true) }}'></item-image>
+                        <item-image :hidden-block="true" name-field="image_2" :image-self='{{ $product->imageItem_2(true) }}'></item-image>
+                        <item-image :hidden-block="true" name-field="image_3" :image-self='{{ $product->imageItem_3(true) }}'></item-image>
+                       
                     </div>
                     <!-- /.form-group -->
                 </form>

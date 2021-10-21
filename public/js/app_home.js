@@ -3388,6 +3388,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 var swalWithBootstrapButtons = sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().mixin({
@@ -4108,12 +4131,52 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'ImageUploadBox',
+  name: "ImageUploadBox",
   props: {
+    nameField: {
+      type: String,
+      "default": function _default() {
+        return "";
+      }
+    },
+    hiddenBlock: {
+      type: Boolean,
+      "default": function _default() {
+        return false;
+      }
+    },
     imageSelf: {
-      type: Object,
-      "default": function _default() {}
+      "default": function _default() {
+        return {};
+      }
     }
   },
   data: function data() {
@@ -4122,68 +4185,80 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       icon: true,
       deleteIcon: false,
       imageBox: false,
-      image: '',
-      errorText: '',
-      responseFile: ''
+      image: "",
+      errorText: "",
+      responseFile: ""
     };
   },
   computed: {
-    imageSrc: function imageSrc() {
-      if (_typeof(this.responseFile) === 'object' && this.responseFile.uri !== undefined) {
-        return this.responseFile.uri;
+    isSelf: function isSelf() {
+      if (this.imageSelf == null) {
+        return false;
       }
 
-      return '';
+      return this.imageSelf.hasOwnProperty("id");
+    },
+    imageSrc: function imageSrc() {
+      if (_typeof(this.responseFile) === "object" && this.responseFile.hasOwnProperty("uri")) {
+        return this.responseFile.uri;
+      } else if (this.imageSelf != null && this.imageSelf.hasOwnProperty("uri")) {
+        return this.imageSelf.uri;
+      }
+
+      return "";
     },
     isWebP: function isWebP() {
-      if (_typeof(this.responseFile) === 'object' && this.responseFile.type !== undefined) {
-        return this.responseFile.type.lowercase() === 'webp';
+      if (_typeof(this.responseFile) === "object" && this.responseFile.type !== undefined) {
+        return this.responseFile.type.lowercase() === "webp";
       }
 
       return false;
+    },
+    hiddenFieldValue: function hiddenFieldValue() {
+      return this.responseFile.uri || "";
     }
   },
   methods: {
     cleanStade: function cleanStade() {
-      console.log('clean stade from image');
+      console.log("clean stade from image");
       this.spiner = false;
       this.icon = true;
       this.deleteIcon = false;
       this.imageBox = false;
-      this.image = '';
-      this.errorText = '';
-      this.responseFile = '';
+      this.image = "";
+      this.errorText = "";
+      this.responseFile = "";
     },
     doSubmit: function doSubmit() {
       var _this = this;
 
       var formData = new FormData();
-      formData.append('file', this.$refs.file.files[0]);
+      formData.append("file", this.$refs.file.files[0]);
       this.icon = false;
       this.spiner = true;
-      this.errorText = '';
-      route('home.upload.image').then(function (uri) {
+      this.errorText = "";
+      route("home.upload.image").then(function (uri) {
         axios.post(uri.data, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            "Content-Type": "multipart/form-data"
           }
         }).then(function (resp) {
           _this.spiner = false;
-          _this.errorText = '';
+          _this.errorText = "";
           _this.imageBox = true;
           _this.deleteIcon = true;
           _this.responseFile = resp.data;
 
-          _this.$emit('upload', _this.responseFile);
+          _this.$emit("upload", _this.responseFile);
         })["catch"](function (err) {
-          console.error('Error load file');
+          console.error("Error load file");
           _this.spiner = false;
-          _this.errorText = 'Error!!';
+          _this.errorText = "Error!!";
 
-          _this.$emit('error', 'Error load file!');
+          _this.$emit("error", "Error load file!");
         });
       })["catch"](function (err) {
-        return console.error('Error getting route name');
+        return console.error("Error getting route name");
       });
     },
     doDelete: function doDelete() {
@@ -4191,7 +4266,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       if (this.responseFile.id !== undefined || this.imageSelf.id !== undefined) {
         var fileId = this.responseFile.id || this.imageSelf.id;
-        route('home.upload.delete', {
+        route("home.upload.delete", {
           fileId: fileId
         }).then(function (u) {
           axios["delete"](u.data).then(function (resp) {
@@ -4200,16 +4275,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             _this2.icon = true;
             _this2.deleteIcon = false;
 
-            _this2.$emit('delete', _this2.responseFile.id);
+            _this2.$emit("delete", _this2.responseFile.id);
 
-            _this2.responseFile = '';
+            _this2.responseFile = "";
+            _this2.imageSelf = {};
           })["catch"](function (err) {
-            console.error('Error delete file');
+            console.error("Error delete file");
           });
         })["catch"](function (err) {
-          return console.error('Error getting route name');
+          return console.error("Error getting route name");
         });
       }
+    }
+  },
+  mounted: function mounted() {
+    if (this.isSelf) {
+      this.icon = false;
+      this.deleteIcon = true;
     }
   }
 });
@@ -46226,6 +46308,48 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-secondary btn-sm",
+                              attrs: {
+                                href:
+                                  "/home/product/" + product.id + "/edit-page"
+                              }
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "bi bi-pencil-square",
+                                  attrs: {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "16",
+                                    height: "16",
+                                    fill: "currentColor",
+                                    viewBox: "0 0 16 16"
+                                  }
+                                },
+                                [
+                                  _c("path", {
+                                    attrs: {
+                                      d:
+                                        "M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("path", {
+                                    attrs: {
+                                      "fill-rule": "evenodd",
+                                      d:
+                                        "M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                                    }
+                                  })
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
                             "button",
                             {
                               staticClass: "btn-primary btn-sm",
@@ -47087,11 +47211,13 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _c("label", [
-      _c("input", {
-        ref: "file",
-        attrs: { type: "file" },
-        on: { change: _vm.doSubmit }
-      }),
+      !_vm.isSelf
+        ? _c("input", {
+            ref: "file",
+            attrs: { type: "file" },
+            on: { change: _vm.doSubmit }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("span", [
         _vm.spiner
@@ -47106,7 +47232,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.imageBox
+        _vm.imageBox || _vm.isSelf
           ? _c("img", { attrs: { src: _vm.imageSrc, alt: "" } })
           : _vm._e(),
         _vm._v(" "),
@@ -47138,7 +47264,14 @@ var render = function() {
             )
           : _vm._e()
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.hiddenBlock
+      ? _c("input", {
+          attrs: { type: "hidden", name: _vm.nameField },
+          domProps: { value: _vm.hiddenFieldValue }
+        })
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -61052,6 +61185,7 @@ Vue.component("categories-app", __webpack_require__(/*! ./components/Home/Catego
 Vue.component("products-app", __webpack_require__(/*! ./components/Home/Product/Index.vue */ "./resources/js/components/Home/Product/Index.vue")["default"]);
 Vue.component("count-orders", __webpack_require__(/*! ./components/Home/CountNewOrders.vue */ "./resources/js/components/Home/CountNewOrders.vue")["default"]);
 Vue.component("spoller", __webpack_require__(/*! ./components/Spoller.vue */ "./resources/js/components/Spoller.vue")["default"]);
+Vue.component("item-image", __webpack_require__(/*! ./components/Image/LoadItemImage.vue */ "./resources/js/components/Image/LoadItemImage.vue")["default"]);
 
 Vue.component("star-rating", (vue_star_rating__WEBPACK_IMPORTED_MODULE_2___default()));
 Vue.use((_ckeditor_ckeditor5_vue2__WEBPACK_IMPORTED_MODULE_1___default()));

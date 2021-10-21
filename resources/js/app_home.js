@@ -40,6 +40,10 @@ Vue.component(
     require("./components/Home/CountNewOrders.vue").default
 );
 Vue.component("spoller", require("./components/Spoller.vue").default);
+Vue.component(
+    "item-image",
+    require("./components/Image/LoadItemImage.vue").default
+);
 
 import StarRating from "vue-star-rating";
 

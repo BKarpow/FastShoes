@@ -24,7 +24,7 @@
 
 <script>
 // Import Swiper Vue.js components
-import Swiper, { Autoplay } from "swiper";
+import Swiper, { Autoplay, FreeMode } from "swiper";
 import Product from "./Product.vue";
 import Spiner from "./../Spiner.vue";
 import "swiper/css";
@@ -41,14 +41,13 @@ export default {
             products: [],
             process: false,
             loop: true,
-            freeMode: true,
             swiperOptions: {
-                modules: [Autoplay],
+                modules: [Autoplay, FreeMode],
                 speed: 800,
-                effect: "flip",
-                spaceBetween: 20,
-                slidesPerView: 1,
+                spaceBetween: 10,
+                // slidesPerView: "auto",
                 loop: true,
+                // loopedSlides: 50,
                 breakpoints: {
                     320: {
                         slidesPerView: 1
@@ -62,6 +61,10 @@ export default {
                 },
                 autoplay: {
                     delay: 3000
+                },
+                freeMode: {
+                    enabled: true,
+                    sticky: true
                 }
             }
         };
@@ -85,6 +88,9 @@ export default {
     },
     mounted() {
         this.fetchLastProducts();
+    },
+    updated() {
+        this.initSwiper();
     }
 };
 </script>

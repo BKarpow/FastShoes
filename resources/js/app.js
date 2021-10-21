@@ -51,6 +51,11 @@ Vue.component(
     require("./components/FeedbackForm.vue").default
 );
 
+Vue.component(
+    "admin-product",
+    require("./components/ProductFull/AdminProductPanel.vue").default
+);
+
 Vue.component("hide-box", require("./components/Spoller.vue").default);
 
 Vue.component("cart", require("./components/Cart.vue").default);
