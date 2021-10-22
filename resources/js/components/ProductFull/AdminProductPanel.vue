@@ -22,6 +22,7 @@
                     :imageSelfThree="imageSelfThree"
                     :product-id="productId"
                 />
+                <APShowToggle :productId="productId" />
             </div>
             <!-- /.c-list -->
         </Spoller>
@@ -34,6 +35,7 @@ import Spoller from "./../Spoller.vue";
 import AdminUpdateCategory from "./AdminUpdateCategory.vue";
 import APTitlePrice from "./APTitlePrice.vue";
 import APImages from "./APImages.vue";
+import APShowToggle from "./APShowToggle.vue";
 export default {
     props: {
         imageSelfThree: {
@@ -71,7 +73,8 @@ export default {
         Spoller,
         AdminUpdateCategory,
         APTitlePrice,
-        APImages
+        APImages,
+        APShowToggle
     },
     data() {
         return {
@@ -131,5 +134,9 @@ export default {
 }
 .c-pallet {
     margin-top: 0.7rem;
+}
+
+.red {
+    background: red !important;
 }
 </style>

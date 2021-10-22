@@ -110,6 +110,7 @@ Route::group([
         Route::put('/', [AdminUpdateProductController::class, 'updateCategory']);
         Route::put('/title-price', [AdminUpdateProductController::class, 'updateTitlePrice']);
         Route::put('/images', [AdminUpdateProductController::class, 'updateImages']);
+        Route::put('/show', [AdminUpdateProductController::class, 'updateShow']);
     });
 });
 
@@ -118,6 +119,8 @@ Route::group([
 ], function () {
     Route::get('/{product}/{alias}.html', [ProductController::class, 'showPage'])
         ->name('product.show');
+    
+        
 });
 
 Auth::routes();
@@ -177,6 +180,9 @@ Route::get('/category/{id}/{alias}', function ($id, $alias) {
         'isMeta' => true,
     ]);
 })->name('spa.category');
+Route::get('/search', function () {
+    return view('welcome');
+})->name('spa.search');
 
 /**
  * Sitemaps

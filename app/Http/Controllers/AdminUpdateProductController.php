@@ -85,4 +85,21 @@ class AdminUpdateProductController extends Controller
         $product->save();
         return response($product->jsonSerialize(), Response::HTTP_OK);
     }
+
+    /**
+     * Update show product.
+     * 
+     * @param Request $request
+     * @return Illuminate\Http\Response
+     */
+    public function updateShow(Request $request)
+    {
+        $request->validate([
+            'productId' => 'required|exists:products,id'
+        ]);
+        $product = Product::findOrFail($request->productId);
+        $product->show = ! (bool)$product->show;
+        $product->save();
+        return response($product->jsonSerialize(), Response::HTTP_OK);
+    }
 }

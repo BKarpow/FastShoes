@@ -72,3 +72,5 @@ Route::get('/color', [ColorController::class, 'getAll'])->name('api.color.all');
 Route::get('/product/params-from', [ProductController::class, 'fromCategoryId']);
 
 Route::get('/file/uri', [FileController::class, 'getItemFileFromUri']);
+
+Route::get('/product/search', [ProductController::class,'searchTitle']);

@@ -7,6 +7,7 @@ use App\Lib\TelegramTrait;
 use App\Lib\TranslitStr;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -143,7 +144,7 @@ class ProductController extends Controller
     public function getFromCategoryId(Request $request)
     {
         $request->validate([
-            'categoryId' => 'required|exists:categories,id',
+            'categoryId' => 'required|numeric|exists:categories,id',
         ]);
         $w = [
             ['show', '=', true],
@@ -198,6 +199,9 @@ class ProductController extends Controller
      */
     public function showPage(Product $product)
     {
+        if (!(bool)$product->show) {
+            abort(404);
+        }
         $product->increment('view');
         $ordered = false;
         if (auth()->check()) {
@@ -205,6 +209,7 @@ class ProductController extends Controller
                 $ordered = true;
             }
         }
+        
         return view('product', ['product' => $product, 'ordered' => $ordered]);
     }
 
@@ -215,7 +220,7 @@ class ProductController extends Controller
     {
         $request->validate(
             [
-                'categoryId' => 'required|exists:categories,id',
+                'categoryId' => 'required|numeric|exists:categories,id',
             ]
         );
         $products = Product::whereCategoryId($request->categoryId)->get();
@@ -272,6 +277,25 @@ class ProductController extends Controller
             Product::whereShow(true)
                 ->orderBy('created_at', 'desc')
                 ->get()
+        );
+    }
+
+
+    /**
+     * Search from title
+     * 
+     * @param Request
+     * @return Response
+     */
+    public function searchTitle(Request $request)
+    {
+        $request->validate([
+            's' => 'required|string|max:50'
+        ]);
+        $s = str_replace(['+'], [' '], strip_tags( $request->s));
+        return ProductResource::collection(
+            Product::whereRaw("MATCH (title) AGAINST (?)", [$s])
+                ->paginate(env('PRODUCT_PER_PAGE', 15))
         );
     }
 }

@@ -7,6 +7,7 @@
 import "@popperjs/core";
 import * as bootstrap from "bootstrap";
 import Inputmask from "inputmask";
+// import CKEditor from "@ckeditor/ckeditor5-vue2";
 
 require("./bootstrap");
 
@@ -77,6 +78,7 @@ window.setTooltips = () => {
     });
 };
 
+// Vue.use(CKEditor);
 const app = new Vue({
     el: "#app",
     methods: {

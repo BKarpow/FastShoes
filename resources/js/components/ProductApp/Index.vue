@@ -1,5 +1,9 @@
 <template>
     <div class="productSelectorApp container">
+        <div class="mt-2 d-flex justify-content-end align-items-center">
+            <router-link to="/search"> <icon-glass /> </router-link>
+        </div>
+        <!-- /.mt-2 -->
         <div class="my-2">
             <router-view />
         </div>
@@ -12,9 +16,11 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueMeta from "vue-meta";
+import IconGlass from "./../ui/icons/IconGlass.vue";
 import ProductList from "./ProductList.vue";
 import SectionList from "./SectionList.vue";
 import CategoryList from "./CategoryList.vue";
+import SearchList from "./SearchList.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueMeta);
@@ -34,6 +40,11 @@ const routes = [
         path: "/category/:id/:alias",
         name: "Products",
         component: ProductList
+    },
+    {
+        path: "/search",
+        name: "Search",
+        component: SearchList
     }
 ];
 
@@ -49,7 +60,8 @@ export default {
         title: "FourTwo Shoes"
     },
     components: {
-        ProductList
+        ProductList,
+        IconGlass
     },
     data() {
         return {};
