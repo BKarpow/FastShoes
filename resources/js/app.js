@@ -7,7 +7,6 @@
 import "@popperjs/core";
 import * as bootstrap from "bootstrap";
 import Inputmask from "inputmask";
-// import CKEditor from "@ckeditor/ckeditor5-vue2";
 
 require("./bootstrap");
 

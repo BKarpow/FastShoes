@@ -1,11 +1,5 @@
 <template>
     <div class="productSelectorApp container">
-        <div class="mt-2 d-flex justify-content-end align-items-center">
-            <router-link to="/search">
-                <button-border> <icon-glass :size="32" /> </button-border>
-            </router-link>
-        </div>
-        <!-- /.mt-2 -->
         <div class="my-2">
             <router-view />
         </div>
@@ -18,12 +12,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import VueMeta from "vue-meta";
-import IconGlass from "./../ui/icons/IconGlass.vue";
 import ProductList from "./ProductList.vue";
 import SectionList from "./SectionList.vue";
 import CategoryList from "./CategoryList.vue";
 import SearchList from "./SearchList.vue";
-import ButtonBorder from "./../ui/element/ButtonBorder.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueMeta);
@@ -63,9 +55,7 @@ export default {
         title: "FourTwo Shoes"
     },
     components: {
-        ProductList,
-        IconGlass,
-        ButtonBorder
+        ProductList
     },
     data() {
         return {};

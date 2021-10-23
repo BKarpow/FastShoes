@@ -27,6 +27,7 @@ class ProductResource extends JsonResource
             'image_3' => $this->imageItem_3(),
             'rating' => $this->rating(),
             'uri' => $this->uri(),
+            'show' => (bool) $this->show
         ];
     }
 }

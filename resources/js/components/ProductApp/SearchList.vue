@@ -1,5 +1,6 @@
 <template>
     <div>
+        <search-button :is-page-search="true" />
         <SearchInput @input="doInput" @submit="fetchSearchResult" />
         <div class="my-1" v-if="isProductLoaded">
             <h4>
@@ -17,12 +18,13 @@
 
 <script>
 import SearchInput from "./SearchInput.vue";
+import SearchButton from "./SearchButton.vue";
 import ProductList from "./ProductList.vue";
 import Items from "./Items.vue";
 import PaginateBox from "./../ui/element/PaginateBox.vue";
 export default {
     name: "SearchList",
-    components: { SearchInput, ProductList, Items, PaginateBox },
+    components: { SearchInput, ProductList, Items, PaginateBox, SearchButton },
     data() {
         return {
             search: "",

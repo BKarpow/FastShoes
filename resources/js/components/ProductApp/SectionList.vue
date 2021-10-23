@@ -1,5 +1,6 @@
 <template>
     <div class="section">
+        <search-button />
         <h2>Что Вас интересует?</h2>
         <div class="section-list">
             <router-link
@@ -27,10 +28,12 @@
 
 <script>
 import LastProducts from "./LastProducts.vue";
+import SearchButton from "./SearchButton.vue";
 export default {
     name: "SectionList",
     components: {
-        LastProducts
+        LastProducts,
+        SearchButton
     },
     metaInfo: {
         title: "Найти обувь ето просто"
