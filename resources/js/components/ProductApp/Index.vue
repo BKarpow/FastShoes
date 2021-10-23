@@ -1,7 +1,9 @@
 <template>
     <div class="productSelectorApp container">
         <div class="mt-2 d-flex justify-content-end align-items-center">
-            <router-link to="/search"> <icon-glass /> </router-link>
+            <router-link to="/search">
+                <button-border> <icon-glass :size="32" /> </button-border>
+            </router-link>
         </div>
         <!-- /.mt-2 -->
         <div class="my-2">
@@ -21,6 +23,7 @@ import ProductList from "./ProductList.vue";
 import SectionList from "./SectionList.vue";
 import CategoryList from "./CategoryList.vue";
 import SearchList from "./SearchList.vue";
+import ButtonBorder from "./../ui/element/ButtonBorder.vue";
 
 Vue.use(VueRouter);
 Vue.use(VueMeta);
@@ -61,7 +64,8 @@ export default {
     },
     components: {
         ProductList,
-        IconGlass
+        IconGlass,
+        ButtonBorder
     },
     data() {
         return {};

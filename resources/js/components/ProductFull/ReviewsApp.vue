@@ -163,18 +163,7 @@
                 v-if="!showCreateForm"
                 @click="showCreateForm = true"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-chat-left-dots-fill"
-                    viewBox="0 0 16 16"
-                >
-                    <path
-                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"
-                    />
-                </svg>
+                <icon-comment :size="28" />
                 Оставить свой отзыв
             </button>
             <form @submit.prevent="doCreateReviewSubmit" v-if="showCreateForm">
@@ -210,7 +199,7 @@
                 <!-- /.form-group -->
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">
-                        {{ btnSubmitText }}
+                        <icon-comment /> {{ btnSubmitText }}
                     </button>
                     <!-- /.btn btn-primary btn-block -->
                 </div>
@@ -276,18 +265,7 @@
                                 type="button"
                                 class="btn btn-outline-secondary btn-sm"
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    fill="currentColor"
-                                    class="bi bi-pencil-fill"
-                                    viewBox="0 0 16 16"
-                                >
-                                    <path
-                                        d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
-                                    />
-                                </svg>
+                                <icon-edit />
                                 Редактировать
                             </button>
                             <button
@@ -295,18 +273,7 @@
                                 type="button"
                                 class="btn btn-outline-danger btn-sm"
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="16"
-                                    height="16"
-                                    fill="currentColor"
-                                    class="bi bi-trash-fill"
-                                    viewBox="0 0 16 16"
-                                >
-                                    <path
-                                        d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"
-                                    />
-                                </svg>
+                                <icon-trash />
                                 Удалить
                             </button>
                             <!-- /.btn btn-outline-danger btn-sm -->
@@ -320,67 +287,11 @@
             <!-- /.comment -->
         </div>
         <!-- /#reviewsList -->
-        <div class="pageBox" v-if="isPaginate">
-            <button
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Предыдущая страница"
-                v-if="prevPage"
-                type="button"
-                @click="goPage(prevPage)"
-                class="p-btn p-prev"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
-                    class="bi bi-caret-left"
-                    viewBox="0 0 16 16"
-                >
-                    <path
-                        d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"
-                    />
-                </svg>
-            </button>
-            <!-- /.p-btn -->
-            <div
-                class="p-text d-flex align-items-center justify-content-center"
-            >
-                <span
-                    data-bs-toggle="tooltip"
-                    title="Поточна/Всього сторінок"
-                    class="pagesText"
-                    >{{ pageText }}</span
-                >
-                <!-- /.pagesText -->
-            </div>
-            <!-- /.p-text -->
-            <button
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Следующая страница"
-                v-if="nextPage"
-                type="button"
-                @click="goPage(nextPage)"
-                class="p-btn p-next"
-            >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="currentColor"
-                    class="bi bi-caret-right"
-                    viewBox="0 0 16 16"
-                >
-                    <path
-                        d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"
-                    />
-                </svg>
-            </button>
-            <!-- /.p-btn -->
-        </div>
-        <!-- /.pageBox -->
+        <PaginateBox
+            :items-paginate="reviews"
+            @go:page="goPage"
+            v-if="isLoadedReviews"
+        />
     </div>
     <!-- /#reviews -->
 </template>
@@ -388,6 +299,10 @@
 <script>
 import Cookie from "js-cookie";
 import StarRating from "vue-star-rating";
+import IconComment from "./../ui/icons/IconComment.vue";
+import IconEdit from "./../ui/icons/IconEdit.vue";
+import IconTrash from "./../ui/icons/IconTrash.vue";
+import PaginateBox from "./../ui/element/PaginateBox.vue";
 export default {
     props: {
         userId: {
@@ -407,7 +322,11 @@ export default {
         }
     },
     components: {
-        StarRating
+        StarRating,
+        IconComment,
+        IconEdit,
+        IconTrash,
+        PaginateBox
     },
     data() {
         return {
@@ -422,7 +341,8 @@ export default {
             ratingProduct: 0,
             allRatings: [],
             countRatings: 0,
-            paginatePage: ""
+            paginatePage: "",
+            isLoadedReviews: false
         };
     },
 
@@ -464,33 +384,6 @@ export default {
                 rating: String(this.rating),
                 phoneOrdered: this.userOrderedPhone
             };
-        },
-        isPaginate() {
-            if (this.reviews.links === undefined) {
-                return false;
-            }
-            if (
-                this.reviews.links.prev === null &&
-                this.reviews.links.next === null
-            ) {
-                return false;
-            }
-            return true;
-        },
-        nextPage() {
-            if (this.reviews.links.next === null) {
-                return false;
-            }
-            return this.reviews.links.next;
-        },
-        prevPage() {
-            if (this.reviews.links.prev === null) {
-                return false;
-            }
-            return this.reviews.links.prev;
-        },
-        pageText() {
-            return `${this.reviews.meta.current_page}/${this.reviews.meta.last_page}`;
         }
     },
     watch: {
@@ -583,6 +476,7 @@ export default {
                 ) {
                     this.reviews = response.data;
                     this.showCreateForm = false;
+                    this.isLoadedReviews = true;
                     this.comment = "";
                     this.rating = 0;
                 } else {

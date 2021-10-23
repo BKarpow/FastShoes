@@ -54,7 +54,7 @@ $border-radius: 6px;
     }
     .button-box {
         border-radius: $border-radius $border-radius 0 0;
-        background: #bdbdbd;
+        background: lighten(#28a745, 45);
         padding: 0.5rem;
         .button {
             cursor: pointer;
