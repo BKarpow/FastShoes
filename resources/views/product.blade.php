@@ -47,6 +47,7 @@
                         price="{{$product->price}}"
                         :product-id="{{$product->id}}"
                         :sizes='{{$product->sizes}}'
+                        @if ($liked) :liked="true" @endif
                     ></add-to-cart>
                 </div>
                 <!-- /.mt-1 -->

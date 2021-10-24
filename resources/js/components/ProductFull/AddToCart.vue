@@ -85,6 +85,7 @@
                     {{ textBtnAddToCart }}
                 </button>
                 <!-- /.btn btn-dark -->
+                <likes :productId="productId" :liked="liked" :auth="auth" />
             </div>
             <!-- /.button -->
         </div>
@@ -96,10 +97,12 @@
 <script>
 import Swal from "sweetalert2";
 import OrderApp from "./OrderApp.vue";
+import Likes from "./Likes.vue";
 import Cookie from "js-cookie";
 export default {
     components: {
-        OrderApp
+        OrderApp,
+        Likes
     },
     props: {
         auth: {
@@ -124,7 +127,8 @@ export default {
         isInCart: {
             type: Boolean,
             default: () => false
-        }
+        },
+        liked: { type: Boolean, default: () => false }
     },
     data() {
         return {

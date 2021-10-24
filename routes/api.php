@@ -11,6 +11,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\LikeProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,3 +75,6 @@ Route::get('/product/params-from', [ProductController::class, 'fromCategoryId'])
 Route::get('/file/uri', [FileController::class, 'getItemFileFromUri']);
 
 Route::get('/product/search', [ProductController::class,'searchTitle']);
+
+Route::get('/like/count', [LikeProductController::class, 'likesFromProduct']);
+

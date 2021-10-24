@@ -204,13 +204,21 @@ class ProductController extends Controller
         }
         $product->increment('view');
         $ordered = false;
+        $liked = false;
         if (auth()->check()) {
             if (auth()->user()->orders()->whereProductId($product->id)->first()) {
                 $ordered = true;
             }
+            if (auth()->user()->likes()->whereProductId($product->id)->first()) {
+                $liked = true;
+            }
         }
         
-        return view('product', ['product' => $product, 'ordered' => $ordered]);
+        return view('product', [
+                'product' => $product,
+                'ordered' => $ordered,
+                'liked' => $liked
+            ]);
     }
 
     /**

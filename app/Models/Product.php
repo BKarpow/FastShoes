@@ -183,4 +183,11 @@ class Product extends Model
        return $rating;
     }
 
+    /**
+     * Relation from LikeProducts
+     */
+    public function likes()
+    {
+        return $this->hasMany(LikeProduct::class, 'product_id', 'id');
+    }
 }

@@ -84,4 +84,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserOrder::class, 'user_id', 'id');
     }
+
+    /**
+     * Relation from LikeProducts
+     */
+    public function likes()
+    {
+        return $this->hasMany(LikeProduct::class, 'user_id', 'id');
+    }
 }

@@ -14,6 +14,7 @@ use App\Http\Controllers\SitemapXmlController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\UserOrderController;
 use App\Http\Controllers\AdminUpdateProductController;
+use App\Http\Controllers\LikeProductController;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\ProductSection as Section;
@@ -198,7 +199,19 @@ Route::group([
 ], function () {
     Route::get('/', [UserOrderController::class, 'cabinet'])
         ->name('cabinet.index');
+    Route::get('/likes', [LikeProductController::class, 'index'])
+        ->name('cabinet.like');
 });
+
+Route::group([
+    'prefix' => '/like',
+    'middleware' => 'auth',
+], function () {
+    Route::get('/{product}', [LikeProductController::class, 'likeProduct'])
+        ->name('product.like');
+});
+
+
 
 /**
  * Feedback routes;
