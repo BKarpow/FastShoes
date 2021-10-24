@@ -51,6 +51,10 @@ export default {
         itemsPaginate: {
             type: Object,
             required: true
+        },
+        scrollToId: {
+            type: String,
+            default: () => ""
         }
     },
     computed: {
@@ -83,8 +87,17 @@ export default {
         }
     },
     methods: {
+        scroll() {
+            if (this.scrollToId !== "") {
+                document.querySelector("#" + this.scrollToId).scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+            }
+        },
         goPage(url) {
             this.$emit("go:page", url);
+            this.scroll();
         }
     }
 };

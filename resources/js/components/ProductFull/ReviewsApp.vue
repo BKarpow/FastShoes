@@ -288,6 +288,7 @@
         </div>
         <!-- /#reviewsList -->
         <PaginateBox
+            scrollToId="reviews"
             :items-paginate="reviews"
             @go:page="goPage"
             v-if="isLoadedReviews"

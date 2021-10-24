@@ -9,6 +9,7 @@
         </div>
         <items :items="productItems" v-if="isProductLoaded" />
         <paginate-box
+            scrollToId="app"
             :items-paginate="products"
             @go:page="fetchSearchResult"
             v-if="isProductLoaded"

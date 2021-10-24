@@ -4512,6 +4512,12 @@ __webpack_require__.r(__webpack_exports__);
     itemsPaginate: {
       type: Object,
       required: true
+    },
+    scrollToId: {
+      type: String,
+      "default": function _default() {
+        return "";
+      }
     }
   },
   computed: {
@@ -4545,8 +4551,17 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    scroll: function scroll() {
+      if (this.scrollToId !== "") {
+        document.querySelector("#" + this.scrollToId).scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    },
     goPage: function goPage(url) {
       this.$emit("go:page", url);
+      this.scroll();
     }
   }
 });

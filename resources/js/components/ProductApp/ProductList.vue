@@ -1,25 +1,40 @@
 <template>
-    <div class="productList">
+    <div class="productList" id="productListSc">
         <div class="my-1">
             <button @click="toSectionPage" class="btn btn-dark btn-sm mt-1">
                 <IconBackspace :size="16" />
                 {{ sectionName }}
             </button>
             <!-- /.btn btn-dark btn-sm -->
-            <button @click="toCategoryPage" class="btn btn-dark btn-sm mt-1">
+            <button
+                @click="toCategoryPage"
+                class="btn btn-dark btn-sm mt-1"
+                v-if="!isLoadedAndEmpty"
+            >
                 <IconBackspace :size="16" />
                 {{ categoryName }}
             </button>
             <!-- /.btn btn-dark btn-sm -->
         </div>
         <!-- /.my-1 -->
-        <FiltersList :category-id="categoryId" @updated="changeFilters" />
+        <FiltersList
+            v-if="!isLoadedAndEmpty"
+            :category-id="categoryId"
+            @updated="changeFilters"
+        />
         <div class="noProducts" v-if="products.length === 0">
             <Spiner />
         </div>
         <!-- /.noProducts -->
-        <Items :items="productItems" v-if="isProductLoaded" />
+        <alert-success v-if="isLoadedAndEmpty">
+            Извините, но товаров пока тут нет 🙁.
+        </alert-success>
+        <div>
+            <Items :items="productItems" v-if="isProductLoaded" />
+        </div>
+        <!-- /.productList -->
         <PaginateBox
+            scrollToId="app"
             @go:page="goPage"
             :items-paginate="products"
             v-if="isProductLoaded"
@@ -30,6 +45,7 @@
 
 <script>
 import PaginateBox from "./../ui/element/PaginateBox.vue";
+import AlertSuccess from "./../ui/element/AlertSuccess.vue";
 import IconBackspace from "./../ui/icons/IconBackspace.vue";
 import Product from "./Product.vue";
 import Items from "./Items.vue";
@@ -47,7 +63,8 @@ export default {
         Spiner,
         PaginateBox,
         Items,
-        IconBackspace
+        IconBackspace,
+        AlertSuccess
     },
     data() {
         return {
@@ -130,6 +147,15 @@ export default {
         },
         isProductLoaded() {
             return !_.isEmpty(this.productItems);
+        },
+        isLoadedAndEmpty() {
+            if (
+                typeof this.products.data !== "undefined" &&
+                Array.isArray(this.products.data)
+            ) {
+                return _.isEmpty(this.products.data);
+            }
+            return false;
         }
     },
     methods: {
