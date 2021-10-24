@@ -56,6 +56,11 @@ Vue.component(
     require("./components/ProductFull/AdminProductPanel.vue").default
 );
 
+Vue.component(
+    "cookie-use-box",
+    require("./components/ui/element/CookieUseBox.vue").default
+);
+
 Vue.component("hide-box", require("./components/Spoller.vue").default);
 
 Vue.component("cart", require("./components/Cart.vue").default);
