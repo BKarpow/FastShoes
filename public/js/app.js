@@ -3574,6 +3574,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3581,6 +3589,11 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     LastProducts: _LastProducts_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     SearchButton: _SearchButton_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: {
+    isSectionLoaded: function isSectionLoaded() {
+      return !_.isEmpty(this.sections);
+    }
   },
   metaInfo: {
     title: "Найти обувь ето просто"
@@ -53982,29 +53995,45 @@ var render = function() {
       _vm._v(" "),
       _c("h2", [_vm._v("Что Вас интересует?")]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "section-list" },
-        _vm._l(_vm.sections, function(category) {
-          return _c(
-            "router-link",
-            {
-              key: category.id,
-              attrs: {
-                to: {
-                  name: "Category",
-                  params: {
-                    id: category.id,
-                    alias: category.alias
+      !_vm.isSectionLoaded
+        ? _c("div", { staticClass: "fake" }, [
+            _c("div", { staticClass: "fake__item" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "fake__item" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "fake__item" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "fake__item" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "fake__item" })
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isSectionLoaded
+        ? _c(
+            "div",
+            { staticClass: "section-list" },
+            _vm._l(_vm.sections, function(category) {
+              return _c(
+                "router-link",
+                {
+                  key: category.id,
+                  attrs: {
+                    to: {
+                      name: "Category",
+                      params: {
+                        id: category.id,
+                        alias: category.alias
+                      }
+                    }
                   }
-                }
-              }
-            },
-            [_vm._v(_vm._s(category.title))]
+                },
+                [_vm._v(_vm._s(category.title))]
+              )
+            }),
+            1
           )
-        }),
-        1
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c("h3", { staticClass: "mt-2 text-center" }, [
         _vm._v("\n        Последние товары\n    ")

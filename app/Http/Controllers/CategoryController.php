@@ -7,6 +7,7 @@ use App\Lib\TranslitStr;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryApiAllResource;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {

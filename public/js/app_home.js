@@ -2982,7 +2982,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           return i.value;
         })),
         sizes: JSON.stringify(this.selectSizes.map(function (i) {
-          return i.value;
+          if (i.hasOwnProperty("value")) {
+            return i.value;
+          }
+
+          return i;
         })),
         image_1: _typeof(this.images[0]) === "object" ? this.images[0].uri : "",
         image_2: _typeof(this.images[1]) === "object" ? this.images[1].uri : "",

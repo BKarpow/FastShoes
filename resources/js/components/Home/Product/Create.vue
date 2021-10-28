@@ -189,7 +189,14 @@ export default {
                 price: this.price.replace(/\D/g, "") || 0,
                 description: this.editorData,
                 colors: JSON.stringify(this.colorSelect.map(i => i.value)),
-                sizes: JSON.stringify(this.selectSizes.map(i => i.value)),
+                sizes: JSON.stringify(
+                    this.selectSizes.map(i => {
+                        if (i.hasOwnProperty("value")) {
+                            return i.value;
+                        }
+                        return i;
+                    })
+                ),
                 image_1:
                     typeof this.images[0] === "object"
                         ? this.images[0].uri

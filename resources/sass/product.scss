@@ -105,3 +105,20 @@ blockquote {
     font-weight: bold !important;
     padding-top: 10px;
 }
+
+/* Fake item section and category */
+
+.fake {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    &__item {
+        display: block;
+        width: 280px;
+        height: 60px;
+        background-color: lighten($m-color, 45);
+        margin: 0.7rem;
+        border-radius: 6px;
+    }
+}

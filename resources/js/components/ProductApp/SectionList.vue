@@ -2,7 +2,15 @@
     <div class="section">
         <search-button />
         <h2>Что Вас интересует?</h2>
-        <div class="section-list">
+        <div class="fake" v-if="!isSectionLoaded">
+            <div class="fake__item"></div>
+            <div class="fake__item"></div>
+            <div class="fake__item"></div>
+            <div class="fake__item"></div>
+            <div class="fake__item"></div>
+        </div>
+        <!-- /.fake -->
+        <div class="section-list" v-if="isSectionLoaded">
             <router-link
                 v-for="category in sections"
                 :key="category.id"
@@ -34,6 +42,11 @@ export default {
     components: {
         LastProducts,
         SearchButton
+    },
+    computed: {
+        isSectionLoaded() {
+            return !_.isEmpty(this.sections);
+        }
     },
     metaInfo: {
         title: "Найти обувь ето просто"

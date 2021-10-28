@@ -111,6 +111,22 @@ blockquote p {
   padding-top: 10px;
 }
 
+/* Fake item section and category */
+.fake {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.fake__item {
+  display: block;
+  width: 280px;
+  height: 60px;
+  background-color: #c4f1ce;
+  margin: 0.7rem;
+  border-radius: 6px;
+}
+
 .pageBox {
   display: grid;
   grid-template-columns: 1fr 4rem 1fr;

@@ -1,0 +1,89 @@
+============[Date]============
+[ 2021-10-28 10:25:40  Europe/Kiev ] 
+==========[Response]==========
+ok:			False
+error_code:		404
+description:		Not Found
+=========[Sent Data]==========
+[ref]
+ref.title= Кросовки
+ref.price= 1125
+ref.description= <p>имсисмисм сми сми сми сампи сми сми сми сми сми сми сми сми сми сми сми&nbsp;</p>
+ref.colors= [null,null]
+ref.sizes= [null,null,null,null,null]
+ref.image_1= /storage/files/1/Slppa3SRVdWJqC5zCzbJva6bzNRnPTBlkJez6k14.jpg
+ref.image_2= /storage/files/1/BiN7tLWnIP3fkrwgdqR8mdFETnlyX5uX7r3xgddQ.jpg
+ref.image_3= /storage/files/1/KwxFV79LG56pjXerTG0y156n5DPMfPOJ1N6s45Ho.jpg
+ref.image_4= 
+ref.image_5= 
+ref.image_6= 
+ref.image_7= 
+ref.image_8= 
+ref.categoryId= 4
+
+
+[ref]
+ref.chat_id= 
+ref.text= Новый товар в магазине.
+Мужская обувь,Кросовки
+Цена: 1125 грн.
+ http://127.0.0.1:8000/product/1/krosovki.html
+
+
+
+============[Trace]===========
+#0 H:\laravel\FastShoes\vendor\eleirbag89\telegrambotphp\Telegram.php(3217): TelegramErrorLogger::log(Array, Array)
+#1 H:\laravel\FastShoes\vendor\eleirbag89\telegrambotphp\Telegram.php(111): Telegram->sendAPIRequest('https://api.tel...', Array)
+#2 H:\laravel\FastShoes\vendor\eleirbag89\telegrambotphp\Telegram.php(196): Telegram->endpoint('sendMessage', Array)
+#3 H:\laravel\FastShoes\app\Lib\TelegramTrait.php(39): Telegram->sendMessage(Array)
+#4 H:\laravel\FastShoes\app\Lib\TelegramTrait.php(56): App\Http\Controllers\ProductController->sendToTelegramChanel('\xD0\x9D\xD0\xBE\xD0\xB2\xD1\x8B\xD0\xB9 \xD1\x82\xD0\xBE...')
+#5 H:\laravel\FastShoes\app\Http\Controllers\ProductController.php(73): App\Http\Controllers\ProductController->sendInfoProductToChanelTelegram(Object(App\Models\Product))
+#6 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Controller.php(54): App\Http\Controllers\ProductController->store(Object(Illuminate\Http\Request))
+#7 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(45): Illuminate\Routing\Controller->callAction('store', Array)
+#8 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Route.php(261): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(App\Http\Controllers\ProductController), 'store')
+#9 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Route.php(204): Illuminate\Routing\Route->runController()
+#10 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Router.php(695): Illuminate\Routing\Route->run()
+#11 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#12 H:\laravel\FastShoes\app\Http\Middleware\AdminMiddleware.php(26): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#13 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): App\Http\Middleware\AdminMiddleware->handle(Object(Illuminate\Http\Request), Object(Closure))
+#14 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Middleware\SubstituteBindings.php(50): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#15 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Routing\Middleware\SubstituteBindings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#16 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(78): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#18 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(49): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#19 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\View\Middleware\ShareErrorsFromSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#20 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(121): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#21 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(64): Illuminate\Session\Middleware\StartSession->handleStatefulRequest(Object(Illuminate\Http\Request), Object(Illuminate\Session\Store), Object(Closure))
+#22 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Session\Middleware\StartSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#23 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(37): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#24 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#25 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(67): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#26 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Cookie\Middleware\EncryptCookies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Router.php(697): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#29 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Router.php(672): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#30 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Router.php(636): Illuminate\Routing\Router->runRoute(Object(Illuminate\Http\Request), Object(Illuminate\Routing\Route))
+#31 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Routing\Router.php(625): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#32 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(166): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#33 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(128): Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#34 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#35 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull.php(31): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#36 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull->handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TransformsRequest.php(21): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#38 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\TrimStrings.php(40): Illuminate\Foundation\Http\Middleware\TransformsRequest->handle(Object(Illuminate\Http\Request), Object(Closure))
+#39 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\TrimStrings->handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\ValidatePostSize.php(27): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\ValidatePostSize->handle(Object(Illuminate\Http\Request), Object(Closure))
+#42 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance.php(86): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#43 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance->handle(Object(Illuminate\Http\Request), Object(Closure))
+#44 H:\laravel\FastShoes\vendor\fruitcake\laravel-cors\src\HandleCors.php(38): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#45 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Fruitcake\Cors\HandleCors->handle(Object(Illuminate\Http\Request), Object(Closure))
+#46 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Http\Middleware\TrustProxies.php(39): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#47 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(167): Illuminate\Http\Middleware\TrustProxies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#48 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(103): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#49 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(141): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#50 H:\laravel\FastShoes\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(110): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#51 H:\laravel\FastShoes\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#52 H:\laravel\FastShoes\server.php(21): require_once('H:\\laravel\\Fast...')
+#53 {main}
+
